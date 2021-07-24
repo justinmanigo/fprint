@@ -1,0 +1,121 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\transactions;
+use App\Models\Orders;
+use App\Models\printPrice;
+use App\Models\Files;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Validator;
+class TransactionsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    public function indexUser(){
+        Log::info(Auth::id());
+
+        $transactions= transactions::where('user_id',Auth::id())->get();
+        return view('users.MyOrders')->with('transactions',$transactions);
+
+    }
+     
+    public function indexAdmin(){
+        $transactions= transactions::orderBy('updated_at', 'DESC')->get();
+        return view('admin.Transactions')->with('transactions',$transactions);
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\transactions  $transactions
+     * @return \Illuminate\Http\Response
+     */
+    public function show(transactions $transactions)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\transactions  $transactions
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(transactions $transactions)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\transactions  $transactions
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, transactions $transactions)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\transactions  $transactions
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(transactions $transactions)
+    {
+        //
+    }
+
+      // admin get transactions
+      public function adminGetOrderById($id){
+        $user_id = Auth::id(); 
+        $transaction = Transactions::where('order_id', $id)->first();
+        
+        log::info($transaction);
+          $price = printPrice::find($transaction->orders->files->printPrice_id);
+         
+
+         
+        return response()->json([
+            'transaction' => $transaction,
+            'price' => $price,
+        ]);
+    }
+
+}
