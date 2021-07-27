@@ -80,7 +80,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Order Form</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <!-- div body -->
@@ -88,11 +88,9 @@
           <form id="viewOrderForm"  enctype="multipart/form-data">
             @csrf   
                   <div class="form-row mt-4">
-                       <!-- pick up date -->
-                       <div class="col-sm-12 pb-3">
+                      <!-- pick up date -->
+                      <div class="col-sm-12 pb-3">
                           <label for="referenceNumber">Reference Number: &nbsp   <span class="h3" id="referenceNumber"> </span> </label>
-                          
-                         
                           <span class="text-danger error-text referenceNumber_err"></span>
                       </div>
                       <!-- pick up date -->
@@ -176,8 +174,6 @@
                               <span class="text-danger error-text file_err"></span> -->
                           </div>
                       </div>
-                     
-
                       <!-- space -->
                       <div class="col-sm-12 pb-3">
                           <hr class="my-3">
@@ -194,23 +190,13 @@
                         <input type="hidden" name="e_token" id="e_token" value="{{ csrf_token() }}">
 
                          <!-- id hidden element -->
-                         <input type="hidden" class="form-control status" id="id" placeholder="" name="id"  value="" style= "background-color: white" readonly>
-                            
-                    </div>
-
-                    <!-- footer -->
-                    <div class="modal-footer" id="footer"></div>
-                     
-                    <!-- <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-danger">Cancelled</button>
-                      <button   type="submit" class="btn btn-success">Accept</button>
-                    </div> -->
-                    
+                         <input type="hidden" class="form-control status" id="id" placeholder="" name="id"  value="" style= "background-color: white" readonly>   
+                  </div>  <!--form-row -->
+                  <!-- footer -->
+                  <div class="modal-footer" id="footer"></div>         
           </form>  
         
-      </div>
-      <!-- div end body -->
-      
+      </div><!-- div end modal body -->
     </div>
   </div>
 </div>
@@ -223,19 +209,21 @@
 
 
 <script type="text/javascript">
+
 //start get order info 
 function getOrderInfo(valueId){
+
   // reset append footer buttons
   $('#footer').empty();
   $.get('/getOrder/'+valueId,function(order){  
     
-    console.log(order);
-      //Get the data value
-      var yourDateValue = new Date(order.order.pickupDate); 
-      //Format the date value
-      var formattedDate = yourDateValue.toISOString().substr(0, 10)
-      //Assign date value to date textbox
-      $('#pickupDate').val(formattedDate);
+  console.log(order);
+    //Get the data value
+    var yourDateValue = new Date(order.order.pickupDate); 
+    //Format the date value
+    var formattedDate = yourDateValue.toISOString().substr(0, 10)
+    //Assign date value to date textbox
+    $('#pickupDate').val(formattedDate);
     $('#referenceNumber').html(order.order.referenceNumber);
     $('#price').val(order.price.price);
     $('#pageFrom').val(order.order.files.pageFrom);
@@ -257,15 +245,16 @@ function getOrderInfo(valueId){
     $('#praperSize').val(size);
     
   
-
+    // append button from modal footer
     if(order.order.status === "Processed"){  
           var html = '';
           html += '   <button onclick="cancelOrder('+order.order.id+')" type="button" class="btn btn-outline-danger" >Cancel</button>';
           html += ' <button   type="submit" class="btn btn-success">Accept</button>';
-          
-          
-      $('#footer').append(html);
+            
+        $('#footer').append(html);
       }
+
+
     // open modal
     $("#viewModal").modal('toggle');
   });
@@ -276,8 +265,6 @@ function getOrderInfo(valueId){
 //start accept order 
 $('#viewOrderForm').on('submit',function(event){
  
-    
-
     event.preventDefault();
         $.ajaxSetup({
           headers: {
@@ -285,11 +272,10 @@ $('#viewOrderForm').on('submit',function(event){
           }
       });   
 
-      var id = $('#id').val();
+      var id = $('#id').val(); //get the id of order
 
       Swal.fire({
-        title: 'Are you sure?',
-        // text: "Once deleted, you will not be able to recover this!",
+        title: 'Are you sure you want to accept the order?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -302,7 +288,7 @@ $('#viewOrderForm').on('submit',function(event){
               type:'POST',
               data: {id:id},
               success:function(data){
-                console.log(data);
+              console.log(data);
                 
                 if($.isEmptyObject(data.error)){
                     // alert(data.success);
@@ -343,12 +329,13 @@ $('#viewOrderForm').on('submit',function(event){
 //start cancel order 
 function cancelOrder(valueId){
   
-  event.preventDefault();
-        $.ajaxSetup({
+      event.preventDefault();
+      $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       });   
+
       swal.fire({
       title: 'Reason for cancelling the order',
       input: 'textarea',
@@ -369,8 +356,7 @@ function cancelOrder(valueId){
                 console.log(data);
                 
                 if($.isEmptyObject(data.error)){
-                    // alert(data.success);
-                        console.log("sod success");
+                        console.log("success");
                         $(".text-danger").hide();
 
                         Swal.fire({
@@ -380,7 +366,7 @@ function cancelOrder(valueId){
                         timer: 1000
                         })
                        
-                    
+                        location.reload();
                         
                         $('#viewModal').modal('toggle');
                         // $('#viewModal')[0].reset();   
@@ -395,37 +381,10 @@ function cancelOrder(valueId){
                   alert("wa sod");
               }
             });
-          } 
-        
-
-        
+          }   
         })
-
-   
-      
-
 }
  
 // end cancel order
-
-
-
-
-
-
-
-</script>
-<script>
-var modal_lv = 0;
-$('.modal').on('shown.bs.modal', function (e) {
-    $('.modal-backdrop:last').css('zIndex',1051+modal_lv);
-    $(e.currentTarget).css('zIndex',1052+modal_lv);
-    modal_lv++
-    $(this).find('[autofocus]').focus();
-});
-
-$('.modal').on('hidden.bs.modal', function (e) {
-    modal_lv--
-});
 </script>
 @endsection

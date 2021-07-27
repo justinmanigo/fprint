@@ -84,9 +84,36 @@ class PrintPriceController extends Controller
      * @param  \App\Models\printPrice  $printPrice
      * @return \Illuminate\Http\Response
      */
-    public function edit(printPrice $printPrice)
+    public function edit(Request $request, printPrice $printPrice)
     {
-        //
+        Log::info($request);
+
+        
+
+        $validator = Validator::make($request->all(), [
+            'edit_size' => 'required',
+            'edit_isColored' => 'required',
+            'edit_price' => 'required|min:1|numeric',
+           
+        ],
+        [
+            // 'product_price.min' => 'must be not negative or zero',
+            // 'product_stock.min' => 'must be not negative or zero',
+        ]);
+
+        if($validator->passes()){
+            
+            $price = printPrice::find($request->id);
+            $price->size = $request->edit_size;
+            $price->isColored = $request->edit_isColored;
+            $price->price = $request->edit_price;
+            $price->save();
+        }
+       
+
+        return response()->json(['error'=>$validator->errors()]);
+
+
     }
 
     /**
@@ -107,8 +134,19 @@ class PrintPriceController extends Controller
      * @param  \App\Models\printPrice  $printPrice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(printPrice $printPrice)
+    public function destroy($id , printPrice $printPrice)
     {
         //
+        $price = printPrice::find($id);
+        $price->delete();
+        // return response()->json($price);
+    }
+
+    public function getPrintPriceInfo($id){
+
+        Log::info($id);
+        $price = printPrice::find($id);
+
+        return response()->json($price);
     }
 }

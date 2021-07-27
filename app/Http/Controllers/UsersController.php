@@ -86,4 +86,39 @@ class UsersController extends Controller
     {
         //
     }
+
+     
+    public function getUserInfo($id){
+        
+        $user = User::find($id);
+        Log::info($user);
+        
+        return response()->json($user);
+    }
+
+    public function updateUserType(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'type' => 'required',
+           
+        ],
+        [
+            // 'product_price.min' => 'must be not negative or zero',
+            // 'product_stock.min' => 'must be not negative or zero',
+        ]);
+
+        if($validator->passes()){
+            
+            $user = User::where('idNumber',$request->idNumber)->first();
+            
+            $user->type = $request->type;
+            $user->save();
+            return response()->json($user);
+            Log::info($user);
+        }
+       
+
+        return response()->json(['error'=>$validator->errors()]);
+    }
+
 }

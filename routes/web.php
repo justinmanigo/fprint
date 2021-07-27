@@ -34,6 +34,10 @@ Route::group(['middleware'=>'auth'], function(){
 
     //-view users
     Route::get('/users',[UsersController::class,'index']);
+     // --get order info
+     Route::get('/getUserInfo/{id}',[UsersController::class,'getUserInfo']);
+     //  --update user type
+     Route::post('/updateUserType',[UsersController::class,'updateUserType'])->name('updateUserType');
 
     });
 
@@ -44,9 +48,8 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/orders',[OrdersController::class,'index']);
         // --get order info
         Route::get('/getOrder/{id}',[OrdersController::class,'adminGetOrderById']);
-          //  --accept user order
-          Route::post('/acceptOrder',[OrdersController::class,'acceptOrder'])->name('acceptOrder');
-           
+        //  --accept user order
+        Route::post('/acceptOrder',[OrdersController::class,'acceptOrder'])->name('acceptOrder');   
         // cancel order info
         Route::post('/cancelOrder',[OrdersController::class,'cancelOrder'])->name('cancelOrder');
          
@@ -78,7 +81,13 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/printprice',[PrintPriceController::class,'index']);
         //  --add print price
         Route::post('/storePrice',[PrintPriceController::class,'store'])->name('store');
-       
+         
+        // --get print price info
+        Route::get('/getPrintPriceInfo/{id}',[PrintPriceController::class,'getPrintPriceInfo']);
+        //  --edit print price
+        Route::post('/editPrice',[PrintPriceController::class,'edit'])->name('editPrice');
+        // --delete product
+        Route::delete('/printPriceDelete/{id}',[PrintPriceController::class,'destroy']);
     });
 
        //transaction form user routes

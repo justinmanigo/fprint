@@ -1,6 +1,6 @@
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-secondary shadow-sm">
             <div class="container">
              
                 <!-- logo -->
@@ -8,23 +8,25 @@
                     <img src="{{ asset('/img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
                     Falcon Printing Service
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <!-- nav menu -->
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                          
                         <li class="nav-item active">
-                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                            <a href="/home" class="nav-link"> Home</a>
                         </li>
                          
                         <li class="nav-item active">
-                            <a class="nav-link" href="/orderForm">Order Form <span class="sr-only">(current)</span></a>
+                            <a href="/orderForm" class="nav-link"> Order Form </a>
+                            <!-- <a class="nav-item nav-link" href="/orderForm">Order Form <span class="sr-only"></span></a> -->
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/myOrders">Track my Order <span class="sr-only">(current)</span></a>
+                            <a href="/myOrders" class="nav-link"> Track my Order </a>
+                            <!-- <a class="nav-link" href="/myOrders">Track my Order <span class="sr-only"></span></a> -->
                         </li>
                         @if(Auth::user()->type == "admin")
                         <li class="nav-item dropdown active">
