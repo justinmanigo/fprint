@@ -16,7 +16,7 @@
                                 </div>
                             </div>
                         </div>
-                        <table id="myOrderTable" class="display nowrap" style="width:100%">
+                        <table id="myOrderTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Reference Number</th>
@@ -41,12 +41,13 @@
                                      <td>{{$transaction->orders->grandTotalPrice}}</td>
                                      <td>{{$transaction->orders->status}}</td>
                                     
-                                   
+                                     
                                     <td>  
-                                    <button onclick="getOrderInfo({{$transaction->id}})" type="button" class="btn btn-outline-success" >view</button>
+                                    <a href="{{url('/viewOrder',$transaction->id)}}" type="button" class="btn btn-outline-secondary">File</a>
+                                    <button onclick="getOrderInfo({{$transaction->id}})" type="button" class="btn btn-outline-success" ><span class="glyphicon glyphicon-pencil"> view</button>
                                     <!-- <button onclick="deleteStaff({{$transaction->id}})" type="button" class="btn btn-primary" >Track</button> -->
                                     @if ($transaction->orders->modeOfPayment == "Gcash" && $transaction->orders->status == "Confirmed" &&  $transaction->isPaid == "Not paid")
-                                    <button onclick="pay({{$transaction->id}})" id="payButton" type="button" class="btn btn-primary" >Pay</button>
+                                    <button onclick="pay({{$transaction->id}})" id="payButton" type="button" class="btn btn-outline-primary" >Pay</button>
                                     @endif
                                   </td>
                                
@@ -171,16 +172,17 @@
                                   <span class="text-danger error-text status_err"></span>
                       </div>   
                       <!-- upload file -->
-                      <div class="col-6">
+                      <div class="col-sm-6 pb-3">
                           <div class="form-row">
                               <label class="col-md col-form-label" for="file">File</label>
                               <input type="text" class="form-control file" id="file" placeholder="" name="file"  value="" style= "background-color: white" readonly>
+                              <!-- <a href="{{url('/viewOrder',2)}}" type="button" class="btn btn-success">View PDF</a> -->
+                              <!-- <div  id="viewPDF"></div> -->
                               <!-- <object data="http://www.africau.edu/images/default/sample.pdf" type="application/pdf" width="100%" height="100%"> -->
                               <!-- <input type="file" class="form-control-file" name="file" id="file">
                               <span class="text-danger error-text file_err"></span> -->
                           </div>
                       </div>
-                     
 
                       <!-- space -->
                       <div class="col-sm-12 pb-3">
@@ -339,23 +341,85 @@ $.get('/getMyOrder/'+valueId,function(data){
  
 
   if(data.order.orders.status === "Processed"){  
-        var html = '';
-        // html += ' <button type="button" class="btn btn-outline-danger">Cancelled</button>';
-        // html += ' <button   type="submit" class="btn btn-success">Update</button>';
-        
+        var html = '';   
         $("#update").show();
-    // $('#footer').append(html);
     }else{
-
       $("#update").hide();
     }
+
+
+    // var html = '';
+    // html += ' <button onclick="viewPDF({{'data.order.order_id'}})" type="button" class="btn btn-success">Update</button>';
+    // $('#viewPDF').append(html);
     
-//   // open modal
+   // open modal
   $("#viewModal").modal('toggle');
 });
 
 }
 //end get order info 
+
+function viewPDF(){
+
+  
+  
+
+  event.preventDefault();
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });   
+
+      var id = $('#id').val(); //get the id of order
+     
+      console.log(id , status);
+      Swal.fire({
+        title: 'Are you sure you want to view the file?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, accept it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url:"/viewOrder/"+id,
+              type:'get',
+              success:function(data){
+              console.log(data);
+                
+                if($.isEmptyObject(data.error)){
+                    // alert(data.success);
+                        console.log("sod success");
+                        $(".text-danger").hide();
+
+                        Swal.fire({
+                        icon: 'success',
+                        title: 'Transaction status updated',
+                        showConfirmButton: false,
+                        timer: 1000
+                        })
+                        window.location.href = "{{url('/viewPDF')}}";
+                        // location.reload();
+                        
+                        // $('#viewModal').modal('toggle');
+                        //  $('#viewModal')[0].reset();   
+                }else{
+                        $(".text-danger").show();
+                        printErrorMsg(data.error);
+                        console.log("sod error");
+                }   
+              },
+              error: function(data) {
+                  console.log(data);
+                  alert("wa sod");
+              }
+            });
+          } 
+
+        });
+}
 
 function pay(valueId){
    

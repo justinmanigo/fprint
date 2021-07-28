@@ -88,7 +88,15 @@ class TransactionsController extends Controller
      */
     public function update(Request $request, transactions $transactions)
     {
-        //
+        Log::info($request);
+
+        $transaction = transactions::find($request->id);
+        $transaction->status = $request->status;
+        $transaction->updated_at = now();
+        $transaction->save();
+
+        return response()->json($transaction);
+
     }
 
     /**
