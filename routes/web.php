@@ -19,15 +19,13 @@ use Illuminate\Support\Facades\Log;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
 
 // start route group
 Route::group(['middleware'=>'auth'], function(){
-
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home2');
 
     //users routes
     Route::group(['as'=>'user.'], function(){
