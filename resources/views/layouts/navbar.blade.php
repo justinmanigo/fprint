@@ -16,10 +16,12 @@
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                          
+                        
+                        
+                        @if(Auth::user())
                         <li class="nav-item active">
-                            <a href="/home" class="nav-link"> Home</a>
+                            <a href="/" class="nav-link"> Home</a>
                         </li>
-                         
                         <li class="nav-item active">
                             <a href="/orderForm" class="nav-link"> Order Form </a>
                             <!-- <a class="nav-item nav-link" href="/orderForm">Order Form <span class="sr-only"></span></a> -->
