@@ -28,7 +28,9 @@
                             <a href="/myOrders" class="nav-link"> Track my Order </a>
                             <!-- <a class="nav-link" href="/myOrders">Track my Order <span class="sr-only"></span></a> -->
                         </li>
-                        @if(Auth::user()->type == "admin")
+                        @endif
+
+                        @if(Auth::user() && Auth::user()->type == "admin")
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Admin
