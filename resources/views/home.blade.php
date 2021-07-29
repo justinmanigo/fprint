@@ -5,14 +5,14 @@
 
 <div 
 id="hero" 
-class="px-2 pt-5 text-center border-bottom min-vh-100" 
+class="px-2 pt-5 text-center border-bottom" 
 style="
     background-image:url('{{ asset('/img/adamson.jpg') }}');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    height:70vh;
+    height:60vh;
     margin-top:-24px;
 ">
     <div class="jumbotron d-flex align-items-center" style="background-color:transparent!important">
