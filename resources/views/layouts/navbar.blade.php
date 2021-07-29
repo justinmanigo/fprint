@@ -1,6 +1,7 @@
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-secondary shadow-sm">
+      <div id="content-wrap">
+        <nav class="bg-dark navbar navbar-expand-md navbar-dark bg-secondary shadow-sm">
             <div class="container">
              
                 <!-- logo -->
