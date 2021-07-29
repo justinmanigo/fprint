@@ -5,7 +5,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\PrintPriceController;
-use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\TransactionsController;  
+use App\Http\Controllers\FilesController;
 use Illuminate\Support\Facades\Log; 
 /*
 |--------------------------------------------------------------------------
@@ -85,15 +86,15 @@ Route::group(['middleware'=>'auth'], function(){
         Route::delete('/printPriceDelete/{id}',[PrintPriceController::class,'destroy']);
     });
 
-       //transaction form user routes
-       Route::group(['as'=>'transactionUser.'], function(){
+    //transaction form user routes
+    Route::group(['as'=>'transactionUser.'], function(){
 
-        //-view order
-        Route::get('/myOrders',[TransactionsController::class,'indexUser']);
+    //-view order
+    Route::get('/myOrders',[TransactionsController::class,'indexUser']);
 
-         // --get order info
-         Route::get('/getMyOrder/{id}',[OrdersController::class,'userGetOrderById']);
-       
+    // --get order info
+    Route::get('/getMyOrder/{id}',[OrdersController::class,'userGetOrderById']);
+
 
     });
 
@@ -103,11 +104,22 @@ Route::group(['middleware'=>'auth'], function(){
         //-view order
         Route::get('/transactions',[TransactionsController::class,'indexAdmin']);
 
-        // --get order info
+        // --get order info updateStatus
         Route::get('/getMyOrderAdmin/{id}',[TransactionsController::class,'adminGetOrderById']);
 
+        //  --update status for transaction
+        Route::post('/updateStatus',[TransactionsController::class,'update'])->name('updateStatus');
+
     });
- 
+
+    //transaction form user routes
+    Route::group(['as'=>'viewfile.'], function(){
+        //-view file
+        Route::get('/viewOrder/{id}',[FilesController::class,'viewOrder'])->name('viewOrder');
+
+        //  //-view order
+        //  Route::get('/transactions',[TransactionsController::class,'indexAdmin']);
+    });
 
 });
 // end route group

@@ -80,7 +80,7 @@ class OrdersController extends Controller
 
             $file = $request->file('file')->getClientOriginalName();
             Log::info($file);
-            $fileName = $file.'.'.$request->file->extension();  
+            $fileName = $file;  
    
             $request->file->move(public_path('files'), $file);
 

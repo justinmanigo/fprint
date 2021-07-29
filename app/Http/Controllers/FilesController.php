@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Files;
+use App\Models\Orders;
+use App\Models\transactions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FilesController extends Controller
 {
@@ -81,5 +84,12 @@ class FilesController extends Controller
     public function destroy(Files $files)
     {
         //
+    }
+
+    public function viewOrder($id){
+        $file = Orders::find($id);
+        $file->files;
+        Log::info($file);
+         return view('viewPDF',compact('file'))->render();
     }
 }

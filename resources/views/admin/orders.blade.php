@@ -42,6 +42,7 @@
                                     <td>{{$transaction->orders->status}}</td>
                                    
                                     <td>  
+                                    <a href="{{url('/viewOrder',$transaction->id)}}" type="button" class="btn btn-outline-secondary">File</a>
                                     <button onclick="getOrderInfo({{$transaction->order_id}})" type="button" class="btn btn-outline-success" >view</button>
                                     <!-- <button onclick="deleteStaff({{$transaction->order_id}})" type="button" class="btn btn-danger" >delete</button> -->
                                     </td>

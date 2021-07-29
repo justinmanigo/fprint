@@ -41,8 +41,14 @@
                                       <td>{{$transaction->orders->modeOfPayment}}</td>
                                       <td>{{$transaction->isPaid}}</td>
                                       <td>{{$transaction->orders->grandTotalPrice}}</td>
-                                      <td>{{$transaction->orders->status}}</td>
+                                      @if(empty($transaction->status)){
+                                        <td>{{$transaction->orders->status}}</td>
+                                      }@else{
+                                        <td>{{$transaction->status}}</td>
+                                      }
+                                       @endif
                                       <td>  
+                                      <a href="{{url('/viewOrder',$transaction->order_id)}}" type="button" class="btn btn-outline-secondary">File</a>
                                         <button onclick="getOrderInfo({{$transaction->id}})" type="button" class="btn btn-outline-success" >view</button>
                                     </td>
                                   </tr>
@@ -79,7 +85,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="viewOrderForm"  enctype="multipart/form-data">
+      <form id="viewTransactionForm"  enctype="multipart/form-data">
         @csrf 
           <!-- div modal body -->
           <div class="modal-body">
@@ -195,7 +201,7 @@
                           <!-- token -->
                           <input type="hidden" name="e_token" id="e_token" value="{{ csrf_token() }}">
 
-                          <!-- id -->
+                          <!-- transaction id -->
                           <input type="hidden" class="form-control status" id="id" placeholder="" name="id"  value="" style= "background-color: white" readonly>
                             
                           <!-- space -->
@@ -206,14 +212,14 @@
                           <!-- transaction status -->
                           <div class="col-sm-6 pb-3">
                               <label for="updateTransactionStatus">Update order transaction status:</label><br>
-                                  <select class="form-control" id="updateTransactionStatus" name="updateTransactionStatus">
+                                  <select class="form-control updateTransactionStatus" id="updateTransactionStatus" name="updateTransactionStatus">
                                       <option disabled selected value> -- select an option -- </option>
                                       <option value="Printing in process">Printing in process</option>
                                       <option value="Ready for pick up">Ready for pick up"</option>
                                       <option value="Delivered">Delivered</option>
                                   </select>
                               <span class="text-danger error-text transactionStatus_err"></span>
-                          </div>
+                          </div>  
 
               </div>
             </div>
@@ -306,7 +312,7 @@ function getOrderInfo(valueId){
     $('#remarks').val(data.transaction.orders.remarks);
     $('#isPaid').val(data.transaction.isPaid);
     $('#transactionStatus').val(data.transaction.status);
-    $('#id').val(data.transaction.order_id);
+    $('#id').val(data.transaction.id);
     if(data.price.isColored === "Yes"){
       var type = "Colored";
     }else{
@@ -328,6 +334,31 @@ function getOrderInfo(valueId){
 
         $("#update").hide();
       }
+      // Delivered Ready for pick up Printing in process
+      $(".updateTransactionStatus option").filter(function() {
+        return $(this).data().number === 0
+      }).prop("disabled", false)
+
+
+      console.log(data.transaction.status);
+      if($("#transactionStatus").val() === "Printing in process"){
+        $('#updateTransactionStatus option[value="Printing in process"]').attr('disabled',true);
+        $('#updateTransactionStatus option[value="Ready for pick up"]').attr('disabled',false);
+        $('#updateTransactionStatus option[value="Delivered"]').attr('disabled',false);
+      }else if($("#transactionStatus").val() === "Ready for pick up"){
+        $('#updateTransactionStatus option[value="Printing in process"]').attr('disabled',true);
+        $('#updateTransactionStatus option[value="Ready for pick up"]').attr('disabled',true);
+        $('#updateTransactionStatus option[value="Delivered"]').attr('disabled',false);
+      }else if($("#transactionStatus").val() === "Delivered"){
+        $('#updateTransactionStatus option[value="Printing in process"]').attr('disabled',true);
+        $('#updateTransactionStatus option[value="Ready for pick up"]').attr('disabled',true);
+        $('#updateTransactionStatus option[value="Delivered"]').attr('disabled',true);
+      }else{
+        $('#updateTransactionStatus option[value="Printing in process"]').attr('disabled',false);
+        $('#updateTransactionStatus option[value="Ready for pick up"]').attr('disabled',false);
+        $('#updateTransactionStatus option[value="Delivered"]').attr('disabled',false);
+      }
+
     
    // open modal
   $("#viewModal").modal('toggle');
@@ -336,15 +367,70 @@ function getOrderInfo(valueId){
 }
 //end get order info 
 
-function pay(valueId){
-    //   // open modal
-    $("#payModal").modal('toggle');
-}
+// function pay(valueId){
+//     //   // open modal
+//     $("#payModal").modal('toggle');
+// }
 
 //start accept order referenceNumber
-$('#viewOrderForm').on('submit',function(event){
+$('#viewTransactionForm').on('submit',function(event){
  
-    
+  event.preventDefault();
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });   
+
+      var id = $('#id').val(); //get the id of order
+      var status = $('#updateTransactionStatus').val(); //get the transaction status
+      console.log(id , status);
+      Swal.fire({
+        title: 'Are you sure you want to update the transaction order?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, accept it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url:"{{route('transactionAdmin.updateStatus')}}",
+              type:'POST',
+              data: {id:id,status:status},
+              success:function(data){
+              console.log(data);
+                
+                if($.isEmptyObject(data.error)){
+                    // alert(data.success);
+                        console.log("sod success");
+                        $(".text-danger").hide();
+
+                        Swal.fire({
+                        icon: 'success',
+                        title: 'Transaction status updated',
+                        showConfirmButton: false,
+                        timer: 1000
+                        })
+                       
+                        // location.reload();
+                        
+                        $('#viewModal').modal('toggle');
+                        //  $('#viewModal')[0].reset();   
+                }else{
+                        $(".text-danger").show();
+                        printErrorMsg(data.error);
+                        console.log("sod error");
+                }   
+              },
+              error: function(data) {
+                  console.log(data);
+                  alert("wa sod");
+              }
+            });
+          } 
+
+        });
 
    
 
