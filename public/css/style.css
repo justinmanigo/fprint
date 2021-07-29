@@ -99,9 +99,26 @@
 
 #footer-contactus {
     border-spacing: 15px;
+   
 }
 
 #footer-contactus, #footer-contactus td {
     padding: 10px 10px 10px 0px;
 }
 
+#footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+     
+}
+
+#app {
+    position: relative;
+    min-height: 100vh;
+  }
+
+  #content-wrap {
+    padding-bottom: 30rem;    /* Footer height */
+  }
+  

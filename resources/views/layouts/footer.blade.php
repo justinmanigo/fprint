@@ -1,10 +1,10 @@
-<div class="bg-dark text-white">
+<div class="bg-dark text-white" id="footer">
         <div class="container py-5">
                 <div class="row">
                         <div class="col-12 col-lg-4 mb-3">
                                 <img src="{{ asset('/img/logo.png') }}" width="64" height="64" class="d-inline-block align-top" alt="">
                                 <h4 class="mt-2">Falcon Printing System</h4>
-                                <p>F-PRINT is a web-based printing management system for the business affairs office in Adamson University that will reduce the problem of queuing in line in traditional printing services. The proposed system has a systematic and organized flow of importing files. It will be efficient and accessible for the use of Adamson Community since it is online-based.</p>
+                                <!-- <p>F-PRINT is a web-based printing management system for the business affairs office in Adamson University that will reduce the problem of queuing in line in traditional printing services. The proposed system has a systematic and organized flow of importing files. It will be efficient and accessible for the use of Adamson Community since it is online-based.</p> -->
                         </div>
                         <div class="col-12 col-lg-4 mb-3">
                                 <h5 class="text-lg-center mb-4 mb-lg-0">Find us on Social Media</h5>
@@ -87,6 +87,6 @@ $(document).ready(function() {
 });
 
 </script>
-
+</div>
 </body>
 </html>
