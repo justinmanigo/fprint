@@ -9,30 +9,17 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view('admin.home');
+        if(Auth::user() && Auth::user()->type == "admin")
+            return view('admin.home');
+        else if(Auth::user() && Auth::user()->type == "user")
+            return view('users.home');
+        else
+            return view('home');
     }
-
-    public function index2()
-    {
-        return view('home');
-    }
-   
-
-
 }
