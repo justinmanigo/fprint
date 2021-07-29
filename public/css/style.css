@@ -35,6 +35,16 @@
     color:#ffffff !important;
 }
 
+
+/** Vertical Center **/
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
+
 /* PDF Viewer */
 .pdf {
     position: relative;
@@ -105,6 +115,7 @@
 #footer-contactus, #footer-contactus td {
     padding: 10px 10px 10px 0px;
 }
+ 
 
 #footer{
     position: absolute;
@@ -122,3 +133,4 @@
     padding-bottom: 30rem;    /* Footer height */
   }
   
+ 

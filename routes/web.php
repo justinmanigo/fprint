@@ -18,17 +18,12 @@ use Illuminate\Support\Facades\Log;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class,'index'])->name('home');
 
 Auth::routes();
 
 // start route group
 Route::group(['middleware'=>'auth'], function(){
-
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home2');
 
     //users routes
     Route::group(['as'=>'user.'], function(){
