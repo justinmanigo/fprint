@@ -25,5 +25,6 @@ style="
     </div>
 </div>
 
+@include('layouts.printingschedule')
 
 @endsection
