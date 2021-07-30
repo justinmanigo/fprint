@@ -111,8 +111,9 @@ class UsersController extends Controller
             
             $user = User::where('idNumber',$request->idNumber)->first();
             
-            $user->type = $request->type;
+            // $user->type = $request->type;
             $user->save();
+            $user->roles()->sync([$request->input('type')]);
             return response()->json($user);
             Log::info($user);
         }
