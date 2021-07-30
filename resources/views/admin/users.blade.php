@@ -34,7 +34,7 @@
                                     <td>{{$user->idNumber}}</td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
-                                    <td>{{$user->type}}</td>
+                                    <td>{{$user->roles->first()->name}}</td>
                                     <td>{{$user->contact}}</td>
                                    
                                     <td>  
