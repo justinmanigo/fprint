@@ -26,19 +26,25 @@ Auth::routes();
 Route::group(['middleware'=>'auth'], function(){
 
     //users routes
-    Route::group(['as'=>'user.'], function(){
+    Route::group([
+        'as'=>'user.',
+        'middleware'=>'role:admin'
+    ], function(){
 
-    //-view users
-    Route::get('/users',[UsersController::class,'index']);
-     // --get order info
-     Route::get('/getUserInfo/{id}',[UsersController::class,'getUserInfo']);
-     //  --update user type
-     Route::post('/updateUserType',[UsersController::class,'updateUserType'])->name('updateUserType');
+        //-view users
+        Route::get('/users',[UsersController::class,'index']);
+        // --get order info
+        Route::get('/getUserInfo/{id}',[UsersController::class,'getUserInfo']);
+        //  --update user type
+        Route::post('/updateUserType',[UsersController::class,'updateUserType'])->name('updateUserType');
 
     });
 
     //order admin routes
-    Route::group(['as'=>'orderAdmin.'], function(){
+    Route::group([
+        'as'=>'orderAdmin.',
+        'middleware'=>'role:admin'
+    ], function(){
 
         //-view order
         Route::get('/orders',[OrdersController::class,'index']);
@@ -71,7 +77,10 @@ Route::group(['middleware'=>'auth'], function(){
 
 
     //print price routes
-    Route::group(['as'=>'printPrice.'], function(){
+    Route::group([
+        'as'=>'printPrice.',
+        'middleware'=>'role:admin'
+    ], function(){
 
         //-view print price
         Route::get('/printprice',[PrintPriceController::class,'index']);
@@ -99,7 +108,10 @@ Route::group(['middleware'=>'auth'], function(){
     });
 
     //transaction form user routes
-    Route::group(['as'=>'transactionAdmin.'], function(){
+    Route::group([
+        'as'=>'transactionAdmin.',
+        'middleware'=>'role:admin'
+    ], function(){
 
         //-view order
         Route::get('/transactions',[TransactionsController::class,'indexAdmin']);
