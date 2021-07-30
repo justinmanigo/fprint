@@ -68,7 +68,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         Log::info($data);
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -77,5 +77,11 @@ class RegisterController extends Controller
             'type' => 'user',
              
         ]);
+
+        // Assign new user to 'user' role. 
+        // Refer to PermissionTableSeeder for more.
+        $user->assignRole(2);
+
+        return $user;
     }
 }
