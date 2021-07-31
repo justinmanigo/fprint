@@ -43,12 +43,13 @@
                                     
                                      
                                     <td>  
-                                    <a href="{{url('/viewOrder',$transaction->id)}}" type="button" class="btn btn-outline-secondary">File</a>
-                                    <button onclick="getOrderInfo({{$transaction->id}})" type="button" class="btn btn-outline-success" ><span class="glyphicon glyphicon-pencil"> view</button>
-                                    <!-- <button onclick="deleteStaff({{$transaction->id}})" type="button" class="btn btn-primary" >Track</button> -->
+                                     
+                                    <a href="{{url('/viewOrder',$transaction->id)}}" type="button" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="View File Uploaded" target="_blank" rel="noopener noreferrer"><span class="fa fa-print"></span></a>
+                                    <button onclick="getOrderInfo({{$transaction->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"> <i class="fa fa-eye"></i></button>
                                     @if ($transaction->orders->modeOfPayment == "Gcash" && $transaction->orders->status == "Confirmed" &&  $transaction->isPaid == "Not paid")
-                                    <button onclick="pay({{$transaction->id}})" id="payButton" type="button" class="btn btn-outline-primary" >Pay</button>
+                                    <button onclick="pay({{$transaction->id}})" id="payButton" type="button" class="btn btn-outline-success" ><i class="fa fa-credit-card"></i></button>
                                     @endif
+                                    <button onclick="track({{$transaction->id}})"  type="button" class="btn btn-primary" data-toggle="modal"> Track</button>
                                   </td>
                                
                                 </tr>
@@ -113,7 +114,7 @@
                       </div>
                       <!-- size and isColored -->
                       <div class="col-sm-6 pb-3">
-                          <label for="praperSize">Paper Size:</label>
+                          <label for="praperSize">Paper size:</label>
                           <input type="text" class="form-control praperSize" id="praperSize" placeholder="" name="praperSize_id"  value="" style= "background-color: white" readonly>
                           <span class="text-danger error-text praperSize_err"></span>
                       </div>
@@ -128,25 +129,25 @@
                       </div>                    
                       <!-- page from -->
                       <div class="col-sm-5 pb-3">
-                          <label for="pageFrom">Page From:</label>
-                          <input type="number" class="form-control pageFrom" id="pageFrom" min="1" placeholder="Enter start page" name="pageFrom" style= "background-color: white" readonly>
+                          <label for="pageFrom">Page from:</label>
+                          <input type="number" class="form-control pageFrom" id="pageFrom" min="1" placeholder="Enter start page" name="pageFrom">
                           <span class="text-danger error-text pageFrom_err"></span>
                       </div>
                       <!-- page to -->
                       <div class="col-sm-5 pb-3">
-                          <label for="pageTo">Page To:</label>
-                          <input type="number" class="form-control pageTo" id="pageTo" min="1" placeholder="Enter end page" name="pageTo" style= "background-color: white" readonly>
+                          <label for="pageTo">Page to:</label>
+                          <input type="number" class="form-control pageTo" id="pageTo" min="1" placeholder="Enter end page" name="pageTo">
                           <span class="text-danger error-text pageTo_err"></span>
                       </div>
                       <!-- total pages -->
                       <div class="col-sm-2 pb-3">
-                          <label for="totalPages">Total Pages:</label>
+                          <label for="totalPages">Total pages:</label>
                           <input type="number" class="form-control totalPages" id="totalPages" placeholder="" name="totalPages"  style= "background-color: white" value="0" readonly>
                           <span class="text-danger error-text totalPages_err"></span>
                       </div>
                       <!-- no of copies -->
                       <div class="col-sm-6 pb-3">
-                          <label for="noOfCopy">Number of Copies:</label>
+                          <label for="noOfCopy">Number of copies:</label>
                           <input type="text" class="form-control price" id="noOfCopy" placeholder="" name="noOfCopy"  value="" style= "background-color: white" readonly>
                           <span class="text-danger error-text noOfCopy_err"></span>
                       </div>
@@ -158,7 +159,7 @@
                       </div>
                       <!-- total price -->
                       <div class="col-sm-6 pb-3">
-                          <label for="grandTotalPrice">Total Price:</label><br>
+                          <label for="grandTotalPrice">Total price:</label><br>
                           <div class="input-group">
                                   <div class="input-group-prepend"><span class="input-group-text">$</span></div>
                                   <input type="text" class="form-control grandTotalPrice" id="grandTotalPrice" placeholder="" name="grandTotalPrice"  value="" style= "background-color: white" readonly>
@@ -206,7 +207,8 @@
 
                     <!-- footer -->
                     <div class="modal-footer" id="footer">
-                        <button  id="update" type="submit" class="btn btn-success">Update</button>
+                        <button  id="update" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Update</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                     </div>
                      
                     <!-- <div class="modal-footer">
@@ -286,6 +288,7 @@
 </div>
 <!-- end pay order modal -->
 
+<!-- start display gcash qr code -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="modalIMG" role="dialog" tabindex="-1">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -303,7 +306,36 @@
 		</div>
 	</div>
 </div>
+<!-- end display gcash qr code -->
 
+<!-- start track order -->
+<div class="modal fade" id="trackModal"  role="dialog" aria-labelledby="trackModalModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="trackModalModalTitle">Track Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">     
+      <!-- @foreach ($transactions as $transaction) 
+            <h3> {{$transaction->orders->referenceNumber}} </h3>
+            <h6> </h6>
+      @endforeach  -->
+
+      <div id="trackInfo"></dib>
+
+      <!-- <h3>Your order has been confirmed </h3>
+      <h6> 2021-5-5 </h6> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end track order -->
 <script type="text/javascript">
  
 //start get order info 
@@ -342,7 +374,8 @@ $.get('/getMyOrder/'+valueId,function(data){
 
   if(data.order.orders.status === "Processed"){  
         var html = '';   
-        $("#update").show();
+        // $("#update").show();
+        $("#update").hide();
     }else{
       $("#update").hide();
     }
@@ -498,6 +531,31 @@ $('#payGcashForm').on('submit',function(event){
 
 });
 // end pay order  via gcash  
+
+
+//start get order info 
+function track(valueId){
+  
+ $.get('/getTrackOrder/'+valueId,function(data){  
+  
+   console.log(data);
+ 
+  for(i=0;i<data.length;i++){
+ 
+    var html = '';
+    html += '<h4>'+data[i].action+' </h4>';
+    html += '<h6>'+data[i].updated_at+' </h6>';
+    html += '<hr>';
+    $('#trackInfo').append(html);
+  }
+
+    // open modal
+  $("#trackModal").modal('toggle');
+ });
+ $("#trackInfo").empty();
+
+}
+//end get order info 
 
 
 </script>

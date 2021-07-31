@@ -34,7 +34,7 @@
                                       <td>{{$price->isColored}}</td>
                                       <td>{{$price->price}}</td>
                                       <td>  
-                                      <button onclick="getPriceInfo({{$price->id}})" type="button" class="btn btn-success">view</button>
+                                      <button onclick="getPriceInfo({{$price->id}})" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="View Price"><i class="fa fa-eye"></button>
                                       <button onclick="deletePrintPrice({{$price->id}})" type="button" class="btn btn-outline-danger">delete</button>
                                       </td>
                                   </tr>

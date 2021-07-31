@@ -6,6 +6,7 @@ use App\Models\transactions;
 use App\Models\Orders;
 use App\Models\printPrice;
 use App\Models\Files;
+use App\Models\Logs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -94,6 +95,16 @@ class TransactionsController extends Controller
         $transaction->status = $request->status;
         $transaction->updated_at = now();
         $transaction->save();
+
+        // $transaction = Transactions::where('order_id',$request->id)->first();
+        Log::info($transaction);
+
+        $log = new Logs;
+        $log->action = "Your order is $request->status";
+        $log->transaction_id = $request->id;
+        $log->updated_at = now();
+        $log->created_at = now();
+        $log->save();
 
         return response()->json($transaction);
 

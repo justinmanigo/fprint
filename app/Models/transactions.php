@@ -18,4 +18,9 @@ class transactions extends Model
         
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function logs(){
+        
+        return $this->hasOne(Logs::class);
+    }
 }

@@ -42,8 +42,8 @@
                                     <td>{{$transaction->orders->status}}</td>
                                    
                                     <td>  
-                                    <a href="{{url('/viewOrder',$transaction->id)}}" type="button" class="btn btn-outline-secondary">File</a>
-                                    <button onclick="getOrderInfo({{$transaction->order_id}})" type="button" class="btn btn-outline-success" >view</button>
+                                    <a href="{{url('/viewOrder',$transaction->id)}}" type="button" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="View File Uploaded" target="_blank" rel="noopener noreferrer"><span class="fa fa-print"></span></a>
+                                    <button onclick="getOrderInfo({{$transaction->order_id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-eye"></i></button>
                                     <!-- <button onclick="deleteStaff({{$transaction->order_id}})" type="button" class="btn btn-danger" >delete</button> -->
                                     </td>
                                
@@ -220,9 +220,11 @@ function getOrderInfo(valueId){
     
   console.log(order);
     //Get the data value
-    var yourDateValue = new Date(order.order.pickupDate); 
+    var yourDateValue = new Date(order.order.pickupDate);
+    console.log(yourDateValue); 
     //Format the date value
-    var formattedDate = yourDateValue.toISOString().substr(0, 10)
+    var formattedDate = yourDateValue.toISOString().substr(0, 10);
+    console.log(formattedDate); 
     //Assign date value to date textbox
     $('#pickupDate').val(formattedDate);
     $('#referenceNumber').html(order.order.referenceNumber);
@@ -249,7 +251,7 @@ function getOrderInfo(valueId){
     // append button from modal footer
     if(order.order.status === "Processed"){  
           var html = '';
-          html += '   <button onclick="cancelOrder('+order.order.id+')" type="button" class="btn btn-outline-danger" >Cancel</button>';
+          html += '   <button onclick="cancelOrder('+order.order.id+')" type="button" class="btn btn-link" >Cancel</button>';
           html += ' <button   type="submit" class="btn btn-success">Accept</button>';
             
         $('#footer').append(html);

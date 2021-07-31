@@ -48,8 +48,8 @@
                                       }
                                        @endif
                                       <td>  
-                                      <a href="{{url('/viewOrder',$transaction->order_id)}}" type="button" class="btn btn-outline-secondary">File</a>
-                                        <button onclick="getOrderInfo({{$transaction->id}})" type="button" class="btn btn-outline-success" >view</button>
+                                        <a href="{{url('/viewOrder',$transaction->order_id)}}" type="button" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="View File Uploaded" target="_blank" rel="noopener noreferrer"><span class="fa fa-print"></span></a>
+                                        <button onclick="getOrderInfo({{$transaction->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form" ><i class="fa fa-eye"></i></button>
                                     </td>
                                   </tr>
                                 @endif

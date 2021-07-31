@@ -38,7 +38,7 @@
                                     <td>{{$user->contact}}</td>
                                    
                                     <td>  
-                                    <button onclick="getUserInfo({{$user->id}})" type="button" class="btn btn-success" >view</button>
+                                    <button onclick="getUserInfo({{$user->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-eye"></i></button>
                                     <!-- <button onclick="deleteStaff({{$user->id}})" type="button" class="btn btn-danger" >delete</button> -->
                                     </td>
                                

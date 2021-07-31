@@ -6,6 +6,7 @@ use App\Models\Orders;
 use App\Models\printPrice;
 use App\Models\Files;
 use App\Models\transactions;
+use App\Models\Logs;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -72,7 +73,7 @@ class OrdersController extends Controller
             'pageTo'=> 'required|numeric|min:1',
             'noOfCopy' => 'required|numeric|min:1',
             'modeOfPayment' => 'required',
-            'file' => 'required|mimes:pdf,xlx,csv|max:2048',
+            'file' => 'required|mimes:pdf,xlx,csv,docx,odt|max:2048',
             'TermsAndCondition' => 'accepted',
            
         ]);
@@ -119,6 +120,15 @@ class OrdersController extends Controller
             $transaction->created_at = now();
             $transaction->updated_at = now();
             $transaction->save();
+
+              
+            $transaction = Transactions::all()->last();
+            $log = new Logs;
+            $log->action = "Order has been reviewed";
+            $log->transaction_id = $transaction->id;
+            $log->updated_at = now();
+            $log->created_at = now();
+            $log->save();
 
             return response()->json($order);
         }
@@ -225,7 +235,18 @@ class OrdersController extends Controller
         $order->status = "Confirmed";
         $order->updated_at = now();
         $order->save();
-        Log::info($order);
+     
+
+         $transaction = Transactions::where('order_id',$request->id)->first();
+         Log::info($transaction);
+
+         $log = new Logs;
+         $log->action = "Order has been confirmed";
+         $log->transaction_id = $transaction->id;
+         $log->updated_at = now();
+         $log->created_at = now();
+         $log->save();
+
         return response()->json($order);
     }
 
@@ -238,6 +259,18 @@ class OrdersController extends Controller
         $order->updated_at = now();
         $order->save();
         Log::info($order);
+
+        
+        $transaction = Transactions::where('order_id',$request->id)->first();
+        Log::info($transaction);
+
+        $log = new Logs;
+        $log->action = "Order has been cancelled";
+        $log->transaction_id = $transaction->id;
+        $log->updated_at = now();
+        $log->created_at = now();
+        $log->save();
+
         return response()->json($order);
     }
 
