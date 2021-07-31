@@ -7,6 +7,7 @@ use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\PrintPriceController;
 use App\Http\Controllers\TransactionsController;  
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\LogsController;
 use Illuminate\Support\Facades\Log; 
 /*
 |--------------------------------------------------------------------------
@@ -65,7 +66,9 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/getPrintPrice/{id}',[OrdersController::class,'getPrintPriceById']);
         //  --add print price
         Route::post('/payGcash',[OrdersController::class,'payGcash'])->name('payGcash');
-         
+        // --get order track info
+        Route::get('/getTrackOrder/{id}',[LogsController::class,'getTrackOrder']);
+     
 
     });
 

@@ -139,7 +139,7 @@
                                
                                 <label class="form-check-label" for="TermsAndCondition">
                                 <input class="form-check-input" type="checkbox" name="TermsAndCondition"  id="TermsAndCondition"  value="1" {{ old('TermsAndCondition') ? 'checked': null }}>
-                                <a data-target="#myModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#myModal"> Terms and Conditions</a><br>
+                                <a data-target="#myModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#myModal"> Terms and Agreement</a><br>
                                 <span class="text-danger error-text TermsAndCondition_err"></span>
                                 </label>
                             </div>

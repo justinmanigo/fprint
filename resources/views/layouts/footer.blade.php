@@ -1,4 +1,4 @@
-<div class="bg-dark text-white" id="footer">
+<div class="bg-dark text-white" id="footer-nav">
         <div class="container py-5">
                 <div class="row">
                         <div class="col-12 col-lg-4 mb-3">
@@ -85,6 +85,10 @@ $(document).ready(function() {
         // $('#orderFormTable').DataTable({});
 
 });
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 </script>
 </div>
