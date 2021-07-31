@@ -91,6 +91,7 @@ class UsersController extends Controller
     public function getUserInfo($id){
         
         $user = User::find($id);
+        $user['type'] = $user->roles->first()->id; // 'type' shall refer to permissions table now.
         Log::info($user);
         
         return response()->json($user);
@@ -111,8 +112,9 @@ class UsersController extends Controller
             
             $user = User::where('idNumber',$request->idNumber)->first();
             
-            $user->type = $request->type;
+            // $user->type = $request->type;
             $user->save();
+            $user->roles()->sync([$request->input('type')]);
             return response()->json($user);
             Log::info($user);
         }

@@ -33,7 +33,7 @@
                         </li>
                         @endif
 
-                        @if(Auth::user() && Auth::user()->type == "admin")
+                        @if(Auth::user() && Auth::user()->roles->first()->name == "admin")
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Admin

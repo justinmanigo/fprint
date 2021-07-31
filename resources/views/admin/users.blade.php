@@ -34,7 +34,7 @@
                                     <td>{{$user->idNumber}}</td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
-                                    <td>{{$user->type}}</td>
+                                    <td>{{$user->roles->first()->name}}</td>
                                     <td>{{$user->contact}}</td>
                                    
                                     <td>  
@@ -108,8 +108,8 @@
                     <label for="type">User type</label><br>
                     <select class="form-control" id="type" name="type">
                         <option disabled  value> -- select an option -- </option>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
+                        <option value="1">Admin</option>
+                        <option value="2">User</option>
                     </select>
                     <span class="text-danger error-text modeOfPayment_err"></span>
                 </div>
