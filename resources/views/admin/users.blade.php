@@ -16,7 +16,7 @@
                                 </div> -->
                             </div>
                         </div>
-                        <table id="userTable" class="display nowrap" style="width:100%">
+                        <table id="userTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>User ID</th>
@@ -32,7 +32,7 @@
                             @foreach ($users as $user)
                                 <tr id="uid{{$user->id}}">
                                     <td>{{$user->idNumber}}</td>
-                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->firstName}} {{$user->lastName}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->roles->first()->name}}</td>
                                     <td>{{$user->contact}}</td>
@@ -69,7 +69,7 @@
     <div id="addModal2" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="viewUserModalLabel">View User Information</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -119,7 +119,7 @@
             
           </div>  <!-- end modal body -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
       </form>  
@@ -188,7 +188,7 @@ $('#userForm').on('submit',function(event){
                         $(".text-danger").hide();
                         Swal.fire({
                             icon: 'success',
-                            title: 'Order Added. Your Order number is:' +data.referenceNumber ,
+                            title: 'User Info has been updated' ,
                             showConfirmButton: false,
                             timer: 2000
                             }).then((result) => {

@@ -20,8 +20,17 @@
                     <div class="form-row mt-4">
                         <!-- pick up date -->
                         <div class="col-sm-12 pb-3">
+                        <div class="form-check">
+                        <label class="form-check-label" for="radio1">
+                            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="today" checked>Today
+                        </label>
+                        </div>
+                             <div class="form-check">
+                            <label class="form-check-label" for="radio2">
+                            <input type="radio" class="form-check-input" id="radio2" name="optradio" value="otherday">Other day
+                        </label>
+                        </div>
                             <label for="pickupDate">Pick up date:</label>
-                         
                             <input type="date" class="form-control col-sm-6" id="pickupDate"  placeholder="Enter first name" name="pickupDate" required>
                             <span class="text-danger error-text pickupDate_err"></span>
                            
@@ -165,7 +174,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalScrollableTitle">Terms and Agreement</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -187,7 +196,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Accept</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Accept</button>
        
       </div>
     </div>
@@ -254,7 +263,7 @@ $('#orderFormTable').on('submit',function(event){
                             timer: 2000
                             }).then((result) => {
 
-                                window.location.href = "{{url('/myOrders')}}";
+                                // window.location.href = "{{url('/myOrders')}}";
 
                             
                         });
@@ -338,11 +347,25 @@ $(document).on('change','#noOfCopy, #pageFrom, #pageTo, #printPrice_id2',functio
     $("#grandTotalPrice").val(finalPrice);
 });
 
- 
 
 </script>
 <script>
- 
+ $(document).ready(function(){
+    //  default behaviour of the datetime picker = disabled
+  $("#pickupDate").attr('disabled',true);
+
+//   if today radio button selected
+  $("#radio1").click(function(){
+  
+  $("#pickupDate").attr('disabled',true);
+  });
+
+//   if other day radio button selected
+  $("#radio2").click(function(){
+  
+  $("#pickupDate").attr('disabled',false);
+    });
+});
 
 </script>
 

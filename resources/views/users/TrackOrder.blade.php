@@ -16,7 +16,7 @@
                                 </div>
                             </div>
                         </div>
-                        <table id="orderTable" class="display nowrap" style="width:100%">
+                        <table id="orderTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Reference Number</th>
@@ -79,7 +79,7 @@
     <div id="addModal2" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Order Form</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

@@ -16,7 +16,7 @@
                                 </div>
                             </div>
                         </div>
-                        <table id="priceTable" class="display nowrap" style="width:100%">
+                        <table id="priceTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Price ID</th>
@@ -34,7 +34,7 @@
                                       <td>{{$price->isColored}}</td>
                                       <td>{{$price->price}}</td>
                                       <td>  
-                                      <button onclick="getPriceInfo({{$price->id}})" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="View Price"><i class="fa fa-eye"></button>
+                                      <button onclick="getPriceInfo({{$price->id}})" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="View Price"><i class="fa fa-eye"></i></button>
                                       <button onclick="deletePrintPrice({{$price->id}})" type="button" class="btn btn-outline-danger">delete</button>
                                       </td>
                                   </tr>
@@ -62,7 +62,7 @@
     <div id="addModal2" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="getPriceInfoLabel">Edit Paper Price</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -101,7 +101,7 @@
             
           </div>  <!-- end modal body -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Update</button>
           </div>
       </form>  
@@ -116,7 +116,7 @@
     <div id="addModal2" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Add Paper Price</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -152,7 +152,7 @@
             
           </div>  <!-- end modal body -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
       </form>  
