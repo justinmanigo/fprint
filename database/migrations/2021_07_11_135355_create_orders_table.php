@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('referenceNumber')->unique();
             $table->datetime('pickupDate');
             $table->enum('modeOfPayment',['COP','Gcash']);
-            $table->string('receipt')->nullable();
+            // $table->string('receipt')->nullable();
             $table->float('grandTotalPrice');
             $table->enum('status',['Processed','Confirmed', 'Cancelled'])->default('Processed');
             $table->string('remarks')->nullable();

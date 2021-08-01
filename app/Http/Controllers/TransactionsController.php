@@ -137,4 +137,11 @@ class TransactionsController extends Controller
         ]);
     }
 
+    public function viewReceiptAdmin($id){
+        $transaction = Transactions::find($id);
+        log::info($transaction);
+
+        return response()->json($transaction);
+    }
+
 }

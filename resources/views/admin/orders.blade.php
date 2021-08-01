@@ -3,20 +3,18 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-         <div class="col-md-10 offset-1">
+         <div class="col-sm-10 offset-1">
             <div class="table">
 			    <div class="table-wrapper">
                         <div class="table-title mb-3">
                             <div class="row">
                             <div class="col-xs-6 col-md-12">
                                     <h2>Manage <b>Orders</b></h2>
-                                </div>
-                                <div class="col-xs-7 col-md-12">
-                                <!-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">New Order</button> -->
-                                </div>
+                            </div>
+                               
                             </div>
                         </div>
-                        <table id="orderTable" class="display nowrap" style="width:100%">
+                        <table id="orderTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Reference Number</th>
@@ -34,7 +32,7 @@
                             @foreach ($transactions as $transaction)
                                 <tr id="oid{{$transaction->order_id}}">
                                     <td>{{$transaction->orders->referenceNumber}}</td>
-                                    <td>{{$transaction->users->name}}</td>
+                                    <td>{{$transaction->users->firstName}} {{$transaction->users->lastName}}</td>
                                     <td>{{$transaction->orders->pickupDate}}</td>
                                     <td>{{$transaction->orders->files->filename}}</td>
                                     <td>{{$transaction->orders->modeOfPayment}}</td>
@@ -80,7 +78,7 @@
     <div id="addModal2" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Order Form</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
       </div>

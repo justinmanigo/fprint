@@ -19,6 +19,7 @@
                         <table id="myOrderTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>No.</th>
                                     <th>Reference Number</th>
                                     <th>Pickup Date</th>
                                     <th>Filename</th>
@@ -33,13 +34,22 @@
                             <tbody>
                             @foreach ($transactions as $transaction)
                                 <tr id="tid{{$transaction->id}}">
+                                   <td>{{$loop->iteration}}</td>
                                      <td>{{$transaction->orders->referenceNumber}}</td>
                                      <td>{{$transaction->orders->pickupDate}}</td>
                                      <td>{{$transaction->orders->files->filename}}</td>
                                      <td>{{$transaction->orders->modeOfPayment}}</td>
                                      <td>{{$transaction->isPaid}}</td>
                                      <td>{{$transaction->orders->grandTotalPrice}}</td>
+                                     @if ($transaction->status == "")
                                      <td>{{$transaction->orders->status}}</td>
+                                      @else
+                                      <td>{{$transaction->status}}</td>
+                                      @endif
+
+                                     
+
+                                       
                                     
                                      
                                     <td>  
@@ -58,6 +68,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>No.</th>
                                     <th>Reference Number</th>
                                     <th>Pickup Date</th>
                                     <th>Filename</th>
@@ -85,7 +96,7 @@
     <div id="addModal2" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Order Form</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -208,7 +219,7 @@
                     <!-- footer -->
                     <div class="modal-footer" id="footer">
                         <button  id="update" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Update</button>
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-light"data-bs-dismiss="modal">Close</button>
                     </div>
                      
                     <!-- <div class="modal-footer">
@@ -234,7 +245,7 @@
     <div id="addModal2" class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="exampleModalLabel">Pay order via Gcash</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close"data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -267,10 +278,17 @@
                                   </div>
                                   <div class="col-sm-12  pb-3">
                                         <h5>Submit your receipt</h5>
-                                        <label class="col-md col-form-label" for="receipt">Upload Screenshot of Receipt</label>
+                                        <label for="receipt">Upload Screenshot of Receipt</label>
                                         <input type="file" class="form-control-file" name="receipt" id="receipt">
                                         <span class="text-danger error-text receipt_err"></span>
-                                  </div>           
+                                </div>   
+                                
+                                <!-- Reference Number -->
+                                <div class="col-sm-6 pb-3">
+                                    <label for="refNumReceipt">Gcash Reference Number:</label><br>
+                                    <input type="text" class="form-control price" id="refNumReceipt" placeholder="" name="refNumReceipt">
+                                    <span class="text-danger error-text refNumReceipt_err"></span>
+                                </div>
                         </div>  
 
                         <input type="hidden" id="transaction_id" name="transaction_id" value="">
@@ -279,7 +297,7 @@
         
             <!-- footer -->
             <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Submit</button>
               </div>
           </form>
@@ -314,15 +332,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="trackModalModalTitle">Track Order</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">     
-      <!-- @foreach ($transactions as $transaction) 
-            <h3> {{$transaction->orders->referenceNumber}} </h3>
-            <h6> </h6>
-      @endforeach  -->
+
 
       <div id="trackInfo"></dib>
 
@@ -330,7 +345,7 @@
       <h6> 2021-5-5 </h6> -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -550,7 +565,8 @@ function track(valueId){
   }
 
     // open modal
-  $("#trackModal").modal('toggle');
+  $("#trackModal").modal('show');
+   
  });
  $("#trackInfo").empty();
 
@@ -559,8 +575,8 @@ function track(valueId){
 
 
 </script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script> -->
 
 <script>
   // A $( document ).ready() block.

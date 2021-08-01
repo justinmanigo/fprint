@@ -19,6 +19,8 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->enum('status',['Printing in process','Ready for pick up','Delivered'])->nullable();
             $table->enum('isPaid',['Paid','Not paid'])->default('Not paid');
+            $table->string('receipt')->nullable();
+            $table->string('refNumReceipt')->nullable();
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

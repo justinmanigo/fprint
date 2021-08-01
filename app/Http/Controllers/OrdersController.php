@@ -67,7 +67,7 @@ class OrdersController extends Controller
         Log::info($request);
         $validator = Validator::make($request->all(), [
             'today' => 'yesterday',
-            'pickupDate' => 'required|date|date_format:Y-m-d|after_or_equal:today',
+            'pickupDate' => 'date|date_format:Y-m-d|after_or_equal:today',
             'printPrice_id' => 'required',
             'pageFrom' => 'required|numeric|min:1|max:pageTo',
             'pageTo'=> 'required|numeric|min:1',
@@ -104,12 +104,19 @@ class OrdersController extends Controller
             // $order->user_id = $user_id;
             $order->file_id = $file->id;
             $order->referenceNumber =  Str::random(10);
-            $order->pickupDate = $request->pickupDate;
+           
             $order->grandTotalPrice = $request->grandTotalPrice;
             $order->modeOfPayment = $request->modeOfPayment;
             $order->remarks = $request->remarks;
             $order->created_at = now();
             $order->updated_at = now();
+            
+
+            if($request->optradio == "today"){
+                $order->pickupDate = now();
+            }else{
+                $order->pickupDate = $request->pickupDate;
+            }
             $order->save();
 
             $order_id = Orders::all()->last();
@@ -277,7 +284,8 @@ class OrdersController extends Controller
     public function payGcash(Request $request){
         Log::info($request);
         $validator = Validator::make($request->all(), [
-            'receipt' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',   
+            'receipt' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+            'refNumReceipt' => 'required', 
            
         ]);
         if($validator->passes()){
@@ -285,7 +293,7 @@ class OrdersController extends Controller
             $file = $request->file('receipt')->getClientOriginalName();
             
             Log::info($file);
-             $fileName = $file.'.'.$request->receipt->extension();  
+            //  $fileName = $file.'.'.$request->receipt->extension();  
            
              $request->receipt->move(public_path('receipts'), $file);
             
@@ -293,15 +301,11 @@ class OrdersController extends Controller
             
             $transaction = Transactions::find($request->transaction_id); 
             $transaction->ispaid = "Paid";
+            $transaction->receipt =$file;
+            $transaction->refNumReceipt = $request->refNumReceipt;
             $transaction->updated_at = now();
             $transaction->save();
-            $id = $transaction->order_id;
-             
-            Log::info($id);
-            $order = Orders::find($id);
-            $order->receipt = $fileName;
-            $order->updated_at = now();
-            $order->save();
+            
            
 
             return response()->json($transaction);

@@ -121,9 +121,12 @@ Route::group(['middleware'=>'auth'], function(){
 
         // --get order info updateStatus
         Route::get('/getMyOrderAdmin/{id}',[TransactionsController::class,'adminGetOrderById']);
-
+         
         //  --update status for transaction
         Route::post('/updateStatus',[TransactionsController::class,'update'])->name('updateStatus');
+
+        // --get order info updateStatus
+        Route::get('/viewReceiptAdmin/{id}',[TransactionsController::class,'viewReceiptAdmin']);
 
     });
 
