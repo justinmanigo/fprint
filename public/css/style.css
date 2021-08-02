@@ -132,5 +132,9 @@
   #content-wrap {
     padding-bottom: 30rem;    /* Footer height */
   }
+
+  main {
+      padding-bottom:10rem;
+  }
   
  

@@ -99,7 +99,7 @@
         </nav>
 
         <!-- content of the website -->
-        <main class="py-4">
+        <main class="pt-4 pb-lg-0">
             @yield('content')
         </main>
     </div>
