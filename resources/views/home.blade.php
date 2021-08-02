@@ -25,6 +25,22 @@ style="
     </div>
 </div>
 
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-7 py-3 py-lg-5 order-1 order-lg-0">
+            <h1 class="display-3 fw-bold lh-1">About Us</h1>
+            <p class="lead">
+                F-Print is a web-based printing system that were created by four people, Jenine Seminiano, Aileen Guingon, Gab Morales, and Renzo Valera. The name F-Print was made because with your reservation anytime, you can get your printing needs done.
+            </p>
+        </div>
+        <div class="col-lg-5 p-0 order-0 order-lg-1">
+            {{-- Insert picture here later :)) --}}
+            <img src="{{ asset('img/fprint.png') }}" width="540" class="mx-auto my-0" style="display:block!important;">
+            {{-- <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720"> --}}
+        </div>
+    </div>
+</div>
+
 @include('layouts.printingschedule')
 
 @endsection
