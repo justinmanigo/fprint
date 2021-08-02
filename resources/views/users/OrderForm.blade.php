@@ -103,7 +103,7 @@
                             <label for="grandTotalPrice">Total price:</label><br>
                             <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                                    <input type="number" class="form-control" id="grandTotalPrice" placeholder="" name="grandTotalPrice" value="0" required>
+                                    <input type="number" class="form-control" id="grandTotalPrice" placeholder="" name="grandTotalPrice" value="0" style= "background-color: white" readonly>
                                     <span class="text-danger error-text grandTotalPrice_err"></span>
                             </div>
                         </div>   
