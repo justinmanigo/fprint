@@ -43,7 +43,7 @@
                         <!-- size and isColored -->
                         <div class="col-sm-6 pb-3">
                             <label for="printPrice_id">Paper size:</label>
-                                <select class="form-control printPrice_id" id="printPrice_id2" name="printPrice_id">
+                                <select class="form-control printPrice_id" id="printPrice_id" name="printPrice_id">
                                     <option disabled selected value> -- select an option -- </option>
                                     @if(isset($prices))
                                     @foreach ($prices as $price)
@@ -278,8 +278,6 @@ $('#orderFormTable').on('submit',function(event){
                       alert("wa sod");
                   }
                 });
-            }else{
-            Swal.fire('Order was not added.')
             }
   
           });   
@@ -306,6 +304,12 @@ function printErrorMsg (msg) {
 </script>
 
 <script>
+  var price  = 0;
+  var totalPrice =0;
+  var finalPrice =0;
+  var totalPrice =0;
+  var totalPages =0;
+  var noOfCopy =0;
 // get price per paper
  $(document).on('input','.printPrice_id',function(){
   var paperPrice_id=$(this).val(); 
@@ -315,6 +319,15 @@ function printErrorMsg (msg) {
   $.get('/getPrintPrice/'+paperPrice_id,function(data){  
 
       $("#price").val(data.price);
+      console.log("price:"+data.price);
+       price = data.price;
+       totalPages=$('#totalPages').val(); 
+       noOfCopy=$('#noOfCopy').val();
+
+      totalPrice = price * totalPages;
+      finalPrice = totalPrice * noOfCopy
+      console.log("finalprice:"+finalPrice);
+      $("#grandTotalPrice").val(finalPrice);
     });
 
 });  
@@ -334,17 +347,18 @@ $(document).on('input','.pageTo, .pageFrom',function(){
 });
 
 // get total price totalPages price
-$(document).on('change','#noOfCopy, #pageFrom, #pageTo, #printPrice_id2',function(){
-  var price=$('#price').val(); 
-  var totalPages=$('#totalPages').val(); 
-  var noOfCopy=$('#noOfCopy').val();
-  var totalPrice = 0;
- 
+$(document).on('change','#noOfCopy, #pageFrom, #pageTo',function(){
+  console.log("sod");
+  price=$('#price').val(); 
+  totalPages=$('#totalPages').val(); 
+  noOfCopy=$('#noOfCopy').val();
+  
+  
 
   totalPrice = price * totalPages;
   finalPrice = totalPrice * noOfCopy
-    console.log(finalPrice);
-    $("#grandTotalPrice").val(finalPrice);
+  console.log(finalPrice);
+  $("#grandTotalPrice").val(finalPrice);
 });
 
 
