@@ -26,12 +26,15 @@
                         </label>
                         </div>
                              <div class="form-check">
-                            <label class="form-check-label" for="radio2">
+                            <label class="form-check-label" for="radio2"><br>
                             <input type="radio" class="form-check-input" id="radio2" name="optradio" value="otherday">Other day
                         </label>
+                        
                         </div>
+                            
                             <label for="pickupDate">Pick up date:</label>
                             <input type="date" class="form-control col-sm-6" id="pickupDate"  placeholder="Enter first name" name="pickupDate" required>
+                            <span class="text-danger">Please specify the date</span><br>
                             <span class="text-danger error-text pickupDate_err"></span>
                            
                         </div>
@@ -69,7 +72,7 @@
                         <div class="col-sm-6 pb-3">
                             <label for="price">Price per paper:</label><br>
                             <div class="input-group">
-                                    <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                                    <div class="input-group-prepend"><span class="input-group-text">₱</span></div>
                                     <input type="number" class="form-control price" id="price" placeholder="" name="price"  value="0" style= "background-color: white" readonly>
                                     <span class="text-danger error-text price_err"></span>
                             </div>
@@ -102,7 +105,7 @@
                         <div class="col-sm-6 pb-3">
                             <label for="grandTotalPrice">Total price:</label><br>
                             <div class="input-group">
-                                    <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                                    <div class="input-group-prepend"><span class="input-group-text">₱</span></div>
                                     <input type="number" class="form-control" id="grandTotalPrice" placeholder="" name="grandTotalPrice" value="0" style= "background-color: white" readonly>
                                     <span class="text-danger error-text grandTotalPrice_err"></span>
                             </div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\PrintPriceController;
 use App\Http\Controllers\TransactionsController;  
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\LogsController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Log; 
 /*
 |--------------------------------------------------------------------------
@@ -137,6 +138,14 @@ Route::group(['middleware'=>'auth'], function(){
 
         //  //-view order
         //  Route::get('/transactions',[TransactionsController::class,'indexAdmin']);
+    });
+
+     //dashboard from admin
+     Route::group(['as'=>'dashboard.'], function(){
+         //-view print price
+         Route::get('/dashboard',[DashboardController::class,'index']);
+
+       
     });
 
 });

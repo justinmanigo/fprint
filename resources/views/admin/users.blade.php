@@ -78,9 +78,16 @@
           <div class="modal-body">
                 <!-- paper size -->
                 <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" required>
-                <span class="text-danger error-text name_err"></span>
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName" required>
+                <span class="text-danger error-text firstName_err"></span>
+                </div>
+
+                 <!-- paper size -->
+                 <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Enter name" name="lastName" required>
+                <span class="text-danger error-text lastName_err"></span>
                 </div>
 
                 <!-- adamson email -->
@@ -105,7 +112,7 @@
                 </div>
                  
                 <div class="form-group">
-                    <label for="type">User type</label><br>
+                    <label for="type">User Type</label><br>
                     <select class="form-control" id="type" name="type">
                         <option disabled  value> -- select an option -- </option>
                         <option value="1">Admin</option>
@@ -137,7 +144,8 @@ function getUserInfo(valueId){
 
         console.log(data);
          
-        $('#name').val(data.name);
+        $('#firstName').val(data.firstName);
+        $('#lastName').val(data.lastName);
         $('#email').val(data.email);
         $('#idNumber').val(data.idNumber);
         $('#contact').val(data.contact);

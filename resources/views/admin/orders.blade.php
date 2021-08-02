@@ -36,7 +36,7 @@
                                     <td>{{$transaction->orders->pickupDate}}</td>
                                     <td>{{$transaction->orders->files->filename}}</td>
                                     <td>{{$transaction->orders->modeOfPayment}}</td>
-                                    <td>{{$transaction->orders->grandTotalPrice}}</td>
+                                    <td>₱{{number_format($transaction->orders->grandTotalPrice, 2, '.', ',')}}</td> 
                                     <td>{{$transaction->orders->status}}</td>
                                    
                                     <td>  
@@ -113,7 +113,7 @@
                       <div class="col-sm-6 pb-3">
                           <label for="price">Price per paper:</label><br>
                           <div class="input-group">
-                              <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                              <div class="input-group-prepend"><span class="input-group-text">₱</span></div>
                               <input type="number" class="form-control price" id="price" placeholder="" name="price"  value="0" style= "background-color: white" readonly>
                               <span class="text-danger error-text price_err"></span>
                           </div>
@@ -152,7 +152,7 @@
                       <div class="col-sm-6 pb-3">
                           <label for="grandTotalPrice">Total Price:</label><br>
                           <div class="input-group">
-                                  <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                                  <div class="input-group-prepend"><span class="input-group-text">₱</span></div>
                                   <input type="text" class="form-control grandTotalPrice" id="grandTotalPrice" placeholder="" name="grandTotalPrice"  value="" style= "background-color: white" readonly>
                                   <span class="text-danger error-text grandTotalPrice_err"></span>
                           </div>

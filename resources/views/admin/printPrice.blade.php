@@ -32,7 +32,7 @@
                                       <td>{{$price->id}}</td>
                                       <td>{{$price->size}}</td>
                                       <td>{{$price->isColored}}</td>
-                                      <td>{{$price->price}}</td>
+                                      <td>₱{{number_format($price->price, 2, '.', ',')}}</td> 
                                       <td>  
                                       <button onclick="getPriceInfo({{$price->id}})" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="View Price"><i class="fa fa-eye"></i></button>
                                       <button onclick="deletePrintPrice({{$price->id}})" type="button" class="btn btn-outline-danger">delete</button>
