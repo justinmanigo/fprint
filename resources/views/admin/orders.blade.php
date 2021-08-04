@@ -95,7 +95,7 @@
                       <!-- pick up date -->
                       <div class="col-sm-6 pb-3">
                           <label for="pickupDate">Pick-up Date:</label>
-                          <input type="date" class="form-control col-sm-6" id="pickupDate"  placeholder="Enter first name" name="pickupDate">
+                          <input type="date" class="form-control col-sm-6" id="pickupDate"  placeholder="Enter first name" name="pickupDate" style="background-color: white" readonly>
                           <span class="text-danger error-text pickupDate_err"></span>
                       </div>
                       <!-- space -->
