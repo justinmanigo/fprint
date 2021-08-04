@@ -204,9 +204,9 @@
                       <div class="col-md-12 pb-2 mt-2">
                               <label for="remarks">Remarks</label>
                               <textarea class="form-control" id="remarks" name="remarks" style= "background-color: white" readonly></textarea>
-                              <small class="text-info">
+                              {{-- <small class="text-info">
                               Add the packaging note here.
-                              </small>
+                              </small> --}}
                       </div>
                         <!-- token -->
                         <input type="hidden" name="e_token" id="e_token" value="{{ csrf_token() }}">
