@@ -115,7 +115,7 @@
                       <!-- pick up date -->
                       <div class="col-sm-6 pb-3">
                           <label for="pickupDate">Pick-up Date:</label>
-                          <input type="date" class="form-control col-sm-6" id="pickupDate"  placeholder="Enter first name" name="pickupDate">
+                          <input type="date" class="form-control col-sm-6" id="pickupDate"  placeholder="Enter first name" name="pickupDate" style="background-color:white" readonly>
                           <span class="text-danger error-text pickupDate_err"></span>
                       </div>
                       <!-- space -->
@@ -141,13 +141,13 @@
                       <!-- page from -->
                       <div class="col-sm-5 pb-3">
                           <label for="pageFrom">Page from:</label>
-                          <input type="number" class="form-control pageFrom" id="pageFrom" min="1" placeholder="Enter start page" name="pageFrom">
+                          <input type="number" class="form-control pageFrom" id="pageFrom" min="1" placeholder="Enter start page" name="pageFrom" style="background-color:white" readonly>
                           <span class="text-danger error-text pageFrom_err"></span>
                       </div>
                       <!-- page to -->
                       <div class="col-sm-5 pb-3">
                           <label for="pageTo">Page to:</label>
-                          <input type="number" class="form-control pageTo" id="pageTo" min="1" placeholder="Enter end page" name="pageTo">
+                          <input type="number" class="form-control pageTo" id="pageTo" min="1" placeholder="Enter end page" name="pageTo" style="background-color:white" readonly>
                           <span class="text-danger error-text pageTo_err"></span>
                       </div>
                       <!-- total pages -->
