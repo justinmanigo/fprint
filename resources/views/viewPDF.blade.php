@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
         <div class="container pdf">
-                <iframe  class="responsive-iframe"  src="/files/{{$file->files->filename}}"> </iframe>
+                <iframe  class="responsive-iframe"  src="/files/{{$file->referenceNumber . '-' . $file->files->filename}}"> </iframe>
         </div>
               
         </div>

@@ -78,16 +78,22 @@ class OrdersController extends Controller
            
         ]);
         if($validator->passes()){
+            $referenceNumber = Str::random(10);
 
             $file = $request->file('file')->getClientOriginalName();
             Log::info($file);
-            $fileName = $file;  
+            
+            // Create Modified Filename for storage
+            // To avoid duplicates in case somebody also uploads the same filename.
+            $fileName = $referenceNumber . "-" . $file;  
    
-            $request->file->move(public_path('files'), $file);
+            $request->file->move(public_path('files'), $fileName);
 
+            // Will still show original filename on database.
+            // Just include referenceNumber prior to loading the pdf.
             $file1 = new Files;
             $file1->printPrice_id = $request->printPrice_id;
-            $file1->filename =  $fileName;
+            $file1->filename =  $file; 
             $file1->noOfCopy = $request->noOfCopy;
             $file1->pageFrom = $request->pageFrom;
             $file1->pageTo = $request->pageTo;
@@ -98,12 +104,11 @@ class OrdersController extends Controller
 
             $file = Files::all()->last();
             
-            $referenceNumber = Str::random(10);
             $user_id = Auth::id(); 
             $order = new Orders;
             // $order->user_id = $user_id;
             $order->file_id = $file->id;
-            $order->referenceNumber =  Str::random(10);
+            $order->referenceNumber =  $referenceNumber;
            
             $order->grandTotalPrice = $request->grandTotalPrice;
             $order->modeOfPayment = $request->modeOfPayment;
