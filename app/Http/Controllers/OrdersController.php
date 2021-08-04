@@ -289,17 +289,17 @@ class OrdersController extends Controller
            
         ]);
         if($validator->passes()){
-
+            
+            $transaction = Transactions::find($request->transaction_id); 
             $file = $request->file('receipt')->getClientOriginalName();
             
             Log::info($file);
             //  $fileName = $file.'.'.$request->receipt->extension();  
            
-             $request->receipt->move(public_path('receipts'), $file);
+             $request->receipt->move(public_path('receipts'), $transaction->orders->referenceNumber . '-' . $file);
             
 
             
-            $transaction = Transactions::find($request->transaction_id); 
             $transaction->ispaid = "Paid";
             $transaction->receipt =$file;
             $transaction->refNumReceipt = $request->refNumReceipt;

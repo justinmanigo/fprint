@@ -139,6 +139,7 @@ class TransactionsController extends Controller
 
     public function viewReceiptAdmin($id){
         $transaction = Transactions::find($id);
+        $transaction['referenceNumber'] = $transaction->orders->referenceNumber;
         log::info($transaction);
 
         return response()->json($transaction);
