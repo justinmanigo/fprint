@@ -17,6 +17,7 @@
                         <table id="orderTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>No.</th>
                                     <th>Reference Number</th>
                                     <th>Order By</th>
                                     <th>Pickup Date</th>
@@ -31,6 +32,7 @@
                             <tbody>
                             @foreach ($transactions as $transaction)
                                 <tr id="oid{{$transaction->order_id}}">
+                                    <td>{{$loop->iteration}}</td> 
                                     <td>{{$transaction->orders->referenceNumber}}</td>
                                     <td>{{$transaction->users->firstName}} {{$transaction->users->lastName}}</td>
                                     <td>{{$transaction->orders->pickupDate}}</td>
@@ -51,6 +53,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>No.</th>
                                     <th>Reference Number</th>
                                     <th>Order By</th>
                                     <th>Pickup Date</th>

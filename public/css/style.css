@@ -139,7 +139,7 @@
   
  
 
-  /* cards */
+  /* cards for dashboard*/
 .card-counter{
     box-shadow: 2px 2px 10px #DADADA;
     margin: 5px;
@@ -198,3 +198,13 @@
     display: block;
     font-size: 18px;
   }
+
+
+  /* dropdown color on hover */
+  .dropdown-item:hover{
+    background-color: #343a40;
+    color: #FFF;
+     
+  } 
+
+

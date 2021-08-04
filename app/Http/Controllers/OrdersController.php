@@ -81,9 +81,11 @@ class OrdersController extends Controller
 
             $file = $request->file('file')->getClientOriginalName();
             Log::info($file);
-            $fileName = $file;  
+            $fileName =  time().'_' .$file;  
+  
+            
    
-            $request->file->move(public_path('files'), $file);
+            $request->file->move(public_path('files'), $fileName);
 
             $file1 = new Files;
             $file1->printPrice_id = $request->printPrice_id;
@@ -291,17 +293,16 @@ class OrdersController extends Controller
         if($validator->passes()){
 
             $file = $request->file('receipt')->getClientOriginalName();
-            
-            Log::info($file);
-            //  $fileName = $file.'.'.$request->receipt->extension();  
-           
-             $request->receipt->move(public_path('receipts'), $file);
+        
+            Log::info($file);  
+            $fileName =  time(). '_' .$file;  
+            $request->receipt->move(public_path('receipts'), $fileName);
             
 
             
             $transaction = Transactions::find($request->transaction_id); 
             $transaction->ispaid = "Paid";
-            $transaction->receipt =$file;
+            $transaction->receipt =$fileName;
             $transaction->refNumReceipt = $request->refNumReceipt;
             $transaction->updated_at = now();
             $transaction->save();
