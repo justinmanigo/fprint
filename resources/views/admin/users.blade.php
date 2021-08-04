@@ -19,6 +19,7 @@
                         <table id="userTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
+                                  <th>No.</th>    
                                     <th>User ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -31,6 +32,7 @@
                             <tbody>
                             @foreach ($users as $user)
                                 <tr id="uid{{$user->id}}">
+                                  <td>{{$loop->iteration}}</td> 
                                     <td>{{$user->idNumber}}</td>
                                     <td>{{$user->firstName}} {{$user->lastName}}</td>
                                     <td>{{$user->email}}</td>
@@ -48,6 +50,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>No.</th>
                                     <th>User ID</th>
                                     <th>Name</th>
                                     <th>Email</th>

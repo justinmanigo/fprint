@@ -16,7 +16,8 @@
                     </div>
                         <table id="myOrderTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
-                                <tr>
+                                <tr> 
+                                    <th>No.</th>    
                                     <th>Reference Number</th>
                                     <th>Pickup Date</th>
                                     <th>Filename</th>
@@ -33,6 +34,7 @@
                                     <!-- data row will not be inserted from the table -->
                                 @else
                                   <tr id="tid{{$transaction->id}}">
+                                      <td>{{$loop->iteration}}</td> 
                                       <td>{{$transaction->orders->referenceNumber}}</td>
                                       <td>{{$transaction->orders->pickupDate}}</td>
                                       <td>{{$transaction->orders->files->filename}}</td>
@@ -61,6 +63,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>No.</th> 
                                     <th>Reference Number</th>
                                     <th>Pickup Date</th>
                                     <th>Filename</th>

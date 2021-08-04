@@ -19,7 +19,7 @@
                         <table id="priceTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Price ID</th>
+                                    <th>No.</th>
                                     <th>Paper size</th>
                                     <th>Type</th>
                                     <th>Price</th>
@@ -29,7 +29,7 @@
                             <tbody>
                               @foreach ($prices as $price)
                                   <tr id="pid{{$price->id}}">
-                                      <td>{{$price->id}}</td>
+                                      <td>{{$loop->iteration}}</td> 
                                       <td>{{$price->size}}</td>
                                       <td>{{$price->isColored}}</td>
                                       <td>₱{{number_format($price->price, 2, '.', ',')}}</td> 
@@ -42,7 +42,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Price ID</th>
+                                    <th>No.</th>
                                     <th>Paper size</th>
                                     <th>Type</th>
                                     <th>Price</th>
