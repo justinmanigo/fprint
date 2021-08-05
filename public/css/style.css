@@ -130,13 +130,18 @@
   }
 
   #content-wrap {
-    padding-bottom: 30rem;    /* Footer height */
+    padding-bottom: 37.2rem;    /* Footer height */
+  }
+  
+  @media (min-width: 992px) { 
+    #content-wrap {
+      padding-bottom: 20.7rem;    /* Footer height */
+    }
   }
 
   main {
-      padding-bottom:10rem;
+    overflow-x:auto;
   }
-  
  
 
   /* cards for dashboard*/
