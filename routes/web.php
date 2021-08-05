@@ -108,6 +108,9 @@ Route::group(['middleware'=>'auth'], function(){
     // --get order info
     Route::get('/getMyOrder/{id}',[OrdersController::class,'userGetOrderById']);
 
+     // --view order receipt
+     Route::get('/viewReceiptUser/{id}',[TransactionsController::class,'viewReceiptUser']);
+
 
     });
 
@@ -126,7 +129,7 @@ Route::group(['middleware'=>'auth'], function(){
         //  --update status for transaction
         Route::post('/updateStatus',[TransactionsController::class,'update'])->name('updateStatus');
 
-        // --get order info updateStatus
+        // --view order receipt
         Route::get('/viewReceiptAdmin/{id}',[TransactionsController::class,'viewReceiptAdmin']);
 
     });

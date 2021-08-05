@@ -144,4 +144,12 @@ class TransactionsController extends Controller
         return response()->json($transaction);
     }
 
+
+    public function viewReceiptUser($id){
+        $transaction = Transactions::find($id);
+        log::info($transaction);
+
+        return response()->json($transaction);
+    }
+
 }

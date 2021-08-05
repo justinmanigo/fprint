@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Orders;
+use App\Models\printPrice;
+use App\Models\Files;
+use App\Models\Logs;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -14,7 +19,9 @@ class DashboardController extends Controller
     public function index()
     {
         //
-
+        $totalUsers = User::count();
+        $totalOrders = Orders::count();
+        $pendingOrders = Orders::where('status','Processed')->count();
          
         //  $prices= printPrice::all();
         //  return view('admin.printPrice')->with('prices',$prices);

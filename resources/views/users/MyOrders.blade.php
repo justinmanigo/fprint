@@ -39,7 +39,11 @@
                                      <td>{{$transaction->orders->pickupDate}}</td>
                                      <td>{{$transaction->orders->files->filename}}</td>
                                      <td>{{$transaction->orders->modeOfPayment}}</td>
-                                     <td>{{$transaction->isPaid}}</td>
+                                     <td>{{$transaction->isPaid}}
+                                     @if ($transaction->orders->modeOfPayment == "Gcash")
+                                      <button onclick="viewReceipt({{$transaction->id}})" type="button" class="btn btn-outline-primary" ><i class="fa fa-credit-card"></i></button>
+                                      @endif
+                                     </td>
                                      <td>₱{{number_format($transaction->orders->grandTotalPrice, 2, '.', ',')}}</td> 
                                      @if ($transaction->status == "")
                                      <td>{{$transaction->orders->status}}</td>
@@ -237,7 +241,53 @@
 </div>
 <!-- end view order modal -->
 
+<!-- start View Uploaded Receipt Modal -->
+<div class="modal fade" id="viewReceiptModal"  aria-labelledby="viewReceiptModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div id="addModal2" class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="viewReceiptModalLabel">View Uploaded Receipt</h4>
+        <button type="button" class="close"data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form id="payGcashForm2"  enctype="multipart/form-data">
+            @csrf   
+              <!-- div body -->
+              <div class="modal-body">
+                  
+                      
+                        <div class="form-row mt-4">
+                                  <!-- pick up date -->
+                                  <div class="col-12" id="receiptImage">
+                                  
+                                  <h5>Receipt Image:</h5>
+                                  
+                                  </div>
+                                    <!-- space -->
+                                    <div class="col-sm-12 pb-3">
+                                      <hr class="my-3">
+                                    </div>
+                                      <!-- space -->
+                                  <div class="col-sm-12 pb-3">
+                                    <h5>Gcash Reference Number: <span id="refNumReceipt">  </span></h5>
+                                  </div>  
+                        </div>  
 
+                         
+                  
+              </div> <!-- div end body -->
+        
+            <!-- footer -->
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+              </div>
+          </form>
+    </div>
+  </div>
+</div>
+<!-- end View Uploaded Receipt modal -->
 
 <!-- start pay order Modal -->
 <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
@@ -351,6 +401,16 @@
   </div>
 </div>
 <!-- end track order -->
+
+
+ 
+
+
+
+
+
+
+
 <script type="text/javascript">
  
 //start get order info 
@@ -572,6 +632,31 @@ function track(valueId){
 
 }
 //end get order info 
+
+
+//start view gcash receipt uploaded
+function viewReceipt(valueId){
+   
+   $('#receiptImage').empty();
+   $.get('/viewReceiptUser/'+valueId,function(data){ 
+   console.log(data);
+ 
+   // <img src="{{ asset('/img/qrgcash.png') }}" id="qr"class="img-thumbnail rounded mx-auto d-block" alt="...">
+   $("#refNumReceipt").text(data.refNumReceipt);    
+ 
+      
+     var html = '';
+     if(data.receipt){
+       html += ' <img src="/receipts/'+data.receipt+'" id="qr"class="img-thumbnail rounded mx-auto d-block" alt="...">';
+     }
+     $('#receiptImage').append(html);       
+     
+     // open modal
+     $("#viewReceiptModal").modal('show');
+     });
+ 
+ }
+ //end view gcash receipt uploaded
 
 
 </script>
