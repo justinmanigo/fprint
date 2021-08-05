@@ -213,10 +213,10 @@
 var myDate = document.getElementById("pickupDate");
 var today = new Date();
 myDate.value = today.toISOString().substr(0, 10);
-    
-$(document).ready(function () {
-     
- });
+  
+// Prevent horizontal scrolling for this page
+$('main').css("overflow-x","hidden");
+$('main').css("margin-bottom","2rem");
 
 </script>
 
