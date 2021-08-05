@@ -70,4 +70,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('#app').attr("style", 
+        "background-image:url('{{ asset('/img/adamson.jpg') }}');background-repeat: no-repeat;background-attachment: fixed;background-position: center;background-size: cover;")
+    });
+</script>
 @endsection
