@@ -242,12 +242,12 @@
 <!-- end view order modal -->
 
 
-<!-- start pay order Modal -->
+<!-- start View Uploaded Receipt Modal -->
 <div class="modal fade" id="viewReceiptModal" tabindex="-1" aria-labelledby="viewReceiptModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div id="addModal2" class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="viewReceiptModalLabel">Pay order via Gcash</h4>
+        <h4 class="modal-title" id="viewReceiptModalLabel">View Uploaded Receipt</h4>
         <button type="button" class="close"data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -288,7 +288,7 @@
     </div>
   </div>
 </div>
-<!-- end pay order modal -->
+<!-- end View Uploaded Receipt modal -->
 
 
 
