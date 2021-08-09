@@ -34,8 +34,8 @@
                                       <td>{{$price->isColored}}</td>
                                       <td>₱{{number_format($price->price, 2, '.', ',')}}</td> 
                                       <td>  
-                                      <button onclick="getPriceInfo({{$price->id}})" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="View Price"><i class="fa fa-eye"></i></button>
-                                      <button onclick="deletePrintPrice({{$price->id}})" type="button" class="btn btn-outline-danger">delete</button>
+                                      <button onclick="getPriceInfo({{$price->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Price"><i class="fa fa-eye"></i></button>
+                                      <button onclick="deletePrintPrice({{$price->id}})" type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Delete Price"><i class="fa fa-trash"></i></button>
                                       </td>
                                   </tr>
                               @endforeach 

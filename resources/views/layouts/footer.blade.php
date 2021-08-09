@@ -74,8 +74,16 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
 
-
 <script type="text/javascript">
+ 
+
+   //Preloader
+   window.onload = function(){ 
+        // loader on page load 
+        $('.preloader').fadeOut('slow');
+         
+ }	
+    
 
 $(document).ready(function() { 
         $('#userTable').DataTable({}); 
@@ -89,6 +97,8 @@ $(document).ready(function() {
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+ 
 
 </script>
 </div>

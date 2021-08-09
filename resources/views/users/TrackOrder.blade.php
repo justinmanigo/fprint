@@ -35,7 +35,7 @@
                                 <tr id="oid{{$order->id}}">
                                     <td>{{$order->referenceNumber}}</td>
                                     <td>{{$order->user->name}}</td>
-                                    <td>{{$order->pickupDate}}</td>
+                                    <td>{{date('j F, Y', strtotime($order->pickupDate))}}</td>
                                     <td>{{$order->files->filename}}</td>
                                     <td>{{$order->modeOfPayment}}</td>
                                     <td>{{$order->grandTotalPrice}}</td>

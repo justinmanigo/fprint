@@ -36,11 +36,11 @@
                                   <tr id="tid{{$transaction->id}}">
                                       <td>{{$loop->iteration}}</td> 
                                       <td>{{$transaction->orders->referenceNumber}}</td>
-                                      <td>{{$transaction->orders->pickupDate}}</td>
+                                      <td>{{date('j F, Y', strtotime($transaction->orders->pickupDate))}}</td>
                                       <td>{{$transaction->orders->files->filename}}</td>
                                       <td>{{$transaction->orders->modeOfPayment}}</td>
                                       <td>{{$transaction->isPaid}}  
-                                      @if ($transaction->orders->modeOfPayment == "Gcash")
+                                      @if ($transaction->orders->modeOfPayment == "Gcash" && $transaction->isPaid == "Paid")
                                       <button onclick="viewReceipt({{$transaction->id}})" type="button" class="btn btn-outline-primary" ><i class="fa fa-credit-card"></i></button>
                                       @endif
                                       </td>
@@ -304,9 +304,10 @@ function getOrderInfo(valueId){
     //Get the data value
     var yourDateValue = new Date(data.transaction.orders.pickupDate); 
     //Format the date value
-    var formattedDate = yourDateValue.toISOString().substr(0, 10)
+    // var formattedDate = yourDateValue.toISOString().substr(0, 10)
+    var formattedDate2 = data.transaction.orders.pickupDate.toString().substr(0, 10);
     //Assign date value to date textbox
-    $('#pickupDate').val(formattedDate);
+    $('#pickupDate').val(formattedDate2);
     $('#referenceNumber').html(data.transaction.orders.referenceNumber);
     $('#price').val(data.price.price);
     $('#pageFrom').val(data.transaction.orders.files.pageFrom);

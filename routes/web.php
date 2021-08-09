@@ -61,6 +61,22 @@ Route::group(['middleware'=>'auth'], function(){
 
     });
 
+     //settings user routes
+     Route::group(['as'=>'users.'], function(){
+
+        //-view order
+        Route::get('/view',[OrdersController::class,'indexUser']);
+        // //  --add print price
+        // Route::post('/orderAdd',[OrdersController::class,'store'])->name('store');
+        // // --get product info
+        // Route::get('/getPrintPrice/{id}',[OrdersController::class,'getPrintPriceById']);
+        // //  --add print price
+        // Route::post('/payGcash',[OrdersController::class,'payGcash'])->name('payGcash');
+        // // --get order track info
+        // Route::get('/getTrackOrder/{id}',[LogsController::class,'getTrackOrder']);
+     
+
+    });
     
     //order form user routes
     Route::group(['as'=>'orderUser.'], function(){
@@ -102,14 +118,16 @@ Route::group(['middleware'=>'auth'], function(){
     //transaction form user routes
     Route::group(['as'=>'transactionUser.'], function(){
 
-    //-view order
-    Route::get('/myOrders',[TransactionsController::class,'indexUser']);
+        //-view order
+        Route::get('/myOrders',[TransactionsController::class,'indexUser']);
+        //  --edit order
+        Route::post('/editOrder',[TransactionsController::class,'edit'])->name('edit');
 
-    // --get order info
-    Route::get('/getMyOrder/{id}',[OrdersController::class,'userGetOrderById']);
+        // --get order info
+        Route::get('/getMyOrder/{id}',[OrdersController::class,'userGetOrderById']);
 
-     // --view order receipt
-     Route::get('/viewReceiptUser/{id}',[TransactionsController::class,'viewReceiptUser']);
+        // --view order receipt
+        Route::get('/viewReceiptUser/{id}',[TransactionsController::class,'viewReceiptUser']);
 
 
     });

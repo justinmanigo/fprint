@@ -16,10 +16,10 @@
 
                 <form id="orderFormTable"  enctype="multipart/form-data">
                     @csrf   
-                     
                     <div class="form-row mt-4">
                         <!-- pick up date -->
                         <div class="col-sm-12 pb-3">
+                        <label for="pickupDate">Pick Up Date</label>
                         <div class="form-check">
                         <label class="form-check-label" for="radio1">
                             <input type="radio" class="form-check-input" id="radio1" name="optradio" value="today" checked>Today
@@ -31,8 +31,6 @@
                         </label>
                         
                         </div>
-                            
-                            <label for="pickupDate">Pick up date:</label>
                             <input type="date" class="form-control col-sm-6" id="pickupDate"  placeholder="Enter first name" name="pickupDate" required>
                             <span class="text-danger">Please specify the date</span><br>
                             <span class="text-danger error-text pickupDate_err"></span>
@@ -45,7 +43,7 @@
                         </div>
                         <!-- size and isColored -->
                         <div class="col-sm-6 pb-3">
-                            <label for="printPrice_id">Paper size:</label>
+                            <label for="printPrice_id">Paper Size</label>
                                 <select class="form-control printPrice_id" id="printPrice_id" name="printPrice_id">
                                     <option disabled selected value> -- select an option -- </option>
                                     @if(isset($prices))
@@ -60,17 +58,9 @@
                                 </select>
                             <span class="text-danger error-text printPrice_id_err"></span>
                         </div>
-                        <!-- <div class="col-sm-4 pb-3">
-                            <label for="isColored">Type:</label><br>
-                                <select class="form-control" id="isColored">
-                                    <option value="Yes">Colored</option>
-                                    <option value="No">Black & White</option>
-                                </select>
-                                <span class="text-danger error-text isColored_err"></span>
-                        </div> -->
 
                         <div class="col-sm-6 pb-3">
-                            <label for="price">Price per paper:</label><br>
+                            <label for="price">Price Per Paper</label><br>
                             <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text">₱</span></div>
                                     <input type="number" class="form-control price" id="price" placeholder="" name="price"  value="0" style= "background-color: white" readonly>
@@ -79,23 +69,23 @@
                         </div>                    
 
                         <div class="col-sm-5 pb-3">
-                            <label for="pageFrom">Page from:</label>
+                            <label for="pageFrom">Page From</label>
                             <input type="number" class="form-control pageFrom" id="pageFrom" min="1" placeholder="Enter start page" name="pageFrom" required>
                             <span class="text-danger error-text pageFrom_err"></span>
                         </div>
                         <div class="col-sm-5 pb-3">
-                            <label for="pageTo">Page to:</label>
+                            <label for="pageTo">Page To</label>
                             <input type="number" class="form-control pageTo" id="pageTo" min="1" placeholder="Enter end page" name="pageTo" required>
                             <span class="text-danger error-text pageTo_err"></span>
                         </div>
                         <div class="col-sm-2 pb-3">
-                            <label for="totalPages">Total pages:</label>
+                            <label for="totalPages">Total Pages</label>
                             <input type="number" class="form-control totalPages" id="totalPages" placeholder="" name="totalPages"  style= "background-color: white" value="0" readonly>
                             <span class="text-danger error-text totalPages_err"></span>
                         </div>
 
                         <div class="col-sm-6 pb-3">
-                            <label for="noOfCopy">Number of copies:</label>
+                            <label for="noOfCopy">Number Of Copies</label>
                             <input type="number" class="form-control" id="noOfCopy" min="1" placeholder="Enter first name" name="noOfCopy" value="0" required>
                             <span class="text-danger error-text noOfCopy_err"></span>
                         </div>
@@ -103,7 +93,7 @@
                         
 
                         <div class="col-sm-6 pb-3">
-                            <label for="grandTotalPrice">Total price:</label><br>
+                            <label for="grandTotalPrice">Total Price</label><br>
                             <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text">₱</span></div>
                                     <input type="number" class="form-control" id="grandTotalPrice" placeholder="" name="grandTotalPrice" value="0" style= "background-color: white" readonly>
@@ -113,7 +103,7 @@
 
 
                         <div class="col-sm-6 pb-3">
-                            <label for="modeOfPayment">Mode of payment:</label><br>
+                            <label for="modeOfPayment">Mode Of Payment</label><br>
                                 <select class="form-control" id="modeOfPayment" name="modeOfPayment">
                                     <option disabled selected value> -- select an option -- </option>
                                     <option value="COP">Cash on Pickup</option>
@@ -124,15 +114,11 @@
                        
                         <div class="col-sm-6 pb-3">
                             <div class="form-row">
-                                <label class="col-md col-form-label" for="file">Upload file</label>
+                                <label class="col-md col-form-label" for="file">Upload File</label>
                                 <input type="file" class="form-control-file" name="file" id="file">
                                 <span class="text-danger error-text file_err"></span>
                             </div>
                         </div>
-
-                        
-                       
-                     
 
                             <!-- space -->
                             <div class="col-sm-12 pb-3">
@@ -177,7 +163,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalScrollableTitle">Terms and Agreement</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -199,7 +185,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Accept</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Accept</button>
        
       </div>
     </div>

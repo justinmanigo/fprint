@@ -25,9 +25,9 @@ class TransactionsController extends Controller
 
     public function indexUser(){
         Log::info(Auth::id());
-
+        $prices = printPrice::all();
         $transactions= transactions::where('user_id',Auth::id())->get();
-        return view('users.MyOrders')->with('transactions',$transactions);
+        return view('users.MyOrders')->with('prices',$prices)->with('transactions',$transactions);
 
     }
      
@@ -75,9 +75,79 @@ class TransactionsController extends Controller
      * @param  \App\Models\transactions  $transactions
      * @return \Illuminate\Http\Response
      */
-    public function edit(transactions $transactions)
+    public function edit(Request $request,transactions $transactions)
     {
         //
+        Log::info($request);
+        $validator = Validator::make($request->all(), [
+            'today' => 'yesterday',
+            'pickupDate' => 'date|date_format:Y-m-d|after_or_equal:today',
+            'printPrice_id' => 'required',
+            'pageFrom' => 'required|numeric|min:1|max:pageTo',
+            'pageTo'=> 'required|numeric|min:1',
+            'noOfCopy' => 'required|numeric|min:1',
+            'modeOfPayment' => 'required',
+            // 'file' => 'required|mimes:pdf,xlx,csv,docx,odt|max:2048',
+            // 'TermsAndCondition' => 'accepted',
+           
+        ]);
+        if($validator->passes()){
+
+            // $file = $request->file('file')->getClientOriginalName();
+            // Log::info($file);
+            // $file =  time().'_' .$file;  
+  
+            
+   
+            // $request->file->move(public_path('files'), $fileName);
+
+            $file1 = Files::find($request->file_id);
+            $file1->printPrice_id = $request->printPrice_id;
+            $file1->filename =  $request->file;
+            $file1->noOfCopy = $request->noOfCopy;
+            $file1->pageFrom = $request->pageFrom;
+            $file1->pageTo = $request->pageTo;
+            $file1->totalPages = $request->totalPages;
+            $file1->updated_at = now();
+            $file1->save();
+
+        
+            
+    
+           
+            $order =  Orders::find($request->order_id);
+            Log::info($order);
+            $order->pickupDate = $request->pickupDate;
+            $order->grandTotalPrice = $request->grandTotalPrice;
+            $order->modeOfPayment = $request->modeOfPayment;
+            $order->remarks = $request->remarks;
+            $order->updated_at = now();
+            $order->pickupDate = $request->pickupDate;
+            
+            $order->save();
+
+            // $order_id = Orders::all()->last();
+            // Log::info($order);
+            // $transaction = new transactions;
+            // $transaction->user_id = $user_id;
+            // $transaction->order_id = $order_id->id;
+            // $transaction->created_at = now();
+            // $transaction->updated_at = now();
+            // $transaction->save();
+
+              
+            // $transaction = Transactions::where("order_id", $request->order_id);
+            // $log = new Logs;
+            // $log->action = "Order has been reviewed";
+            // $log->transaction_id = $transaction->id;
+            // $log->updated_at = now();
+            // $log->created_at = now();
+            // $log->save();
+
+            return response()->json($order);
+        }
+
+        return response()->json(['error'=>$validator->errors()]);
     }
 
     /**
