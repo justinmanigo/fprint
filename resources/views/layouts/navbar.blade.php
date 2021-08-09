@@ -1,5 +1,6 @@
 <body>
-    <div id="app">
+    <div class="class=preloader" id="app">
+
       <div id="content-wrap">
         <nav class="bg-dark navbar navbar-expand-md navbar-dark bg-secondary shadow-sm">
             <div class="container">

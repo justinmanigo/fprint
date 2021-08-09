@@ -8,6 +8,9 @@ use App\Models\printPrice;
 use App\Models\Files;
 use App\Models\Logs;
 use App\Models\User;
+use App\Models\transactions;
+use Illuminate\Support\Facades\Log;
+ 
 
 class DashboardController extends Controller
 {
@@ -22,10 +25,19 @@ class DashboardController extends Controller
         $totalUsers = User::count();
         $totalOrders = Orders::count();
         $pendingOrders = Orders::where('status','Processed')->count();
-         
-        //  $prices= printPrice::all();
-        //  return view('admin.printPrice')->with('prices',$prices);
-        return view('admin.Dashboard');
+        $revenue = transactions::where('status','Delivered')->get();
+        Log::info($revenue);
+        $size = count($revenue);
+        $total = 0;
+        for($i=0 ; $i < $size ; $i++){
+            Log::info($revenue[$i]);
+            $price = $revenue[$i]->orders->grandTotalPrice;
+             
+            $total  = $total + $price;
+            
+        }
+        Log::info($total);
+        return view('admin.Dashboard')->with('pendingOrders',$pendingOrders)->with('totalOrders',$totalOrders)->with('totalUsers',$totalUsers)->with('revenue',$total);
     }
 
     /**

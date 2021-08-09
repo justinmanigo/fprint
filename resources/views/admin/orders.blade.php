@@ -35,7 +35,7 @@
                                     <td>{{$loop->iteration}}</td> 
                                     <td>{{$transaction->orders->referenceNumber}}</td>
                                     <td>{{$transaction->users->firstName}} {{$transaction->users->lastName}}</td>
-                                    <td>{{$transaction->orders->pickupDate}}</td>
+                                    <td>{{date('j F, Y', strtotime($transaction->orders->pickupDate))}}</td>
                                     <td>{{$transaction->orders->files->filename}}</td>
                                     <td>{{$transaction->orders->modeOfPayment}}</td>
                                     <td>₱{{number_format($transaction->orders->grandTotalPrice, 2, '.', ',')}}</td> 
@@ -224,10 +224,11 @@ function getOrderInfo(valueId){
     var yourDateValue = new Date(order.order.pickupDate);
     console.log(yourDateValue); 
     //Format the date value
-    var formattedDate = yourDateValue.toISOString().substr(0, 10);
-    console.log(formattedDate); 
+    // var formattedDate = yourDateValue.toISOString().substr(0, 10);
+    var formattedDate2 = order.order.pickupDate.toString().substr(0, 10);
+    
     //Assign date value to date textbox
-    $('#pickupDate').val(formattedDate);
+    $('#pickupDate').val(formattedDate2);
     $('#referenceNumber').html(order.order.referenceNumber);
     $('#price').val(order.price.price);
     $('#pageFrom').val(order.order.files.pageFrom);
