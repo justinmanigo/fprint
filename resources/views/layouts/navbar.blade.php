@@ -6,7 +6,13 @@
             <div class="container">
              
                 <!-- logo -->
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="
+                    @if(Route::currentRouteName() == "home")
+                        #    
+                    @else
+                        /
+                    @endif
+                ">
                     <img src="{{ asset('/img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
                     Falcon Printing Service
                 </a>
@@ -22,7 +28,13 @@
                         
                         @if(Auth::user())
                         <li class="nav-item active">
-                            <a href="/" class="nav-link"> Home</a>
+                            <a href="
+                                @if(Route::currentRouteName() == "home")
+                                    #    
+                                @else
+                                    /
+                                @endif
+                            " class="nav-link"> Home</a>
                         </li>
                         <li class="nav-item active">
                             <a href="/orderForm" class="nav-link"> Order Form </a>
