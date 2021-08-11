@@ -24,7 +24,7 @@ style="
     </div>
 </div>
 
-<div class="container my-5">
+<div id="about_us" class="container my-5">
     <div class="row">
         <div class="col-lg-7 py-3 py-lg-5 order-1 order-lg-0">
             <h1 class="display-3 fw-bold lh-1">About Us</h1>

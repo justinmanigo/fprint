@@ -18,7 +18,23 @@
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
                          
-                        
+                        @guest
+                        <li class="nav-item active">
+                            <a href="
+                                @if(Route::currentRouteName() == "home")
+                                    #    
+                                @else
+                                    /
+                                @endif
+                        " class="nav-link"> Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a href="#about_us" class="nav-link"> About Us</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a href="#printing_schedule" class="nav-link"> Printing Schedule</a>
+                        </li>
+                        @endguest
                         
                         @if(Auth::user())
                         <li class="nav-item active">

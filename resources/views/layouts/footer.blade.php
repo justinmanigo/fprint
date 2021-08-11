@@ -98,7 +98,7 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
- 
+var scroll = new SmoothScroll('a[href*="#"]');
 
 </script>
 </div>
