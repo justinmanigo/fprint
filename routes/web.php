@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Log;
 */
 Route::get('/', [HomeController::class,'index'])->name('home');
 
+
+Route::get('/index', [HomeController::class,'index2']);
 Auth::routes();
 
 // start route group
@@ -66,6 +68,13 @@ Route::group(['middleware'=>'auth'], function(){
 
         //-view order
         Route::get('/view',[OrdersController::class,'indexUser']);
+
+        //-view order
+        Route::get('/settings',[UsersController::class,'show']);
+
+        //  --edit user settings
+        Route::post('/editSettings',[UsersController::class,'edit'])->name('edit');
+          
         // //  --add print price
         // Route::post('/orderAdd',[OrdersController::class,'store'])->name('store');
         // // --get product info
