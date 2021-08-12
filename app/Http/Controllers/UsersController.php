@@ -5,6 +5,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Validator;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Hash;
 
 class UsersController extends Controller
 {
@@ -48,9 +51,14 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $user_id = Auth::id(); 
+
+        $user = User::find($user_id);
+        Log::info($user->password);
+        return view('UserSettings')->with('user',$user);
+
     }
 
     /**
@@ -59,9 +67,45 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Request $request)
+    {   
+            $validator = Validator::make($request->all(), [
+               
+                'firstName'=> 'required',
+                'lastName' => 'required',
+                'contact' => 'required',
+                'current_password' => 'required',
+                'password' => 'required|string|min:6|confirmed',
+                'password_confirmation' => 'required',
+                'current_password' =>'required',
+            
+            ]);
+            if($validator->passes()){
+            //
+            $err = 'Current password does not match!';
+            Log::info($request);
+            $user_id = Auth::id(); 
+            $user = User::find($user_id);
+            Log::info($request->current_password);
+            Log::info($user->password);
+            if (!Hash::check($request->current_password, $user->password)) {
+                log::info("error");
+                return response()->json(['error'=>$err]);
+               
+            }else{
+                Log::info("wa sod error");
+            }
+            $user->firstname = $request->firstName;
+            $user->lastName  = $request->lastName;
+            $user->contact  = $request->contact;
+            $user->password  = Hash::make($request->password);
+            $user->save();
+            Log::info($user);
+            return response()->json($request);
+
+            }
+
+        return response()->json(['error'=>$validator->errors()]);
     }
 
     /**

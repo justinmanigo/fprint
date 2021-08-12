@@ -45,4 +45,9 @@ class HomeController extends Controller
         else
             return view('home');
     }
+
+    public function index2(){
+
+        return view('Index');
+    }
 }

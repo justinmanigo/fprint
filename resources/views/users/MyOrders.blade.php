@@ -63,7 +63,7 @@
                                     @if ($transaction->orders->modeOfPayment == "Gcash" && $transaction->orders->status == "Confirmed" &&  $transaction->isPaid == "Not paid")
                                     <button onclick="pay({{$transaction->id}})" id="payButton" type="button" class="btn btn-outline-success" ><i class="fa fa-credit-card"></i></button>
                                     @endif
-                                    <button onclick="track({{$transaction->id}})"  type="button" class="btn btn-primary" data-toggle="modal" data-toggle="tooltip" data-placement="top" title="Track Order"> <i class="fa fa-truck"></i></button>
+                                    <button onclick="track({{$transaction->id}})"  type="button" class="btn btn-outline-info" data-toggle="modal" data-toggle="tooltip" data-placement="top" title="Track Order"> <i class="fa fa-truck"></i></button>
                                   </td>
                                
                                 </tr>

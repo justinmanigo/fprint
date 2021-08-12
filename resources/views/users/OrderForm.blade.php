@@ -256,11 +256,11 @@ $('#orderFormTable').on('submit',function(event){
 
                             
                         });
-                        }else{
-                          $(".text-danger").show();
-                          printErrorMsg(data.error);
-                          console.log("sod error");
-                        }
+                      }else{
+                        $(".text-danger").show();
+                        printErrorMsg(data.error);
+                        console.log("sod error");
+                      }
                 },
                   error: function(data) {
                       console.log(data);

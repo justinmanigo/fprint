@@ -12,8 +12,7 @@ style="
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-    margin-top:-24px;
-">
+    margin-top:-24px;">
     <div class="jumbotron d-flex align-items-center" style="background-color:transparent!important">
         <div class="container">
             <h1 class="display-1 text-white" style="letter-spacing: 10px;"><strong>F-PRINT</strong></h1>
