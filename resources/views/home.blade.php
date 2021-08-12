@@ -7,7 +7,7 @@
 id="hero" 
 class="px-2 pt-5 pb-4 text-center border-bottom" 
 style="
-    background-image:url('{{ asset('/img/adamson.jpg') }}');
+    background-image:url('{{ asset('/img/backround.png') }}');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
