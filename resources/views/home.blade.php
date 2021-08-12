@@ -22,6 +22,7 @@ style="
         </div>
     </div>
 </div>
+<img id="hero-border" src="{{ asset('img/background-with-border.png') }}">;
 
 <div id="about_us" class="container my-5">
     <div class="row">

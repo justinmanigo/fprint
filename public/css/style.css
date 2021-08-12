@@ -236,3 +236,11 @@
     background-position: center;
 
  }
+
+ /* hero bottom border */
+ #hero-border {
+  position: absolute;
+  left: 50%;
+  margin-top:-5px;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+}
