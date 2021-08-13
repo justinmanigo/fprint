@@ -26,7 +26,7 @@ style="
 <div id="about_us" class="container my-5">
     <div class="row">
         <div class="col-lg-7 py-3 py-lg-5 order-1 order-lg-0">
-            <h1 class="display-3 fw-bold lh-1">About Us</h1>
+            <h2 class="display-4 fw-bold lh-1">About Us</h2>
             <p class="lead">
                 F-Print is a web-based printing system that were created by four people, Jenine Seminiano, Aileen Guingon, Gab Morales, and Renzo Valera. The name F-Print was made because with your reservation anytime, you can get your printing needs done.
             </p>
