@@ -236,3 +236,35 @@
     background-position: center;
 
  }
+
+ #hero{
+  background-image:url('/img/backround.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  margin-top:-24px;
+ }
+
+  #printing_schedule_card{
+    background-color: #000000d2;
+    border-radius: 25px;
+  
+ }
+#printing_schedule_text{
+  
+  color: white;
+}
+
+#about_us{
+  background-color: #000000d2;
+  color:white;
+  margin-top: 0%;
+}
+
+#steps{
+  background-image:url('/img/Process.png');
+  background-repeat: no-repeat;
+
+  width:100%; /*width of your image*/
+  height:200px; /*height of your image*/
+}
