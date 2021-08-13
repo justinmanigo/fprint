@@ -719,10 +719,10 @@ function track(valueId){
    console.log(data);
  
   for(i=0;i<data.length;i++){
- 
+    var formattedDate =data[i].updated_at.toString().substr(0, 10);
     var html = '';
     html += '<h4>'+data[i].action+' </h4>';
-    html += '<h6>'+data[i].updated_at+' </h6>';
+    html += '<h6>'+formattedDate+' </h6>';
     html += '<hr>';
     $('#trackInfo').append(html);
   }

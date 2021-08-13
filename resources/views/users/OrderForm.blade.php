@@ -21,13 +21,15 @@
                         <div class="col-sm-12 pb-3">
                         <label for="pickupDate">Pick Up Date</label>
                         <div class="form-check">
-                        <label class="form-check-label" for="radio1">
-                            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="today" checked>Today
+                        <label class="form-check-label control radio" for="radio1">
+                            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="today" checked> 
+                            <span class="control-indicator"></span>Today
                         </label>
                         </div>
                              <div class="form-check">
-                            <label class="form-check-label" for="radio2"><br>
-                            <input type="radio" class="form-check-input" id="radio2" name="optradio" value="otherday">Other day
+                            <label class="form-check-label control radio" for="radio2">
+                            <input type="radio" class="form-check-input" id="radio2" name="optradio" value="otherday"> 
+                            <span class="control-indicator"></span>Other day
                         </label>
                         
                         </div>
@@ -114,8 +116,11 @@
                        
                         <div class="col-sm-6 pb-3">
                             <div class="form-row">
-                                <label class="col-md col-form-label" for="file">Upload File</label>
+                             
+                                <label class="col-md col-form-label" for="file">Upload File</label> 
                                 <input type="file" class="form-control-file" name="file" id="file">
+                              
+                                
                                 <span class="text-danger error-text file_err"></span>
                             </div>
                         </div>
@@ -135,8 +140,9 @@
 
                             <div class="col-sm-12 offset-5 pb-3 mt-3">
                                
-                                <label class="form-check-label" for="TermsAndCondition">
+                                <label class="form-check-label control checkbox" for="TermsAndCondition">
                                 <input class="form-check-input" type="checkbox" name="TermsAndCondition"  id="TermsAndCondition"  value="1" {{ old('TermsAndCondition') ? 'checked': null }}>
+                                <span class="control-indicator"></span>
                                 <a data-target="#myModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#myModal"> Terms and Agreement</a><br>
                                 <span class="text-danger error-text TermsAndCondition_err"></span>
                                 </label>
