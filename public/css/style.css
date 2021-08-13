@@ -237,6 +237,12 @@
 
  }
 
+/* Steps on Homepage */
+#steps_container h5 {color: #D74D30}
+
+#steps_container h2 {color: #07273C}
+
+/* Homepage changes by justin */
  #hero{
   background-image:url('/img/backround.png');
   background-repeat: no-repeat;
@@ -268,3 +274,6 @@
   width:100%; /*width of your image*/
   height:200px; /*height of your image*/
 }
+
+ 
+

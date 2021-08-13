@@ -38,6 +38,9 @@
                             <a href="#about_us" class="nav-link"> About Us</a>
                         </li>
                         <li class="nav-item active">
+                            <a href="#steps" class="nav-link"> Steps</a>
+                        </li>
+                        <li class="nav-item active">
                             <a href="#printing_schedule" class="nav-link"> Printing Schedule</a>
                         </li>
                         @endguest
