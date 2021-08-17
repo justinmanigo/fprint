@@ -1,4 +1,4 @@
-<body>
+<body id="body">
     <div class="class=preloader" id="app">
 
       <div id="content-wrap">
