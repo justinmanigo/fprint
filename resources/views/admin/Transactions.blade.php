@@ -41,7 +41,7 @@
                                       <td>{{$transaction->orders->modeOfPayment}}</td>
                                       <td>{{$transaction->isPaid}}  
                                       @if ($transaction->orders->modeOfPayment == "Gcash" && $transaction->isPaid == "Paid")
-                                      <button onclick="viewReceipt({{$transaction->id}})" type="button" class="btn btn-outline-primary" ><i class="fa fa-credit-card"></i></button>
+                                      <button onclick="viewReceipt({{$transaction->id}})" type="button" class="btn btn-outline-secondary" ><i class="fa fa-credit-card"></i></button>
                                       @endif
                                       </td>
                                       <td>₱{{number_format($transaction->orders->grandTotalPrice, 2, '.', ',')}}</td> 

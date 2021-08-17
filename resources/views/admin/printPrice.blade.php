@@ -12,7 +12,7 @@
                                     <h2>Manage <b>Paper Price</b></h2>
                                 </div>
                                 <div class="col-xs-7 col-md-12">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addprice">Add Price</button>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addprice">Add Price</button>
                                 </div>
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Paper size</th>
-                                    <th>Type</th>
+                                    <th>Colored</th>
                                     <th>Price</th>
                                     <th>Actions</th>
                                 </tr>
@@ -116,7 +116,7 @@
     <div id="addModal2" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Add Paper Price</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -152,7 +152,7 @@
             
           </div>  <!-- end modal body -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
       </form>  
