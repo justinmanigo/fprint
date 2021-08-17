@@ -21,7 +21,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Paper size</th>
-                                    <th>Type</th>
+                                    <th>Colored</th>
                                     <th>Price</th>
                                     <th>Actions</th>
                                 </tr>

@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-lg-6 offset-lg-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -49,7 +49,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group row mb-0">
                             <div class="col-lg-8 offset-lg-4">
@@ -74,7 +74,7 @@
 <script>
     $(document).ready(function(){
         $('#app').attr("style", 
-        "background-image:url('{{ asset('/img/adamson.jpg') }}');background-repeat: no-repeat;background-attachment: fixed;background-position: center;background-size: cover;")
+        "background-image:url('{{ asset('/img/backround.png') }}');background-repeat: no-repeat;background-attachment: fixed;background-position: center;background-size: cover;")
     });
 </script>
 @endsection

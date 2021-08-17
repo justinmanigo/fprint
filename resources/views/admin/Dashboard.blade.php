@@ -11,7 +11,7 @@
         <div class="col-md-3">
             <a href="/orders">
                 <div class="card-counter primary">
-                    <i class="fa  fa-shopping-cart"></i>
+                    <i class="fa fa-shopping-cart"></i>
                     <span class="count-numbers">{{$pendingOrders}}</span>
                     <span class="count-name">Pending Orders</span>
                 </div>
@@ -33,8 +33,8 @@
         <div class="col-md-3">
             <a href="#">
                 <div class="card-counter success">
-                    <i class="fa fa-money"></i>
-                    <span class="count-numbers">₱{{number_format($revenue, 2, '.', ',')}}</span>
+                    <i class="fas fa-money-bill"></i>
+                    <span class="count-numbers">₱ {{number_format($revenue, 2, '.', ',')}}</span>
                     <span class="count-name">Total Revenue</span>
                 </div>
             </a>

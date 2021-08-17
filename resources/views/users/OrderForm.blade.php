@@ -138,10 +138,10 @@
                                     </small>
                             </div>
 
-                            <div class="col-sm-12 offset-5 pb-3 mt-3">
+                            <div class="col-sm-12 offset-lg-5 pb-3 mt-3">
                                
                                 <label class="form-check-label control checkbox" for="TermsAndCondition">
-                                <input class="form-check-input" type="checkbox" name="TermsAndCondition"  id="TermsAndCondition"  value="1" {{ old('TermsAndCondition') ? 'checked': null }}>
+                                <input class="form-check-input" type="checkbox" name="TermsAndCondition" checked id="TermsAndCondition"  value="1" {{ old('TermsAndCondition') ? 'checked': null }}>
                                 <span class="control-indicator"></span>
                                 <a data-target="#myModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#myModal"> Terms and Agreement</a><br>
                                 <span class="text-danger error-text TermsAndCondition_err"></span>
@@ -164,6 +164,7 @@
 </div>
 <!-- end content -->
 
+<!-- start T&A modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="overflow-y: auto !important;">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -178,14 +179,14 @@
         By accessing placing an order with, you confirm that you are in agreement with and bound by the terms of service contained in the Terms of Conditions outlined below. These terms apply to the entire website and any email or other type of communication between you and Falcon Printing Service.
         Under no circumstances shall team be liable for any direct, indirect, special, incidental, or consequential damages, including, but not limited to, loss of data or profit, arising out of the use, or the inability to use, the materials on this site, even if team or an authorized representative has been advised of the possibility of such damages. If you use of materials from this site results in the need for servicing, repair or correction of equipment or data, you assume any cost thereof.
         Will not be responsible for any outcome that may occur during the course of usage of our resources. We reserve the rights to change prices and revise the resources usage policy in any moment.
-        
+        <br>
         <h2>Privacy Policy</h2>
         Falcon Printing Services. We are committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, used, and disclosed by Falcon Printing Services.
         This Privacy Policy applies to our website, falconprint.com and its associated subdomains collectively . By accessing or using our service, you signify that you read, understood, and agree to our collection, storage, use, and disclosure of your personal information as described in this Privacy Policy.  
-        
+        <br>
         <h2>Your Consent</h2>
         By using our service, registering an account, or making purchase, you consent to this Privacy Policy.
-
+        <br>
         <h2>Affiliates</h2>
         We may disclose information (including personal information) about you to our Corporate Affiliates. For purposes of this Privacy Policy, means any person or entity which directly or indirectly controls, is controlled by or is under common control with us, whether by ownership or otherwise. Any information relating to you that we provide to our Corporate Affiliate will be treated by those Corporate Affiliates in accordance with the terms of this Privacy Policy
         
@@ -197,6 +198,8 @@
     </div>
   </div>
 </div>
+<!-- end T&A modal -->
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <script>
@@ -254,12 +257,12 @@ $('#orderFormTable').on('submit',function(event){
                         Swal.fire({
                             icon: 'success',
                             title: 'Order Added. Your Order number is:' +data.referenceNumber ,
-                            showConfirmButton: false,
-                            timer: 2000
+                            showConfirmButton: true,
+                            confirmButtonText: 'Proceed'
                             }).then((result) => {
-
-                                // window.location.href = "{{url('/myOrders')}}";
-
+                              if (result.isConfirmed) {
+                                 window.location.href = "{{url('/myOrders')}}";
+                              }
                             
                         });
                       }else{

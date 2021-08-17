@@ -13,7 +13,7 @@
                         /
                     @endif
                 ">
-                    <img src="{{ asset('/img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+                    <img src="{{ asset('/img/logo.png') }}" width="30" height="30" class="d-inline-block align-top rounded" alt="">
                     Falcon Printing Service
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -38,7 +38,7 @@
                             <a href="#about_us" class="nav-link"> About Us</a>
                         </li>
                         <li class="nav-item active">
-                            <a href="#steps" class="nav-link"> Steps</a>
+                            <a href="#steps" class="nav-link"> Let's Print</a>
                         </li>
                         <li class="nav-item active">
                             <a href="#printing_schedule" class="nav-link"> Printing Schedule</a>
@@ -46,7 +46,7 @@
                         @endguest
                         
                         @if(Auth::user())
-                        <li class="nav-item active">
+                        <!-- <li class="nav-item active">
                             <a href="
                                 @if(Route::currentRouteName() == "home")
                                     #    
@@ -54,6 +54,16 @@
                                     /
                                 @endif
                             " class="nav-link"> Home</a>
+                        </li> -->
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Home
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/">Home</a>
+                            <a class="dropdown-item" href="/">About Us</a>
+                            <a class="dropdown-item" href="/">Let's Print</a>
+                            <a class="dropdown-item" href="/">Printing Schedule</a>
                         </li>
                         <li class="nav-item active">
                             <a href="/orderForm" class="nav-link"> Order Form </a>
@@ -76,10 +86,6 @@
                             <a class="dropdown-item" href="/transactions">Transactions</a>
                             <a class="dropdown-item" href="/printprice">Print Price</a>
                             <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                            
-                            <!-- <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            </div> -->
                         </li>
                         @endif
                     </ul>
@@ -113,7 +119,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                               
+                                    <a class="dropdown-item" href="/settings">
+                                            {{ __('Settings') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -123,9 +132,6 @@
                                      @csrf
                                     </form>
                                   
-                                    <a class="dropdown-item" href="/settings">
-                                        {{ __('Settings') }}
-                                    </a>
                                 </div>
                                 
                             </li>
@@ -140,4 +146,8 @@
         <main class="pt-4 pb-lg-0">
             @yield('content')
         </main>
+           <!-- Scroll to top button -->
+           <div class="d-flex justify-content-end mb-3">
+            <button  class="scrollToTopBtn" id="scrollToTopBtn"> ↑</button><br>
+            </div>
     </div>
