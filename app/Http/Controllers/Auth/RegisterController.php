@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'contact' => ['required','string','min:11','max:13'],
             'idNumber' => ['required','integer','unique:users','digits:9'],
+            'TermsAndCondition' => ['accepted'],
         ]);
     }
 

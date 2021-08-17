@@ -1,3 +1,11 @@
+/* #font1{
+   font-family: 'Merriweather', serif !important; 
+}
+
+#font2{
+  font-family: 'Roboto', sans-serif !important;
+} */
+
 .navbar {
      
 }
@@ -261,7 +269,9 @@
   color: white;
 }
 
-#about_us{
+
+
+/* #about_us{
   background-color: #000000d2;
   color:white;
   margin-top: 0%;
@@ -271,9 +281,52 @@
   background-image:url('/img/Process.png');
   background-repeat: no-repeat;
 
-  width:100%; /*width of your image*/
-  height:200px; /*height of your image*/
+  width:100%; 
+  height:200px; 
+} */
+ 
+/* .card {
+  background-color: #343a40!important;
+  color:white;
 }
+ 
+  */
+
+  * {
+    box-sizing: border-box
+  }
+  
 
  
-
+      
+  .scrollToTopBtn {
+    background-color: black;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 48px;
+    width: 48px;
+    
+    /* place it at the bottom right corner */
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    /* keep it at the top of everything else */
+    z-index: 100;
+    /* hide with opacity */
+    opacity: 0;
+    /* also add a translate effect */
+    transform: translateY(100px);
+    /* and a transition */
+    transition: all .5s ease
+  }
+      
+  .showBtn {
+    opacity: 1;
+    transform: translateY(0)
+  }
+  
+  
+  

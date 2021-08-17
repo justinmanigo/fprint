@@ -41,7 +41,7 @@
                                      <td>{{$transaction->orders->modeOfPayment}}</td>
                                      <td>{{$transaction->isPaid}}
                                      @if ($transaction->orders->modeOfPayment == "Gcash" && $transaction->isPaid == "Paid")
-                                      <button onclick="viewReceipt({{$transaction->id}})" type="button" class="btn btn-outline-primary" ><i class="fa fa-credit-card"></i></button>
+                                      <button onclick="viewReceipt({{$transaction->id}})" type="button" class="btn btn-outline-secondary" ><i class="fa fa-credit-card"></i></button>
                                       @endif
                                      </td>
                                      <td>₱{{number_format($transaction->orders->grandTotalPrice, 2, '.', ',')}}</td> 
@@ -415,7 +415,7 @@
       <div class="modal-body">     
 
 
-      <div id="trackInfo"></dib>
+      <div id="trackInfo"></div>
 
       <!-- <h3>Your order has been confirmed </h3>
       <h6> 2021-5-5 </h6> -->
@@ -549,13 +549,13 @@ $('#viewOrderForm').on('submit',function(event){
                   timer: 1000
                 }).then((result) => {
                     // Reload the Page
-                    // location.reload();
+                     location.reload();
                     console.log(data);
                   
                 });
 
-                // $('#editModal').modal('toggle');
-                // $('#viewOrderForm')[0].reset();   
+                 $('#viewOrderForm').modal('toggle');
+                $('#viewOrderForm')[0].reset();   
 
               },
               error: function(data) {
@@ -721,8 +721,14 @@ function track(valueId){
   for(i=0;i<data.length;i++){
     var formattedDate =data[i].updated_at.toString().substr(0, 10);
     var html = '';
-    html += '<h4>'+data[i].action+' </h4>';
+    html +='<div class="row">';
+    html +='<div class="col-md-3">';
     html += '<h6>'+formattedDate+' </h6>';
+    html +='</div>';
+    html +='<div class="col-md-9">';
+    html += '<h4>'+data[i].action+' </h4>';
+    html +='</div>';
+    html +='</div>';
     html += '<hr>';
     $('#trackInfo').append(html);
   }
