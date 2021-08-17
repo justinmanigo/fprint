@@ -4,8 +4,8 @@
 @section('content')
 
 <div 
-id="hero" 
-class="px-2 pt-5 pb-4 text-center border-bottom">
+id="hero" class="px-2 pt-5 pb-4 text-center border-bottom">
+
     <div class="jumbotron d-flex align-items-center" style="background-color:transparent!important">
         <div class="container">
             <h1 id="font2" class="display-1 text-white" style="letter-spacing: 10px;"><strong>F-PRINT</strong></h1>
@@ -15,6 +15,7 @@ class="px-2 pt-5 pb-4 text-center border-bottom">
         </div>
     </div>
 </div>
+<img id="hero-border" src="{{ asset('img/background-with-border.png') }}">;
 
 <div id="about_us" class="container my-5">
     <div class="row">

@@ -245,6 +245,16 @@
 
  }
 
+
+ /* hero bottom border */
+ #hero-border {
+  position: absolute;
+  left: 50%;
+  margin-top:-5px;
+  width: 100%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
 /* Steps on Homepage */
 #steps_container h5 {color: #D74D30}
 
@@ -330,3 +340,4 @@
   
   
   
+
