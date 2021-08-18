@@ -33,34 +33,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="form-group row">
-                            <label for="email" class="col-lg-4 col-form-label text-lg-right">{{ __('Adamson E-Mail') }}</label>
-
-                            <div class="col-lg-6"> 
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"  value="{{ $user->email }}"  name="email" required  pattern="[a-z0-9._%+-]+@adamson.edu.ph" title="Invalid Email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="idNumber" class="col-lg-4 col-form-label text-lg-right">{{ __('ID Number') }}</label>
-
-                            <div class="col-lg-6">
-                                <input id="idNumber" type="text" class="form-control @error('idNumber') is-invalid @enderror" name="idNumber" value="{{  $user->idNumber }}" required  autofocus>
-
-                                @error('idNumber')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div> -->
-
                         <div class="form-group row">
                             <label for="contact" class="col-lg-4 col-form-label text-lg-right">{{ __('Contact Number') }}</label>
 
@@ -134,7 +106,6 @@ $('#userSettingsForm').on('submit',function(event){
 
          Swal.fire({
           title: 'Are you sure?',
-          // text: "Once deleted, you will not be able to recover this!",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -152,7 +123,6 @@ $('#userSettingsForm').on('submit',function(event){
                   success:function(data){
                         
                     if($.isEmptyObject(data.error)){
-                        // alert(data.success);
                         console.log(data.error)
                         console.log("sod success");
                         $(".text-danger").hide();
@@ -172,7 +142,6 @@ $('#userSettingsForm').on('submit',function(event){
                     }
                 },
                   error: function(data) {
-                    //   console.log(data);
                       alert("wa sod");
                   }
                 });

@@ -43,7 +43,6 @@
                                    
                                     <td>  
                                     <button onclick="getOrderInfo({{$order->id}})" type="button" class="btn btn-outline-success" >view</button>
-                                    <!-- <button onclick="deleteStaff({{$order->id}})" type="button" class="btn btn-danger" >delete</button> -->
                                     </td>
                                
                                 </tr>
@@ -171,9 +170,6 @@
                           <div class="form-row">
                               <label class="col-md col-form-label" for="file">File</label>
                               <input type="text" class="form-control file" id="file" placeholder="" name="file"  value="" style= "background-color: white" readonly>
-                              <!-- <object data="http://www.africau.edu/images/default/sample.pdf" type="application/pdf" width="100%" height="100%"> -->
-                              <!-- <input type="file" class="form-control-file" name="file" id="file">
-                              <span class="text-danger error-text file_err"></span> -->
                           </div>
                       </div>
                      
@@ -199,12 +195,7 @@
                     </div>
 
                     <!-- footer -->
-                    <div class="modal-footer" id="footer"></div>
-                     
-                    <!-- <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-danger">Cancelled</button>
-                      <button   type="submit" class="btn btn-success">Accept</button>
-                    </div> -->
+                    <div class="modal-footer" id="footer"></div>        
                     
           </form>  
         
@@ -222,12 +213,12 @@ function getOrderInfo(valueId){
 $.get('/getOrder/'+valueId,function(order){  
   
   console.log(order);
-    //Get the data value
-    var yourDateValue = new Date(order.order.pickupDate); 
-    //Format the date value
-    var formattedDate = yourDateValue.toISOString().substr(0, 10)
-    //Assign date value to date textbox
-    $('#pickupDate').val(formattedDate);
+  //Get the data value
+  var yourDateValue = new Date(order.order.pickupDate); 
+  //Format the date value
+  var formattedDate = yourDateValue.toISOString().substr(0, 10)
+  //Assign date value to date textbox
+  $('#pickupDate').val(formattedDate);
   $('#referenceNumber').html(order.order.referenceNumber);
   $('#price').val(order.price.price);
   $('#pageFrom').val(order.order.files.pageFrom);
@@ -240,13 +231,10 @@ $.get('/getOrder/'+valueId,function(order){
   $('#file').val(order.order.files.filename);
   $('#remarks').val(order.order.remarks);
   $('#id').val(order.order.id);
-  if(order.price.isColored === "Yes"){
-    var type = "Colored";
-  }else{
-    var type = "Black & White";
-  }
-  var size = order.price.size +"-"+type;
-  $('#praperSize').val(size);
+
+  var type;
+  (order.price.isColored === "Yes") ?  type = "Colored" : type = "Black & White";
+  $('#praperSize').val(order.price.size +"-"+type);
   
  
 
@@ -265,11 +253,8 @@ $.get('/getOrder/'+valueId,function(order){
 }
 //end get order info 
 
-//start accept order referenceNumber
+//start accept order 
 $('#viewOrderForm').on('submit',function(event){
- 
-    
-
     event.preventDefault();
         $.ajaxSetup({
           headers: {
@@ -281,7 +266,6 @@ $('#viewOrderForm').on('submit',function(event){
 
       Swal.fire({
         title: 'Are you sure?',
-        // text: "Once deleted, you will not be able to recover this!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -297,7 +281,6 @@ $('#viewOrderForm').on('submit',function(event){
                 console.log(data);
                 
                 if($.isEmptyObject(data.error)){
-                    // alert(data.success);
                         console.log("sod success");
                         $(".text-danger").hide();
 
@@ -307,13 +290,7 @@ $('#viewOrderForm').on('submit',function(event){
                         showConfirmButton: false,
                         timer: 1000
                         })
-                        // $("#tid" + data.id +' td:nth-child(2)').text(data.id);
-                        // $("#tid" + data.id +' td:nth-child(3)').text(data.type_name);
-                        // $("#tid" + data.id +' td:nth-child(4)').text(data.updated_at);
-                    
-                        
-                        // $('#editTypeModal').modal('toggle');
-                        // $('#editTypeForm')[0].reset();   
+                          location.reload();  
                 }else{
                         $(".text-danger").show();
                         printErrorMsg(data.error);

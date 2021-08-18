@@ -180,7 +180,6 @@ $('#newPriceForm').on('submit',function(event){
 
       Swal.fire({
       title: 'Are you sure do you want to add?',
-      // text: "Once deleted, you will not be able to recover this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -199,8 +198,6 @@ $('#newPriceForm').on('submit',function(event){
                   success:function(data){
                         console.log(data);
                     if($.isEmptyObject(data.error)){
-                      // alert(data.success);
-                      console.log("sod success");
                       $(".text-danger").hide();
                       Swal.fire({
                         icon: 'success',
@@ -246,7 +243,6 @@ $('#editPrintPriceForm').on('submit',function(event){
   var formData = new FormData(this);
   Swal.fire({
       title: 'Are you sure do you want to add?',
-      // text: "Once deleted, you will not be able to recover this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -255,7 +251,6 @@ $('#editPrintPriceForm').on('submit',function(event){
       }).then((result) => {
           if (result.isConfirmed) {
               $.ajax({
-
                   url:"{{route('printPrice.editPrice')}}",
                   type:'post',
                   data: formData,
@@ -265,7 +260,6 @@ $('#editPrintPriceForm').on('submit',function(event){
                   success:function(data){
                         console.log(data);
                     if($.isEmptyObject(data.error)){
-                      // alert(data.success);
                       console.log("sod success");
                       $(".text-danger").hide();
                       Swal.fire({
@@ -299,11 +293,9 @@ $('#editPrintPriceForm').on('submit',function(event){
 //end editPrintPriceForm
 
 //start get user info 
- 
 function getPriceInfo(valueId){
     $("#editPrintPriceForm").trigger("reset");
     $.get('/getPrintPriceInfo/'+valueId,function(data){   
-
         console.log(data);
         $('#edit_size').val(data.size);
         $('#edit_isColored').val(data.isColored);
@@ -340,9 +332,8 @@ function deletePrintPrice(valueId){
                _token: $("input[name=_token]").val()
              },
              success:function(data) {
-           //   remove datatooltip in UI
+            //   remove datatooltip in UI
               location.reload();
-            //  $("#pid"+id).remove();
              Swal.fire({
              icon: 'success',
              title: 'Print price deleted',

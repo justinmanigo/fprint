@@ -26,7 +26,7 @@ class OrdersController extends Controller
     {
         //
         $transactions = transactions::join('Orders', 'Orders.id', '=', 'transactions.order_id')
-                                    ->where('Orders.status', 'Processed')->get();
+                                     ->where('Orders.status', 'Processed')->get();
         $orders = Orders::all();
         return view('admin.orders')->with('orders',$orders)->with('transactions',$transactions);
     }
@@ -45,15 +45,6 @@ class OrdersController extends Controller
         return view('users.OrderForm')->with('prices',$prices)->with('sizeUnique',$sizeUnique);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -103,7 +94,6 @@ class OrdersController extends Controller
             $referenceNumber = Str::random(10);
             $user_id = Auth::id(); 
             $order = new Orders;
-            // $order->user_id = $user_id;
             $order->file_id = $file->id;
             $order->referenceNumber =  Str::random(10);
            
@@ -120,9 +110,11 @@ class OrdersController extends Controller
                 $order->pickupDate = $request->pickupDate;
             }
             $order->save();
-
+            
+            // get last order id 
             $order_id = Orders::all()->last();
             Log::info($order);
+            
             $transaction = new transactions;
             $transaction->user_id = $user_id;
             $transaction->order_id = $order_id->id;
@@ -144,51 +136,6 @@ class OrdersController extends Controller
 
         return response()->json(['error'=>$validator->errors()]);
         
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Orders  $orders
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Orders $orders)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Orders  $orders
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Orders $orders)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Orders  $orders
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Orders $orders)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Orders  $orders
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Orders $orders)
-    {
-        //
     }
 
     // user
@@ -237,7 +184,6 @@ class OrdersController extends Controller
     }
 
      
-
     // accept order
     public function acceptOrder(Request $request){
         $order = Orders::find($request->id);
@@ -259,6 +205,7 @@ class OrdersController extends Controller
         return response()->json($order);
     }
 
+    // cancel order
     public function cancelOrder(Request $request){
 
         Log::info($request);
@@ -283,6 +230,8 @@ class OrdersController extends Controller
         return response()->json($order);
     }
 
+
+    // pay via gcash
     public function payGcash(Request $request){
         Log::info($request);
         $validator = Validator::make($request->all(), [

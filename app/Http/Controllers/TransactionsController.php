@@ -13,15 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Validator;
 class TransactionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    
 
     public function indexUser(){
         Log::info(Auth::id());
@@ -37,38 +29,9 @@ class TransactionsController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+   
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\transactions  $transactions
-     * @return \Illuminate\Http\Response
-     */
-    public function show(transactions $transactions)
-    {
-        //
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      *
@@ -87,20 +50,11 @@ class TransactionsController extends Controller
             'pageTo'=> 'required|numeric|min:1',
             'noOfCopy' => 'required|numeric|min:1',
             'modeOfPayment' => 'required',
-            // 'file' => 'required|mimes:pdf,xlx,csv,docx,odt|max:2048',
-            // 'TermsAndCondition' => 'accepted',
+           
            
         ]);
         if($validator->passes()){
-
-            // $file = $request->file('file')->getClientOriginalName();
-            // Log::info($file);
-            // $file =  time().'_' .$file;  
-  
-            
    
-            // $request->file->move(public_path('files'), $fileName);
-
             $file1 = Files::find($request->file_id);
             $file1->printPrice_id = $request->printPrice_id;
             $file1->filename =  $request->file;
@@ -111,10 +65,7 @@ class TransactionsController extends Controller
             $file1->updated_at = now();
             $file1->save();
 
-        
-            
-    
-           
+
             $order =  Orders::find($request->order_id);
             Log::info($order);
             $order->pickupDate = $request->pickupDate;
@@ -126,23 +77,6 @@ class TransactionsController extends Controller
             
             $order->save();
 
-            // $order_id = Orders::all()->last();
-            // Log::info($order);
-            // $transaction = new transactions;
-            // $transaction->user_id = $user_id;
-            // $transaction->order_id = $order_id->id;
-            // $transaction->created_at = now();
-            // $transaction->updated_at = now();
-            // $transaction->save();
-
-              
-            // $transaction = Transactions::where("order_id", $request->order_id);
-            // $log = new Logs;
-            // $log->action = "Order has been reviewed";
-            // $log->transaction_id = $transaction->id;
-            // $log->updated_at = now();
-            // $log->created_at = now();
-            // $log->save();
 
             return response()->json($order);
         }
@@ -180,16 +114,6 @@ class TransactionsController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\transactions  $transactions
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(transactions $transactions)
-    {
-        //
-    }
 
       // admin get transactions
       public function adminGetOrderById($id){

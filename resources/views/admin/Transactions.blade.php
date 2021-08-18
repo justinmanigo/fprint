@@ -152,12 +152,29 @@
                               <input type="text" class="form-control price" id="noOfCopy" placeholder="" name="noOfCopy"  value="" style= "background-color: white" readonly>
                               <span class="text-danger error-text noOfCopy_err"></span>
                           </div>
-                          <!-- MOP -->
+                          <!-- upload file -->
                           <div class="col-sm-6 pb-3">
+                            
+                                   <label for="file">File name:</label>
+                                  <input type="text" class="form-control file" id="file" placeholder="" name="file"  value="" style= "background-color: white" readonly>
+                                  <span class="text-danger error-text file_err"></span>
+                          </div>
+                          
+                           <!-- MOP -->
+                           <div class="col-sm-6 pb-3">
                               <label for="modeOfPayment">Mode of payment:</label><br>
                               <input type="text" class="form-control price" id="modeOfPayment" placeholder="" name="modeOfPayment"  value="" style= "background-color: white" readonly>
                               <span class="text-danger error-text modeOfPayment_err"></span>
                           </div>
+                            
+                          <!-- total price -->
+                          <div class="col-sm-6 pb-3">
+                              <label for="status">Order satus:</label><br>
+                                      <input type="text" class="form-control status" id="status" placeholder="" name="status"  value="" style= "background-color: white" readonly>
+                                      <span class="text-danger error-text status_err"></span>
+                          </div>   
+                           
+
                           <!-- total price -->
                           <div class="col-sm-6 pb-3">
                               <label for="grandTotalPrice">Total price:</label><br>
@@ -166,22 +183,12 @@
                                       <input type="text" class="form-control grandTotalPrice" id="grandTotalPrice" placeholder="" name="grandTotalPrice"  value="" style= "background-color: white" readonly>
                                       <span class="text-danger error-text grandTotalPrice_err"></span>
                               </div>
-                          </div>   
-                          <!-- total price -->
-                          <div class="col-sm-6 pb-3">
-                              <label for="status">Order satus:</label><br>
-                                      <input type="text" class="form-control status" id="status" placeholder="" name="status"  value="" style= "background-color: white" readonly>
-                                      <span class="text-danger error-text status_err"></span>
-                          </div>   
-                          <!-- upload file -->
-                          <div class="col-sm-6 pb-3">
-                              <div class="form-row">
-                                  <label class="col-md col-form-label" for="file">File</label>
-                                  <input type="text" class="form-control file" id="file" placeholder="" name="file"  value="" style= "background-color: white" readonly>
-                                  <!-- <object data="http://www.africau.edu/images/default/sample.pdf" type="application/pdf" width="100%" height="100%"> -->
-                                  <!-- <input type="file" class="form-control-file" name="file" id="file">
-                                  <span class="text-danger error-text file_err"></span> -->
-                              </div>
+                          </div>  
+                         
+                           <!--isPaid -->
+                           <div class="col-sm-6  pb-3">
+                                <label for="isPaid">Transaction Payment</label>
+                                <input type="text" class="form-control isPaid" id="isPaid" placeholder="" name="isPaid"  value="" style= "background-color: white" readonly>
                           </div>
 
                           <!-- Remarks -->
@@ -193,17 +200,11 @@
                                   </small>
                           </div>
 
-                          <!--isPaid -->
-                          <div class="col-sm-6  pb-3 mt-2">
-                                <label for="isPaid">Transaction Payment</label>
-                                <input type="text" class="form-control isPaid" id="isPaid" placeholder="" name="isPaid"  value="" style= "background-color: white" readonly>
-                          </div>
+                           <!-- Cancelled Order Reason -->
+                           <div id="cancelledTextArea" class="col-md-12 pb-2 mt-2">
 
-                          <!-- transaction status file -->
-                          <div class="col-sm-6 pb-3 mt-2">
-                                <label  for="transactionStatus">Transaction Status</label>
-                                <input type="text" class="form-control transactionStatus" id="transactionStatus" placeholder="" name="transactionStatus"  value="" style= "background-color: white" readonly>
-                          </div>
+                           </div>
+
 
                           <!-- token -->
                           <input type="hidden" name="e_token" id="e_token" value="{{ csrf_token() }}">
@@ -217,7 +218,7 @@
                           </div>
                       
                           <!-- transaction status -->
-                          <div class="col-sm-6 pb-3">
+                          <div id="updateTransactionSatusDiv" class="col-sm-6 pb-3">
                               <label for="updateTransactionStatus">Update order transaction status:</label><br>
                                   <select class="form-control updateTransactionStatus" id="updateTransactionStatus" name="updateTransactionStatus">
                                       <option disabled selected value> -- select an option -- </option>
@@ -261,7 +262,6 @@
                         <div class="form-row mt-4">
                                   <!-- pick up date -->
                                   <div class="col-12" id="receiptImage">
-                                  
                                   <h5>Receipt Image:</h5>
                                   
                                   </div>
@@ -304,7 +304,6 @@ function getOrderInfo(valueId){
     //Get the data value
     var yourDateValue = new Date(data.transaction.orders.pickupDate); 
     //Format the date value
-    // var formattedDate = yourDateValue.toISOString().substr(0, 10)
     var formattedDate2 = data.transaction.orders.pickupDate.toString().substr(0, 10);
     //Assign date value to date textbox
     $('#pickupDate').val(formattedDate2);
@@ -322,28 +321,29 @@ function getOrderInfo(valueId){
     $('#isPaid').val(data.transaction.isPaid);
     $('#transactionStatus').val(data.transaction.status);
     $('#id').val(data.transaction.id);
-    if(data.price.isColored === "Yes"){
-      var type = "Colored";
-    }else{
-      var type = "Black & White";
-    } 
-    var size = data.price.size +"-"+type;
-    $('#praperSize').val(size);
+
+    // order status
+    (data.transaction.status == null) ? $('#status').val(data.transaction.orders.status) :  $('#status').val(data.transaction.status);
+    // update button
+    (data.transaction.orders.status === "Confirmed") ? $("#update").show() :  $("#update").hide();
+
+    // Paper Size
+    var type;
+    (data.price.isColored === "Yes") ?  type = "Colored" : type = "Black & White";
+    $('#praperSize').val(data.price.size +" - "+type);
   
-   
+    if(data.transaction.orders.status == "Cancelled"){
+      $("#updateTransactionSatusDiv").hide();
+      $("#footer").hide();
+      var html = '';
+        html += ' <label style="color:red" for="cancelledReason">Cancelled Reason</label>';
+        html += ' <textarea class="form-control" id="cancelledReason" name="cancelledReason" style="background-color: white" readonly></textarea>';
+        html += ' <small class="text-info">';
+      $('#cancelledTextArea').append(html);
+    }
+    $('#cancelledReason').val(data.transaction.orders.cancelledReason);
 
-    if(data.transaction.orders.status === "Confirmed"){  
-          var html = '';
-          // html += ' <button type="button" class="btn btn-outline-danger">Cancelled</button>';
-          // html += ' <button   type="submit" class="btn btn-success">Update</button>';
-          
-          $("#update").show();
-      // $('#footer').append(html);
-      }else{
-
-        $("#update").hide();
-      }
-      // Delivered Ready for pick up Printing in process
+      // order status update select option
       $(".updateTransactionStatus option").filter(function() {
         return $(this).data().number === 0
       }).prop("disabled", false)
@@ -406,7 +406,6 @@ $('#viewTransactionForm').on('submit',function(event){
               console.log(data);
                 
                 if($.isEmptyObject(data.error)){
-                    // alert(data.success);
                         console.log("sod success");
                         $(".text-danger").hide();
 
@@ -420,7 +419,7 @@ $('#viewTransactionForm').on('submit',function(event){
                         location.reload();
                         
                         $('#viewModal').modal('toggle');
-                        //  $('#viewModal')[0].reset();   
+                        $('#viewModal')[0].reset();   
                 }else{
                         $(".text-danger").show();
                         printErrorMsg(data.error);
@@ -447,8 +446,6 @@ function viewReceipt(valueId){
   $('#receiptImage').empty();
   $.get('/viewReceiptAdmin/'+valueId,function(data){ 
   console.log(data);
-
-  // <img src="{{ asset('/img/qrgcash.png') }}" id="qr"class="img-thumbnail rounded mx-auto d-block" alt="...">
   $("#refNumReceipt").text(data.refNumReceipt);    
 
      
@@ -464,8 +461,17 @@ function viewReceipt(valueId){
 
 }
 //end view gcash receipt uploaded
+
+// printing error message  for validation start
+function printErrorMsg (msg) {
+            console.log("sod message");
+            $.each( msg, function( key, value ) {
+            console.log(key);
+              $('.'+key+'_err').text(value);
+            });
+}
+// printing error message end
 </script>
  
 
- 
 @endsection
