@@ -44,7 +44,6 @@
                                     <td>  
                                     <a href="{{url('/viewOrder',$transaction->id)}}" type="button" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="View File Uploaded" target="_blank" rel="noopener noreferrer"><span class="fa fa-print"></span></a>
                                     <button onclick="getOrderInfo({{$transaction->order_id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-eye"></i></button>
-                                    <!-- <button onclick="deleteStaff({{$transaction->order_id}})" type="button" class="btn btn-danger" >delete</button> -->
                                     </td>
                                
                                 </tr>
@@ -171,9 +170,6 @@
                           <div class="form-row">
                               <label class="col-md col-form-label" for="file">File</label>
                               <input type="text" class="form-control file" id="file" placeholder="" name="file"  value="" style= "background-color: white" readonly>
-                              <!-- <object data="http://www.africau.edu/images/default/sample.pdf" type="application/pdf" width="100%" height="100%"> -->
-                              <!-- <input type="file" class="form-control-file" name="file" id="file">
-                              <span class="text-danger error-text file_err"></span> -->
                           </div>
                       </div>
                       <!-- space -->
@@ -184,9 +180,6 @@
                       <div class="col-md-12 pb-2 mt-2">
                               <label for="remarks">Remarks</label>
                               <textarea class="form-control" id="remarks" name="remarks" style= "background-color: white" readonly></textarea>
-                              <small class="text-info">
-                              <!-- Add the packaging note here. -->
-                              </small>
                       </div>
                         <!-- token -->
                         <input type="hidden" name="e_token" id="e_token" value="{{ csrf_token() }}">
@@ -224,7 +217,6 @@ function getOrderInfo(valueId){
     var yourDateValue = new Date(order.order.pickupDate);
     console.log(yourDateValue); 
     //Format the date value
-    // var formattedDate = yourDateValue.toISOString().substr(0, 10);
     var formattedDate2 = order.order.pickupDate.toString().substr(0, 10);
     
     //Assign date value to date textbox
@@ -296,8 +288,6 @@ $('#viewOrderForm').on('submit',function(event){
               console.log(data);
                 
                 if($.isEmptyObject(data.error)){
-                    // alert(data.success);
-                        console.log("sod success");
                         $(".text-danger").hide();
 
                         Swal.fire({
@@ -310,7 +300,7 @@ $('#viewOrderForm').on('submit',function(event){
                         location.reload();
                         
                         $('#viewModal').modal('toggle');
-                        // $('#viewModal')[0].reset();   
+                        $('#viewModal')[0].reset();   
                 }else{
                         $(".text-danger").show();
                         printErrorMsg(data.error);
@@ -374,7 +364,7 @@ function cancelOrder(valueId){
                         location.reload();
                         
                         $('#viewModal').modal('toggle');
-                        // $('#viewModal')[0].reset();   
+                        $('#viewModal')[0].reset();   
                 }else{
                         $(".text-danger").show();
                         printErrorMsg(data.error);
@@ -389,7 +379,7 @@ function cancelOrder(valueId){
           }   
         })
 }
- 
 // end cancel order
+
 </script>
 @endsection

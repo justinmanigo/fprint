@@ -235,15 +235,20 @@
                               Add the packaging note here.
                               </small>
                       </div>
-                        <!-- token -->
-                        <input type="hidden" name="e_token" id="e_token" value="{{ csrf_token() }}">
 
-                         <!-- order_id -->
-                         <input type="hidden" class="form-control status" id="order_id" placeholder="" name="order_id"  value="" style= "background-color: white" readonly>
-                          
-                          <!-- file_id -->
-                          <input type="hidden" class="form-control status" id="file_id" placeholder="" name="file_id"  value="" style= "background-color: white" readonly>
-                          
+                      <!-- Cancelled Order Reason -->
+                      <div id="cancelledTextArea" class="col-md-12 pb-2 mt-2">
+
+                      </div>
+                      <!-- token -->
+                      <input type="hidden" name="e_token" id="e_token" value="{{ csrf_token() }}">
+
+                      <!-- order_id -->
+                      <input type="hidden" class="form-control status" id="order_id" placeholder="" name="order_id"  value="" style= "background-color: white" readonly>
+                      
+                      <!-- file_id -->
+                      <input type="hidden" class="form-control status" id="file_id" placeholder="" name="file_id"  value="" style= "background-color: white" readonly>
+                      
                     </div>
 
                     <!-- footer -->
@@ -433,10 +438,6 @@
 
 
 
-
-
-
-
 <script type="text/javascript">
  
 //start get order info 
@@ -480,6 +481,18 @@ $.get('/getMyOrder/'+valueId,function(data){
   }else{
     $('#status').val(data.order.status);
   }
+
+  if(data.order.orders.status == "Cancelled"){
+      // $("#updateTransactionSatusDiv").hide();
+      // $("#footer").hide();
+        var html = '';
+        html += ' <label style="color:red" for="cancelledReason">Cancelled Reason</label>';
+        html += ' <textarea class="form-control" id="cancelledReason" name="cancelledReason" style="background-color: white" readonly></textarea>';
+        html += ' <small class="text-info">';
+      $('#cancelledTextArea').append(html);
+    }
+     $('#cancelledReason').val(data.order.orders.cancelledReason);
+
  
   
  
@@ -487,9 +500,6 @@ $.get('/getMyOrder/'+valueId,function(data){
   if(data.order.orders.status === "Processed"){  
         var html = '';   
          $("#update").show();
-         
-         
-   
   }else{
 
     $("#update").hide();
@@ -501,13 +511,14 @@ $.get('/getMyOrder/'+valueId,function(data){
     $('#modeOfPayment').attr('readonly', true);
     $('#remarks').attr('readonly', true);
   }
-
-
-
     
    // open modal
   $("#viewModal").modal('toggle');
 });
+
+  // reset the append cancelled reason text area if the user close the modal
+  $("#cancelledTextArea").empty();
+
 
 }
 //end get order info 
@@ -571,10 +582,6 @@ $('#viewOrderForm').on('submit',function(event){
 // end update  order 
 
 function viewPDF(){
-
-  
-  
-
   event.preventDefault();
         $.ajaxSetup({
           headers: {
@@ -611,11 +618,7 @@ function viewPDF(){
                         showConfirmButton: false,
                         timer: 1000
                         })
-                        window.location.href = "{{url('/viewPDF')}}";
-                        // location.reload();
-                        
-                        // $('#viewModal').modal('toggle');
-                        //  $('#viewModal')[0].reset();   
+                        window.location.href = "{{url('/viewPDF')}}";  
                 }else{
                         $(".text-danger").show();
                         printErrorMsg(data.error);
@@ -654,7 +657,6 @@ $('#payGcashForm').on('submit',function(event){
 
     Swal.fire({
     title: 'Are you sure?',
-    // text: "Once deleted, you will not be able to recover this!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -769,18 +771,9 @@ function viewReceipt(valueId){
 
 
 </script>
-<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script> -->
+
 
 <script>
-  // A $( document ).ready() block.
-$( document ).ready(function() {
-  
-  // $("#payButton").hide();
-
-    console.log( "ready!" );
-});
-
 // printing error message  for validation start
 function printErrorMsg (msg) {
             console.log("sod message");
