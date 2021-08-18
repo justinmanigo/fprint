@@ -11,9 +11,6 @@
                             <div class="col-xs-6 col-md-12">
                                     <h2>Manage <b>Users</b></h2>
                                 </div>
-                                <!-- <div class="col-xs-7 col-md-12">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">New Order</button>
-                                </div> -->
                             </div>
                         </div>
                         <table id="userTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -41,7 +38,6 @@
                                    
                                     <td>  
                                     <button onclick="getUserInfo({{$user->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-eye"></i></button>
-                                    <!-- <button onclick="deleteStaff({{$user->id}})" type="button" class="btn btn-danger" >delete</button> -->
                                     </td>
                                
                                 </tr>
@@ -176,7 +172,6 @@ $('#userForm').on('submit',function(event){
 
          Swal.fire({
           title: 'Are you sure you want to update user type?',
-          // text: "Once deleted, you will not be able to recover this!",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -204,7 +199,6 @@ $('#userForm').on('submit',function(event){
                             timer: 2000
                             }).then((result) => {
 
-                                // window.location.href = "{{url('/myOrders')}}";
                                 location.reload();
                             
                         });
@@ -230,6 +224,16 @@ $('#userForm').on('submit',function(event){
 
 });
 // end update user
+
+// printing error message  for validation start
+function printErrorMsg (msg) {
+            console.log("sod message");
+            $.each( msg, function( key, value ) {
+            console.log(key);
+              $('.'+key+'_err').text(value);
+            });
+}
+// printing error message end
  
 
  

@@ -125,20 +125,20 @@
                             </div>
                         </div>
 
-                            <!-- space -->
-                            <div class="col-sm-12 pb-3">
-                                <hr class="my-3">
-                            </div>
+                        <!-- space -->
+                        <div class="col-sm-12 pb-3">
+                            <hr class="my-3">
+                        </div>
 
-                            <div class="col-md-12 pb-2 mt-2">
-                                    <label for="remarks">Remarks</label>
-                                    <textarea class="form-control" id="remarks" name="remarks"></textarea>
-                                    <small class="text-info">
-                                    Add the printing note here.
-                                    </small>
-                            </div>
+                        <div class="col-md-12 pb-2 mt-2">
+                                <label for="remarks">Remarks</label>
+                                <textarea class="form-control" id="remarks" name="remarks"></textarea>
+                                <small class="text-info">
+                                Add the printing note here.
+                                </small>
+                        </div>
 
-                            <div class="col-sm-12 offset-lg-5 pb-3 mt-3">
+                          <div class="col-sm-12 offset-lg-5 pb-3 mt-3">
                                
                                 <label class="form-check-label control checkbox" for="TermsAndCondition">
                                 <input class="form-check-input" type="checkbox" name="TermsAndCondition" checked id="TermsAndCondition"  value="1" {{ old('TermsAndCondition') ? 'checked': null }}>
@@ -146,7 +146,7 @@
                                 <a data-target="#myModal" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#myModal"> Terms and Agreement</a><br>
                                 <span class="text-danger error-text TermsAndCondition_err"></span>
                                 </label>
-                            </div>
+                          </div>
                     </div>
 
                  
@@ -233,7 +233,6 @@ $('#orderFormTable').on('submit',function(event){
 
          Swal.fire({
           title: 'Are you sure?',
-          // text: "Once deleted, you will not be able to recover this!",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -251,7 +250,6 @@ $('#orderFormTable').on('submit',function(event){
                   success:function(data){
                         console.log(data);
                     if($.isEmptyObject(data.error)){
-                        // alert(data.success);
                         console.log("sod success");
                         $(".text-danger").hide();
                         Swal.fire({
@@ -301,6 +299,7 @@ function printErrorMsg (msg) {
 
 </script>
 
+<!-- script for calculating the Total, Price  -->
 <script>
   var price  = 0;
   var totalPrice =0;
@@ -361,6 +360,7 @@ $(document).on('change','#noOfCopy, #pageFrom, #pageTo',function(){
 
 
 </script>
+
 <script>
  $(document).ready(function(){
     //  default behaviour of the datetime picker = disabled

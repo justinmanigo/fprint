@@ -20,15 +20,6 @@ class PrintPriceController extends Controller
         return view('admin.printPrice')->with('prices',$prices);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -65,17 +56,6 @@ class PrintPriceController extends Controller
         }
         return response()->json(['error'=>$validator->errors()]);
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\printPrice  $printPrice
-     * @return \Illuminate\Http\Response
-     */
-    public function show(printPrice $printPrice)
-    {
-        //
     }
 
     /**
@@ -116,17 +96,7 @@ class PrintPriceController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\printPrice  $printPrice
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, printPrice $printPrice)
-    {
-        //
-    }
+   
 
     /**
      * Remove the specified resource from storage.
