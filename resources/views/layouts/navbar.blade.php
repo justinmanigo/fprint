@@ -60,10 +60,16 @@
                             Home
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/">Home</a>
-                            <a class="dropdown-item" href="/">About Us</a>
-                            <a class="dropdown-item" href="/">Let's Print</a>
-                            <a class="dropdown-item" href="/">Printing Schedule</a>
+                            <a class="dropdown-item" href="
+                                @if(Route::currentRouteName() == "home")
+                                    #    
+                                @else
+                                    /
+                                @endif
+                            ">Home</a>
+                            <a class="dropdown-item" href="/#about_us">About Us</a>
+                            <a class="dropdown-item" href="/#steps">Let's Print</a>
+                            <a class="dropdown-item" href="/#printing_schedule">Printing Schedule</a>
                         </li>
                         <li class="nav-item active">
                             <a href="/orderForm" class="nav-link"> Order Form </a>

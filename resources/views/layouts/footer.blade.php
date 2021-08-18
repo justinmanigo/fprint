@@ -109,9 +109,11 @@ document.addEventListener("scroll", handleScroll)
         $('.preloader').fadeOut('slow');
          
  }	
- $('html,body').animate({
-  scrollTop: $(window.location.hash).offset().top
-});
+ if(window.location.hash) {
+        $('html,body').animate({
+                scrollTop: $(window.location.hash).offset().top
+        });
+ }
 
     
 
