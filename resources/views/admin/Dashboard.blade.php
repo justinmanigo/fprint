@@ -44,7 +44,7 @@
             <a href="/users">
                 <div class="card-counter info">
                     <i class="fa fa-users"></i>
-                    <span class="count-numbers">{{$totalOrders}}</span>
+                    <span class="count-numbers">{{$totalUsers}}</span>
                     <span class="count-name">Total Users</span>
                 </div>
             </a>
