@@ -8,7 +8,9 @@
             </p>
 
             <div id="font1" class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-            <a href="{{ route('register') }}" role="button" class="btn btn-light btn-lg px-4 me-md-2 fw-bold">Start Reserving Yours Now</a>
+                @guest
+                    <a href="{{ route('register') }}" role="button" class="btn btn-light btn-lg px-4 me-md-2 fw-bold">Start Reserving Yours Now</a>
+                @endguest
             </div>
         </div>
         <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
