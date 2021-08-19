@@ -129,6 +129,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+    margin-top:500px !important;
      
 }
 
@@ -273,8 +274,10 @@
 #printing_schedule_card{
     background-color: #343a40;
     border-radius: 25px;
-  
+    margin-bottom: 10%;
  }
+
+
 #printing_schedule_text{
   
   color: white;
@@ -321,6 +324,13 @@
   }
 
 
+  .table{
+    margin-bottom: 10% ;
+  }
+
+  .form{
+    margin-bottom: 10% ;
+  }
  
 /* scroll bar style */
   #body::-webkit-scrollbar-track
@@ -340,7 +350,28 @@
     background-color: #343a40;
   }
 
+  /* mobile styles */
+  @media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #printing_schedule_card{
+    
+    margin-bottom: 50% !important;
+    
+   }
+   #font2{
+     font-size: 40px;
+   }
+
+   .table{
+    margin-bottom: 50% ;
+  }
+
+  .form{
+    margin-bottom: 50% ;
+  }
   
+  }
+ 
   
   
 

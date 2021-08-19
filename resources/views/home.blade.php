@@ -25,7 +25,7 @@ id="hero" class="px-2 pt-5 pb-4 text-center border-bottom">
                 F-Print is a web-based printing system that were created by four people, Jenine Seminiano, Aileen Guingon, Gab Morales, and Renzo Valera. The name F-Print was made because with your reservation anytime, you can get your printing needs done.
             </p>
         </div>
-        <div class="col-lg-5 p-0 order-0 order-lg-1">
+        <div class="col-lg-5  p-0 order-0 order-lg-1">
             {{-- Insert picture here later :)) --}}
             <img src="{{ asset('img/fprint.png') }}" width="540" class="mx-auto my-0" style="display:block!important;">
             {{-- <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720"> --}}

@@ -64,32 +64,5 @@ class PermissionTableSeeder extends Seeder
         ]);
         $user->assignRole($role->id);
 
-        // $user = User::where('idNumber', 12345621)->get();
-        // $user->assignRole($role->id);
-
-        // DB::table('users')->insert([
-        //     [
-        //     'name' => 'Admin',
-        //     'email' => 'admin@gmail.com',
-        //     'email_verified_at'=> now(),
-        //     'password' => bcrypt('admin123'),
-        //     'idNumber' => 1234562,
-        //     'type' => "admin",
-        //     'contact' => "12345678910",
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        //     ],
-        //     [
-        //     'name' => 'User',
-        //     'email' => 'user@gmail.com',
-        //     'email_verified_at'=> now(),
-        //     'password' => bcrypt('user123'),
-        //     'type' => "user",
-        //     'idNumber' => 12345621,
-        //     'contact' => "12345678910",
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        //     ]
-        // ]);
     }
 }

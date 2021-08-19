@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $totalUsers = User::count();
         $totalOrders = Orders::count();
         $pendingOrders = Orders::where('status','Processed')->count();
-        $revenue = transactions::where('status','Delivered')->get();
+        $revenue = transactions::where('status','Delivered')->where('isPaid','Paid')->get();
         Log::info($revenue);
         $size = count($revenue);
         $total = 0;

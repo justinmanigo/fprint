@@ -16,17 +16,14 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('printPrice_id')->nullable();
-            // $table->unsignedBigInteger('order_id')->nullable();
             $table->string('filename');
             $table->integer('pageFrom');
             $table->integer('pageTo');
             $table->integer('totalPages');
             $table->float('noOfCopy');
-            // $table->float('total_price');
             $table->timestamps();
           
             // foreign key
-            //  $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
              $table->foreign('printPrice_id')->references('id')->on('print_prices')->onDelete('cascade');
             
         });

@@ -87,11 +87,12 @@
                             Admin
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/users">Users</a>
-                            <a class="dropdown-item" href="/orders">Orders</a>
-                            <a class="dropdown-item" href="/transactions">Transactions</a>
-                            <a class="dropdown-item" href="/printprice">Print Price</a>
                             <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                            <a class="dropdown-item" href="/orders">Orders</a>
+                            <a class="dropdown-item" href="/printprice">Print Price</a>
+                            <a class="dropdown-item" href="/transactions">Transactions</a>
+                            <a class="dropdown-item" href="/users">Users</a>
+                                
                         </li>
                         @endif
                     </ul>
