@@ -14,8 +14,11 @@ class FilesController extends Controller
     // view order
     public function viewOrder($id){
         $file = Orders::find($id);
+        if(!$file) abort(404);
+
         $file->files;
+
         Log::info($file);
-         return view('viewPDF',compact('file'))->render();
+        return view('viewPDF',compact('file'))->render();
     }
 }
