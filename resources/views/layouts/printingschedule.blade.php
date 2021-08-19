@@ -1,4 +1,4 @@
-<div id="printing_schedule" class="container my-5">
+<div id="printing_schedule" class="container my-5 mb-6">
     <div id="printing_schedule_card" class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
         <div id="printing_schedule_text" class="col-lg-7 p-3 p-lg-5 pt-lg-3">
             <h2  id="font1" class="display-4 fw-bold lh-1">Printing Schedule</h2>

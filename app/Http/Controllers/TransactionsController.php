@@ -98,6 +98,9 @@ class TransactionsController extends Controller
         $transaction = transactions::find($request->id);
         $transaction->status = $request->status;
         $transaction->updated_at = now();
+        if($request->status == "Delivered"){
+            $transaction->isPaid = "Paid";
+        }
         $transaction->save();
 
         // $transaction = Transactions::where('order_id',$request->id)->first();

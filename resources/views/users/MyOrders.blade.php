@@ -214,7 +214,7 @@
                       <div class="col-sm-6 pb-3">
                           <div class="form-row">
                               <label class="col-md col-form-label" for="file">Filename</label>
-                              <input type="text" class="form-control file" id="file" placeholder="" name="file"  value="" style= "background-color: white" >
+                              <input type="text" class="form-control file" id="file" placeholder="" name="file"  value="" style= "background-color: white" readonly>
                               <!-- <a href="{{url('/viewOrder',2)}}" type="button" class="btn btn-success">View PDF</a> -->
                               <!-- <div  id="viewPDF"></div> -->
                               <!-- <object data="http://www.africau.edu/images/default/sample.pdf" type="application/pdf" width="100%" height="100%"> -->
@@ -469,18 +469,13 @@ $.get('/getMyOrder/'+valueId,function(data){
   $('#remarks').val(data.order.orders.remarks);
   $('#order_id').val(data.order.order_id);
   $('#file_id').val(data.order.orders.files.id);
-  if(data.price.isColored === "Yes"){
-    var type = "Colored";
-  }else{
-    var type = "Black & White";
-  } 
-  var size = data.price.size +"-"+type;
+
    
-  if(data.order.status == null){
-    $('#status').val(data.order.orders.status);
-  }else{
-    $('#status').val(data.order.status);
-  }
+   
+  (data.order.status == null)? $('#status').val(data.order.orders.status) :  $('#status').val(data.order.status);
+
+
+ 
 
   if(data.order.orders.status == "Cancelled"){
       // $("#updateTransactionSatusDiv").hide();
@@ -498,18 +493,10 @@ $.get('/getMyOrder/'+valueId,function(data){
  
 
   if(data.order.orders.status === "Processed"){  
-        var html = '';   
-         $("#update").show();
+          $("#update, #pickupDate, #printPrice_id, #pageFrom, #pageTo, #noOfCopy, #modeOfPayment, #remarks").prop('disabled',false);
   }else{
-
-    $("#update").hide();
-    $('#pickupDate').attr('readonly', true);
-    $('#printPrice_id').attr('readonly', true);
-    $('#pageFrom').attr('readonly', true);
-    $('#pageTo').attr('readonly', true);
-    $('#noOfCopy').attr('readonly', true);
-    $('#modeOfPayment').attr('readonly', true);
-    $('#remarks').attr('readonly', true);
+          console.log("sod di proce");    
+          $("#update, #pickupDate, #printPrice_id, #pageFrom, #pageTo, #noOfCopy, #modeOfPayment, #remarks ").prop('disabled',true);    
   }
     
    // open modal

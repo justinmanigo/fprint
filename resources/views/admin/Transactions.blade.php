@@ -105,7 +105,7 @@
                           <!-- pick up date -->
                           <div class="col-sm-6 pb-3">
                               <label for="pickupDate">Pick up date:</label>
-                              <input type="date" class="form-control col-sm-6" id="pickupDate"  placeholder="Enter first name" name="pickupDate">
+                              <input type="date" class="form-control col-sm-6" id="pickupDate"  placeholder="Enter first name" name="pickupDate" style="background-color:white" readonly>
                               <span class="text-danger error-text pickupDate_err"></span>
                           </div>
                           <!-- space -->
@@ -350,19 +350,23 @@ function getOrderInfo(valueId){
 
 
       console.log(data.transaction.status);
-      if($("#transactionStatus").val() === "Printing in process"){
+      if(data.transaction.status === "Printing in process"){
+        console.log("Printing in process ");
         $('#updateTransactionStatus option[value="Printing in process"]').attr('disabled',true);
         $('#updateTransactionStatus option[value="Ready for pick up"]').attr('disabled',false);
         $('#updateTransactionStatus option[value="Delivered"]').attr('disabled',false);
-      }else if($("#transactionStatus").val() === "Ready for pick up"){
+      }else if(data.transaction.status === "Ready for pick up"){
+        console.log("ready for pick up ");
         $('#updateTransactionStatus option[value="Printing in process"]').attr('disabled',true);
         $('#updateTransactionStatus option[value="Ready for pick up"]').attr('disabled',true);
         $('#updateTransactionStatus option[value="Delivered"]').attr('disabled',false);
-      }else if($("#transactionStatus").val() === "Delivered"){
-        $('#updateTransactionStatus option[value="Printing in process"]').attr('disabled',true);
+      }else if(data.transaction.status === "Delivered"){
+        console.log("Delivered");
+        $('#updateTransactionStatus option[value="Printing in process"]').attr('disabled',false);
         $('#updateTransactionStatus option[value="Ready for pick up"]').attr('disabled',true);
         $('#updateTransactionStatus option[value="Delivered"]').attr('disabled',true);
       }else{
+        console.log("wa sod ");
         $('#updateTransactionStatus option[value="Printing in process"]').attr('disabled',false);
         $('#updateTransactionStatus option[value="Ready for pick up"]').attr('disabled',false);
         $('#updateTransactionStatus option[value="Delivered"]').attr('disabled',false);
@@ -412,14 +416,16 @@ $('#viewTransactionForm').on('submit',function(event){
                         Swal.fire({
                         icon: 'success',
                         title: 'Transaction status updated',
-                        showConfirmButton: false,
-                        timer: 1000
-                        })
-                       
-                        location.reload();
+                        type: "success",
+                        showConfirmButton: false, 
+                        }).then((result) => {
+                          // Reload the Page
+                          location.reload();
+                        });
+                          
                         
                         $('#viewModal').modal('toggle');
-                        $('#viewModal')[0].reset();   
+
                 }else{
                         $(".text-danger").show();
                         printErrorMsg(data.error);
