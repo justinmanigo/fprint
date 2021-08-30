@@ -201,7 +201,7 @@ $('#newPriceForm').on('submit',function(event){
                       $(".text-danger").hide();
                       Swal.fire({
                         icon: 'success',
-                        title: 'Staff Added',
+                        title: 'Print Price Added',
                         showConfirmButton: false,
                         timer: 1000
                       }).then((result) => {
@@ -264,7 +264,7 @@ $('#editPrintPriceForm').on('submit',function(event){
                       $(".text-danger").hide();
                       Swal.fire({
                         icon: 'success',
-                        title: 'Staff Added',
+                        title: 'Print Price Updated',
                         showConfirmButton: false,
                         timer: 1000
                       }).then((result) => {

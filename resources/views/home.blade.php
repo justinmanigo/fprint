@@ -72,5 +72,6 @@ id="hero" class="px-2 pt-5 pb-4 text-center border-bottom">
 </div>
 <hr>
 @include('layouts.printingschedule')
-
+<hr>
+@include('layouts.FAQs')
 @endsection

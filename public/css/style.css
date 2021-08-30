@@ -274,13 +274,24 @@
 #printing_schedule_card{
     background-color: #343a40;
     border-radius: 25px;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
  }
 
 
 #printing_schedule_text{
   
   color: white;
+}
+
+
+#FAQs{
+
+  border-radius: 25px;
+  margin-bottom: 10%;
+}
+
+#pdf{
+  margin-bottom: 10%;
 }
 
 
@@ -358,6 +369,12 @@
     margin-bottom: 50% !important;
     
    }
+   
+   #FAQs{
+    
+    margin-bottom: 50% !important;
+    
+   }
    #font2{
      font-size: 40px;
    }
@@ -369,9 +386,14 @@
   .form{
     margin-bottom: 50% ;
   }
+
+  #pdf{
+    margin-bottom: 60%;
+  }
   
   }
- 
+
+  
   
   
 

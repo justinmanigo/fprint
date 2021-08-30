@@ -21,7 +21,9 @@ use Illuminate\Support\Facades\Log;
 |
 */
 Route::get('/', [HomeController::class,'index'])->name('home');
-
+Route::get('/#collapse_1i', [HomeController::class,'index3']);
+Route::get('/#collapse_2i', [HomeController::class,'index3']);
+Route::get('/#collapse_3i', [HomeController::class,'index3']);
 
 Route::get('/index', [HomeController::class,'index2']);
 Auth::routes();
