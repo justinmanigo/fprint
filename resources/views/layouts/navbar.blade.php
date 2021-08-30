@@ -43,6 +43,10 @@
                         <li class="nav-item active">
                             <a href="#printing_schedule" class="nav-link"> Printing Schedule</a>
                         </li>
+                        <li class="nav-item active">
+                            <a href="#FAQs" class="nav-link">FAQs</a>
+                        </li>
+                       
                         @endguest
                         
                         @if(Auth::user())
@@ -70,6 +74,9 @@
                             <a class="dropdown-item" href="/#about_us">About Us</a>
                             <a class="dropdown-item" href="/#steps">Let's Print</a>
                             <a class="dropdown-item" href="/#printing_schedule">Printing Schedule</a>
+                            <a class="dropdown-item" href="/#FAQs">FAQs</a>
+                        
+                        
                         </li>
                         <li class="nav-item active">
                             <a href="/orderForm" class="nav-link"> Order Form </a>

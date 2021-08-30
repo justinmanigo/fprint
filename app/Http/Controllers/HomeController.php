@@ -50,4 +50,10 @@ class HomeController extends Controller
 
         return view('Index');
     }
+
+    
+    public function index3(){
+
+        return view('home');
+    }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" id="pdf">
         <div class="col-md-12">
         <div class="container pdf">
                 <iframe  class="responsive-iframe"  src="/files/{{$file->files->filename}}"> </iframe>
