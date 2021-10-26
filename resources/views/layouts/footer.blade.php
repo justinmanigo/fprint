@@ -9,17 +9,17 @@
                         <div class="col-12 col-lg-4 mb-3">
                                 <h5 class="text-lg-center mb-4 mb-lg-0">Find us on Social Media</h5>
                                 <div class="pt-lg-4 d-flex flex-row justify-content-lg-center">
-                                        <a id="icon-facebook" class="pad-icon" href="#"> 
+                                        <a id="icon-facebook" class="pad-icon" href="https://www.facebook.com/AdUbookstore"> 
                                                 <p>
                                                         <i class="fab fa-facebook-f text-white"></i>
                                                 </p> 
                                         </a>
-                                        <a id="icon-twitter" class="pad-icon" href="#"> 
+                                        <a id="icon-twitter" class="pad-icon" href="https://twitter.com/AdamsonStore"> 
                                                 <p>
                                                         <i class="fab fa-twitter text-white" ></i>
                                                 </p> 
                                         </a>
-                                        <a id="icon-instagram" class="pad-icon" href="#"> 
+                                        <a id="icon-instagram" class="pad-icon" href="https://www.instagram.com/adamsonstore/"> 
                                                 <p>
                                                         <i class="fab fa-instagram text-white"></i>
                                                 </p> 
