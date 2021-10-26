@@ -43,6 +43,9 @@ id="hero" class="px-2 pt-5 pb-4 text-center border-bottom">
             <h5>1. Print Form</h5>
             <p><i>Kindly fill out the print form</i></p>
         </div>
+        <!---------
+
+        
         <div class="col-lg-2 col-md-4 col-sm-6">
             <img src="{{ asset('img/steps/2.png') }}" class="mb-3">
             <h5>2. Order Process</h5>
@@ -53,19 +56,20 @@ id="hero" class="px-2 pt-5 pb-4 text-center border-bottom">
             <h5>3. Payment</h5>
             <p><i>Selecting a payment method (GCash / Cash on Pickup)</i></p>
         </div>
+        ---->
         <div class="col-lg-2 col-md-4 col-sm-6">
             <img src="{{ asset('img/steps/4.png') }}" class="mb-3">
-            <h5>4. Order Completed</h5>
+            <h5>2. Order Completed</h5>
             <p><i>Once submitted, the order request will be sent to the printing station</i></p>
         </div>
         <div class="col-lg-2 col-md-4 col-sm-6">
             <img src="{{ asset('img/steps/5.png') }}" class="mb-3">
-            <h5>5. Track Order</h5>
+            <h5>3. Track Order</h5>
             <p><i>View and track the status of your order</i></p>
         </div>
         <div class="col-lg-2 col-md-4 col-sm-6">
             <img src="{{ asset('img/steps/6.png') }}" class="mb-3">
-            <h5>6. Ready for Pick-Up</h5>
+            <h5>4. Ready for Pick-Up</h5>
             <p><i>Order is ready for pick-up and payment over-the-counter (for Cash on Pick-up)</i></p>
         </div>
     </div>

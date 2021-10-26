@@ -50,6 +50,7 @@
                             @endforeach 
                             
                             </tbody>
+                            <!--
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
@@ -63,6 +64,7 @@
                                     <th>Actions</th>
                                 </tr>
                             </tfoot>
+                            -->
                         </table>
                 </div>
             </div>

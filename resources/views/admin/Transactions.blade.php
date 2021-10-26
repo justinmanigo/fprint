@@ -62,6 +62,7 @@
                               @endforeach 
                             </tbody>
                             <tfoot>
+                              <!--
                                 <tr>
                                     <th>No.</th> 
                                     <th>Reference Number</th>
@@ -74,6 +75,7 @@
                                     <th>Actions</th>
                                 </tr>
                             </tfoot>
+                            --->
                         </table>
                 </div>
             </div>

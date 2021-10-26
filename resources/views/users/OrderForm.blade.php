@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="col-sm-6 pb-3">
-                            <label for="price">Price Per Paper</label><br>
+                            <label for="price">Price Per Page</label><br>
                             <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text">₱</span></div>
                                     <input type="number" class="form-control price" id="price" placeholder="" name="price"  value="0" style= "background-color: white" readonly>
@@ -92,10 +92,10 @@
                             <span class="text-danger error-text noOfCopy_err"></span>
                         </div>
 
-                        
+                        &nbsp &nbsp
 
                         <div class="col-sm-6 pb-3">
-                            <label for="grandTotalPrice">Total Price</label><br>
+                            <label for="grandTotalPrice"> <b style="color:Blue;font-size:15px;"> TOTAL PRICE </b> </label><br>
                             <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text">₱</span></div>
                                     <input type="number" class="form-control" id="grandTotalPrice" placeholder="" name="grandTotalPrice" value="0" style= "background-color: white" readonly>
@@ -119,6 +119,9 @@
                              
                                 <label class="col-md col-form-label" for="file">Upload File</label> 
                                 <input type="file" class="form-control-file" name="file" id="file">
+                                <span class="text-danger">One File Upload Only</span><br>
+                                <span class="text-danger"></span>
+                                
                               
                                 
                                 <span class="text-danger error-text file_err"></span>
@@ -380,5 +383,24 @@ $(document).on('change','#noOfCopy, #pageFrom, #pageTo',function(){
 });
 
 </script>
+
+<script>
+  //show alert message if weekend date is selected
+  const picker= document.getElementById('pickupDate');
+  picker.addEventListener('input', function(e){
+    var day = new Date(this.value).getUTCDay();
+    if([6,0].includes(day)){
+      e.preventDefault();
+      this.value = '';
+      Swal.fire({
+        icon: 'warning',
+        title:'Weekend date is not allowed. Please choose weekdays only Thanks!' ,
+        showConfineButton: true,
+        confirmButtonText: 'Okay'
+      })
+      }
+    });
+  </script>
+
 
 @endsection

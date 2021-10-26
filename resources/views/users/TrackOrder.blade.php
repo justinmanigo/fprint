@@ -38,7 +38,7 @@
                                     <td>{{date('j F, Y', strtotime($order->pickupDate))}}</td>
                                     <td>{{$order->files->filename}}</td>
                                     <td>{{$order->modeOfPayment}}</td>
-                                    <td>{{$order->grandTotalPrice}}</td>
+                                    <td>{{$order->grandTotalPrice}}</td> </b>
                                     <td>{{$order->status}}</td>
                                    
                                     <td>  
@@ -49,6 +49,7 @@
                             @endforeach 
                             
                             </tbody>
+                            <!----
                             <tfoot>
                                 <tr>
                                     <th>Reference Number</th>
@@ -61,6 +62,7 @@
                                     <th>Actions</th>
                                 </tr>
                             </tfoot>
+                            ----->
                         </table>
                 </div>
             </div>
@@ -299,7 +301,7 @@ $('#viewOrderForm').on('submit',function(event){
               },
               error: function(data) {
                   console.log(data);
-                  alert("wa sod");
+                  alert("Exceed 25MB Try again");
               }
             });
           }else{

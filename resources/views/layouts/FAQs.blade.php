@@ -35,7 +35,16 @@
                                         <div class="card-body pa-15">The website is only accepting Gcash and Cash on Pick-up as modes of payment.</div>
                                     </div>
                                 </div>
-                               
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_4i" aria-expanded="false">What is the process of transaction for GCASH for mode of payment?</a>
+                                    </div>
+                                    <div id="collapse_4i" class="collapse" data-parent="#accordion_2">
+                                        <div class="card-body pa-15">After submitting the order form, the user will wait for the printing operator to accept the print request to send the QR code in the track my order page. The user can scan the QR code and send the receipt
+                                                                    along with his or her reference number and send it to the printing operator in the track my order page.
+                                     </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

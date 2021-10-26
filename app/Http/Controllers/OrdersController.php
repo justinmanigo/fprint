@@ -64,7 +64,7 @@ class OrdersController extends Controller
             'pageTo'=> 'required|numeric|min:1',
             'noOfCopy' => 'required|numeric|min:1',
             'modeOfPayment' => 'required',
-            'file' => 'required|mimes:pdf,xlx,csv,docx,odt|max:2048',
+            'file' => 'required|mimes:pdf,xlx,xlsx,pptx,csv,docx,odt|max:2048',
             'TermsAndCondition' => 'accepted',
            
         ]);
