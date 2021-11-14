@@ -78,14 +78,19 @@
                         
                         
                         </li>
-                        <li class="nav-item active">
-                            <a href="/orderForm" class="nav-link"> Order Form </a>
-                            <!-- <a class="nav-item nav-link" href="/orderForm">Order Form <span class="sr-only"></span></a> -->
-                        </li>
-                        <li class="nav-item active">
-                            <a href="/myOrders" class="nav-link"> Track my Order </a>
-                            <!-- <a class="nav-link" href="/myOrders">Track my Order <span class="sr-only"></span></a> -->
-                        </li>
+                            @if(Auth::user() && Auth::user()->roles->first()->name == "admin")
+                            <li class="nav-item active">
+                                <a href="/dashboard" class="nav-link"> Dashboard </a>
+                            </li>
+                            
+                            @else
+                            <li class="nav-item active">
+                                <a href="/orderForm" class="nav-link"> Order Form </a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="/myOrders" class="nav-link"> Track my Order </a>
+                            </li>
+                            @endif
                         @endif
 
                         @if(Auth::user() && Auth::user()->roles->first()->name == "admin")
@@ -94,7 +99,8 @@
                             Admin
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                            <!-- <a class="dropdown-item" href="/dashboard">Dashboard</a> -->
+                            <a class="dropdown-item" href="/announcement">Announcements</a>
                             <a class="dropdown-item" href="/orders">Orders</a>
                             <a class="dropdown-item" href="/printprice">Print Price</a>
                             <a class="dropdown-item" href="/transactions">Transactions</a>
@@ -104,15 +110,46 @@
                         @endif
                     </ul>
                 </div>
+                
+
+                
+                
+
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                            <!-- <li class="nav-item dropdown dropdown-notifications">
+                                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            
+                                            <i data-count="0" class="glyphicon glyphicon-bell  notification-icon"> </i>
+                                        </a>
+
+                                        <div class="dropdown-container">
+                                            <div class="dropdown-toolbar">
+                                            <div class="dropdown-toolbar-actions">
+                                                <a href="#">Mark all as read</a>
+                                            </div>
+                                            <h3 class="dropdown-toolbar-title">Notifications (<span class="notif-count">0</span>)</h3>
+                                            </div>
+                                            <ul class="dropdown-menu  dropdown-menu-left" aria-labelledby="navbarDropdown2">
+
+                                            </ul>
+                                            <div class="dropdown-footer text-center">
+                                            <a href="#">View All</a>
+                                            </div>
+                                        </div>
+                            </li> -->
+                            <!-- <li><a href="#">Timeline</a></li>
+                            <li><a href="#">Friends</a></li> -->
 
                     </ul>
 
+                    
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                 
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -127,6 +164,25 @@
                                 </li>
                             @endif
                         @else
+                        <!-- <li class="nav-item avatar dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="badge badge-danger ml-2">4</span>
+                            <i class="fas fa-bell"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+                            <a class="dropdown-item waves-effect waves-light" href="#">Action <span class="badge badge-danger ml-2">4</span></a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Another action <span class="badge badge-danger ml-2">1</span></a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Something else here <span class="badge badge-danger ml-2">4</span></a>
+                            </div>
+                        </li> -->
+
+                        
+       
+           
+           
+         
+                     
+                         
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->firstName}} {{Auth::user()->lastName }} 
@@ -165,3 +221,63 @@
             <button  class="scrollToTopBtn" id="scrollToTopBtn"> ↑</button><br>
             </div>
     </div>
+
+    <!-- <script src="https://js.pusher.com/5.0/pusher.min.js"></script>  -->
+    <script src="//js.pusher.com/3.1/pusher.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+ 
+    <script type="text/javascript">
+      var notificationsWrapper   = $('.dropdown-notifications');
+      var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
+      var notificationsCountElem = notificationsToggle.find('i[data-count]');
+      var notificationsCount     = parseInt(notificationsCountElem.data('count'));
+      var notifications          = notificationsWrapper.find('ul.dropdown-menu');
+
+    //   if (notificationsCount <= 0) {
+    //     notificationsWrapper.hide();
+    //   }
+
+      // Enable pusher logging - don't include this in production
+      // Pusher.logToConsole = true;
+
+      var pusher = new Pusher('ca55e4cfb99b8ad6ffd5', {
+        cluster: 'ap1',
+        forceTLS: true,
+      });
+
+      // Subscribe to the channel we specified in our Laravel Event
+      var channel = pusher.subscribe('status-liked');
+
+      // Bind a function to a Event (the full Laravel class)
+      channel.bind('status-liked-event', function(data) {
+        console.log("test");
+        var existingNotifications = notifications.html();
+        var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
+        var newNotificationHtml = `
+          <li class="notification active">
+              <div class="media">
+                <div class="media-left">
+                  <div class="media-object">
+                    <img src="https://api.adorable.io/avatars/71/`+avatar+`.png" class="img-circle" alt="50x50" style="width: 50px; height: 50px;">
+                  </div>
+                </div>
+                <div class="media-body">
+                  <strong class="notification-title">`+data.message+`</strong>
+                  <!--p class="notification-desc">Extra description can go here</p-->
+                  <div class="notification-meta">
+                    <small class="timestamp">about a minute ago</small>
+                  </div>
+                </div>
+              </div>
+          </li>
+        `;
+        notifications.html(newNotificationHtml + existingNotifications);
+
+        notificationsCount += 1;
+        notificationsCountElem.attr('data-count', notificationsCount);
+        notificationsWrapper.find('.notif-count').text(notificationsCount);
+        notificationsWrapper.show();
+      });
+    </script>

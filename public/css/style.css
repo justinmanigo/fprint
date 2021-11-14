@@ -275,8 +275,14 @@
     background-color: #343a40;
     border-radius: 25px;
     margin-bottom: 5%;
- }
+ } 
 
+ .announcment_card{
+  background-color: #343a40;
+  border-radius: 25px;
+  margin-bottom: 1%;
+  color:rgba(255, 255, 255, 0.904);
+}
 
 #printing_schedule_text{
   
@@ -342,6 +348,12 @@
   .form{
     margin-bottom: 10% ;
   }
+  #isPrintAll{
+    width: 50%;
+    margin-left: auto;
+    margin-top: auto;
+  }
+  
  
 /* scroll bar style */
   #body::-webkit-scrollbar-track
@@ -361,6 +373,10 @@
     background-color: #343a40;
   }
 
+
+
+
+  
   /* mobile styles */
   @media only screen and (max-width: 768px) {
     /* For mobile phones: */
@@ -391,6 +407,10 @@
     margin-bottom: 60%;
   }
   
+  }
+
+  #lineChart{
+    margin-bottom: 200px;
   }
 
   

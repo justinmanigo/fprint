@@ -18,14 +18,19 @@
                     @csrf   
                     <div class="form-row mt-4">
                         <!-- pick up date -->
-                        <div class="col-sm-12 pb-3">
-                        <label for="pickupDate">Pick Up Date</label>
-                        <div class="form-check">
-                        <label class="form-check-label control radio" for="radio1">
-                            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="today" checked> 
-                            <span class="control-indicator"></span>Today
-                        </label>
+                        <div class="col-sm-6 pb-3">
+                          <label for="pickupDate">Pick Up Date</label>
+                          <div class="form-check">
+                          <label class="form-check-label control radio" for="radio1">
+                              <input type="radio" class="form-check-input" id="radio1" name="optradio" value="today" checked> 
+                              <span class="control-indicator"></span>Today
+                          </label>
+                          ( <span id='ct7'></span> )
                         </div>
+               
+                            <!-- <input type="time" class="form-control col-sm-6" min="8:00" max="16:00" step="600"/> -->
+                            <!-- <span class="text-danger">Please specify the time from 8:00AM - 4:00PM only</span><br><br> -->
+                          
                              <div class="form-check">
                             <label class="form-check-label control radio" for="radio2">
                             <input type="radio" class="form-check-input" id="radio2" name="optradio" value="otherday"> 
@@ -50,9 +55,9 @@
                                     <option disabled selected value> -- select an option -- </option>
                                     @if(isset($prices))
                                     @foreach ($prices as $price)
-                                    @if ($price->isColored == "Yes")
+                                    @if ($price->isColored == "Yes" && $price->isAvailable == "Yes")
                                     <option value="{{$price->id}}" >{{$price->size}} - Colored</option>
-                                    @else
+                                    @elseif ($price->isColored == "No" && $price->isAvailable == "Yes")
                                     <option value="{{$price->id}}" >{{$price->size}} - Black & White</option>
                                     @endif
                                     @endforeach
@@ -70,17 +75,25 @@
                             </div>
                         </div>                    
 
-                        <div class="col-sm-5 pb-3">
+                 
+
+                         <div class="col-sm-1  pb-2">
+                            <label for="pageFrom">Print All</label>
+                            <input class="form-control form-check-input" type="checkbox" name="isPrintAll" checked  id="isPrintAll"  value="1" {{ old('TermsAndCondition') ? 'checked': null }}>
+                            <span class="text-danger error-text pageFrom_err"></span>
+                        </div>
+
+                        <div class="col-sm-4 pb-3">
                             <label for="pageFrom">Page From</label>
                             <input type="number" class="form-control pageFrom" id="pageFrom" min="1" placeholder="Enter start page" name="pageFrom" required>
                             <span class="text-danger error-text pageFrom_err"></span>
                         </div>
-                        <div class="col-sm-5 pb-3">
+                        <div class="col-sm-4 pb-3">
                             <label for="pageTo">Page To</label>
                             <input type="number" class="form-control pageTo" id="pageTo" min="1" placeholder="Enter end page" name="pageTo" required>
                             <span class="text-danger error-text pageTo_err"></span>
                         </div>
-                        <div class="col-sm-2 pb-3">
+                        <div class="col-sm-2 pb-2">
                             <label for="totalPages">Total Pages</label>
                             <input type="number" class="form-control totalPages" id="totalPages" placeholder="" name="totalPages"  style= "background-color: white" value="0" readonly>
                             <span class="text-danger error-text totalPages_err"></span>
@@ -119,11 +132,7 @@
                              
                                 <label class="col-md col-form-label" for="file">Upload File</label> 
                                 <input type="file" class="form-control-file" name="file" id="file">
-                                <span class="text-danger">One File Upload Only</span><br>
-                                <span class="text-danger"></span>
-                                
-                              
-                                
+                                <span class="text-danger">One File Upload Only</span><br><br>
                                 <span class="text-danger error-text file_err"></span>
                             </div>
                         </div>
@@ -274,7 +283,15 @@ $('#orderFormTable').on('submit',function(event){
                 },
                   error: function(data) {
                       console.log(data);
-                      alert("wa sod");
+                      Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
                   }
                 });
             }
@@ -307,7 +324,7 @@ function printErrorMsg (msg) {
   var price  = 0;
   var totalPrice =0;
   var finalPrice =0;
-  var totalPrice =0;
+  var totalPrice =0.0;
   var totalPages =0;
   var noOfCopy =0;
 // get price per paper
@@ -326,11 +343,11 @@ function printErrorMsg (msg) {
 
       totalPrice = price * totalPages;
       finalPrice = totalPrice * noOfCopy
-      console.log("finalprice:"+finalPrice);
-      $("#grandTotalPrice").val(finalPrice);
+      console.log("finalprice:"+finalPrice.toFixed());
+      $("#grandTotalPrice").val(finalPrice.toFixed(2));
     });
 
-});  
+});   
 
 
 // get range to be print
@@ -357,8 +374,11 @@ $(document).on('change','#noOfCopy, #pageFrom, #pageTo',function(){
 
   totalPrice = price * totalPages;
   finalPrice = totalPrice * noOfCopy
-  console.log(finalPrice);
-  $("#grandTotalPrice").val(finalPrice);
+   
+
+  // parseFloat(finalPrice).toFixed();
+  console.log(finalPrice.toFixed());
+  $("#grandTotalPrice").val(finalPrice.toFixed(2));
 });
 
 
@@ -402,5 +422,64 @@ $(document).on('change','#noOfCopy, #pageFrom, #pageTo',function(){
     });
   </script>
 
+<script>
+$(document).ready(function(){
+  $("#pageFrom").attr('disabled',true);
+  $("#pageTo").attr('disabled',true);
+  $("#totalPages").attr('readonly',false);
+
+        $('#isPrintAll').click(function(){
+            if($(this).is(":checked")){
+                console.log("Checkbox is checked.");
+                $("#totalPages").val('');
+                $("#pageFrom").attr('disabled',true);
+                $("#pageTo").attr('disabled',true);
+                $("#totalPages").attr('readonly',false);
+                 
+            }
+            else if($(this).is(":not(:checked)")){
+                console.log("Checkbox is unchecked.");
+                $("#totalPages").val('');
+                $("#pageFrom").attr('disabled',false);
+                $("#pageTo").attr('disabled',false);
+                $("#totalPages").attr('readonly',true);
+            }
+        });
+    });
+
+</script>
+
+<script>
+function display_ct7() {
+    var x = new Date()
+    var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
+    hours = x.getHours( ) % 12;
+    hours = hours ? hours : 12;
+    hours=hours.toString().length==1? 0+hours.toString() : hours;
+
+    var minutes=x.getMinutes().toString()
+    minutes=minutes.length==1 ? 0+minutes : minutes;
+
+    var seconds=x.getSeconds().toString()
+    seconds=seconds.length==1 ? 0+seconds : seconds;
+
+    var month=(x.getMonth() +1).toString();
+    month=month.length==1 ? 0+month : month;
+
+    var dt=x.getDate().toString();
+    dt=dt.length==1 ? 0+dt : dt;
+
+    var x1=month + "/" + dt + "/" + x.getFullYear(); 
+    x1 = x1 + " - " +  hours + ":" +  minutes + ":" +  seconds + " " + ampm;
+    document.getElementById('ct7').innerHTML = x1;
+    display_c7();
+ }
+
+function display_c7(){
+    var refresh=1000; // Refresh rate in milli seconds
+    mytime=setTimeout('display_ct7()',refresh)
+}
+display_c7()
+</script>
 
 @endsection
