@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Log;
 class AdminAuthenticated​
 {
     /**
@@ -18,6 +19,7 @@ class AdminAuthenticated​
     {
         if( Auth::check() )
         {
+            Log::info(Auth::user()->isUser());
             // if user is not admin take him to his dashboard
             if ( Auth::user()->isUser() ) {
                  return redirect(route('home'));

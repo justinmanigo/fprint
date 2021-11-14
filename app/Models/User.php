@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Log;
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     // use Authenticatable, CanResetPassword;
     use HasRoles;
@@ -26,9 +26,10 @@ class User extends Authenticatable
         'lastName',
         'email',
         'password',
-        'contact',
+        'occupation',
         'type',
         'idNumber',
+        'isBlocked'
     ];
 
     /**
