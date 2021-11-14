@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrintPricesTable extends Migration
+class CreateAnnouncementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreatePrintPricesTable extends Migration
      */
     public function up()
     {
-        Schema::create('print_prices', function (Blueprint $table) {
+        Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->string('size');
-            $table->enum('isColored',['Yes','No']);
-            $table->float('price');
-            $table->string('dimension')->nullable();
-            $table->enum('isAvailable',['Yes','No']);
+            $table->string('title');
+            $table->string('description');
+            $table->enum('display',['Yes','No']);
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreatePrintPricesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('print_prices');
+        Schema::dropIfExists('announcements');
     }
 }

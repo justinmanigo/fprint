@@ -43,7 +43,7 @@
                             <label for="email" class="col-lg-4 col-form-label text-lg-right">{{ __('Adamson E-Mail') }}</label>
 
                             <div class="col-lg-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"  name="email" required  pattern="[a-z0-9._%+-]+@adamson.edu.ph" title="Invalid Email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"  name="email" required  title="Invalid Email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="contact" class="col-lg-4 col-form-label text-lg-right">{{ __('Contact Number') }}</label>
 
                             <div class="col-lg-6">
@@ -79,8 +79,27 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> -->
 
+                        
+                         <div class="form-group row">
+                            <label for="contact" class="col-lg-4 col-form-label text-lg-right">{{ __('Occupation') }}</label>
+
+                            <div class="col-lg-6">
+                                 
+                                <select class="form-control @error('contact') is-invalid @enderror" id="occupation" name="occupation">
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option value="student"> Student </option>
+                                    <option value="professor"> Professor </option>
+                                    <option value="employee"> Employee </option>
+                                </select>
+                                @error('contact')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                        
 
                         <div class="form-group row">

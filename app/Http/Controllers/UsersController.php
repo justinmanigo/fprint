@@ -124,6 +124,21 @@ class UsersController extends Controller
        
 
         return response()->json(['error'=>$validator->errors()]);
+    }  
+
+    public function blockUser(Request $request)
+    {
+
+            Log::info($request);
+            $user = User::find($request->id);
+
+            if($user->isBlocked == "No"){
+                $user->isBlocked = "Yes";
+            }elseif($user->isBlocked == "Yes"){
+                $user->isBlocked = "No";
+            }
+            $user->save();
+            return response()->json($user);
     }
 
 }

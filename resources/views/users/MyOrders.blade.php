@@ -44,11 +44,22 @@
                                       <button onclick="viewReceipt({{$transaction->id}})" type="button" class="btn btn-outline-secondary" ><i class="fa fa-credit-card"></i></button>
                                       @endif
                                      </td>
-                                     <td>₱{{number_format($transaction->orders->grandTotalPrice, 2, '.', ',')}}</td> 
+                                     <td class="text-right">₱{{number_format($transaction->orders->grandTotalPrice, 2, '.', ',')}}</td> 
+
                                      @if ($transaction->status == "")
-                                     <td>{{$transaction->orders->status}}</td>
+                                        @if ($transaction->orders->status == "Processed")
+                                        <td>Pending</td>
+                                        @else
+                                        <td>{{$transaction->orders->status}}</td>
+                                        @endif
+
+                                     
                                       @else
-                                      <td>{{$transaction->status}}</td>
+                                        @if ($transaction->status == "Delivered")
+                                        <td>Completed</td>
+                                        @else
+                                        <td>{{$transaction->status}}</td>
+                                        @endif
                                       @endif
 
                                      
@@ -57,7 +68,9 @@
                                     
                                      
                                     <td>  
-                                     
+                                    @if ($transaction->orders->status == "Processed")
+                                    <button  id="cancel"  onclick="cancelOrder({{$transaction->id}})"  class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Cancel Order"><i class="fa  fa-times-circle"></i></button>
+                                    @endif
                                     <a href="{{url('/viewOrder',$transaction->id)}}" type="button" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="View File Uploaded" target="_blank" rel="noopener noreferrer"><span class="fa fa-print"></span></a>
                                     <button onclick="getOrderInfo({{$transaction->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"> <i class="fa fa-eye"></i></button>
                                     @if ($transaction->orders->modeOfPayment == "Gcash" && $transaction->orders->status == "Confirmed" &&  $transaction->isPaid == "Not paid")
@@ -70,7 +83,7 @@
                             @endforeach 
                             
                             </tbody>
-                            <tfoot>
+                            <!-- <tfoot>
                                 <tr>
                                     <th>No.</th>
                                     <th>Reference Number</th>
@@ -82,7 +95,7 @@
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
-                            </tfoot>
+                            </tfoot> -->
                         </table>
                 </div>
             </div>
@@ -253,6 +266,7 @@
 
                     <!-- footer -->
                     <div class="modal-footer" id="footer">
+                        
                         <button  id="update" type="submit" class="btn btn-success">Update</button>
                         <button type="button" class="btn btn-light"data-bs-dismiss="modal">Close</button>
                     </div>
@@ -352,10 +366,20 @@
                                       <!-- space -->
                                   <div class="col-sm-12 pb-3">
                                     <h5>Gcash Account Number: 09983128845</h5>
-                                  </div>
+                                     </div>
                                     <!-- space -->
                                   <div class="col-sm-12 pb-3">
                                       <hr class="my-3">
+                                  </div>
+                                   <div class="col-sm-12 pb-3">
+                                    <p><strong> Note:</strong> </p>
+                                   <p>For Gcash payment, select express send only and type the reference number on the message before sending the payment. 
+                                     Our admin receiver will be notified via text message and can identify the payment and be approved directly.</p>
+                                  
+                                  </div>
+                                  <!-- space -->
+                                  <div class="col-sm-12 pb-3">
+                                    <hr class="my-3">
                                   </div>
                                   <div class="col-sm-12  pb-3">
                                         <h5>Submit your receipt</h5>
@@ -558,7 +582,15 @@ $('#viewOrderForm').on('submit',function(event){
               },
               error: function(data) {
                   console.log(data);
-                  alert("wa sod");
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
               }
 
           });
@@ -614,7 +646,15 @@ function viewPDF(){
               },
               error: function(data) {
                   console.log(data);
-                  alert("wa sod");
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
               }
             });
           } 
@@ -684,7 +724,15 @@ $('#payGcashForm').on('submit',function(event){
           },
             error: function(data) {
                 console.log(data);
-                alert("wa sod");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
             }
           });
       }else{
@@ -705,10 +753,12 @@ function track(valueId){
   
  $.get('/getTrackOrder/'+valueId,function(data){  
   
-   console.log(data);
+  //  console.log(data);
  
   for(i=0;i<data.length;i++){
-    var formattedDate =data[i].updated_at.toString().substr(0, 10);
+    
+    //  var formattedDate =data[i].updated_at.toString().substr(0, 10);
+    var formattedDate = moment(data[i].updated_at).format('MMM/DD/YYYY h:mm a');
     var html = '';
     html +='<div class="row">';
     html +='<div class="col-md-3">';
@@ -831,6 +881,77 @@ $(document).on('change','#noOfCopy, #pageFrom, #pageTo',function(){
   $("#grandTotalPrice").val(finalPrice);
 });
 
+
+</script>
+
+<script>
+  //start cancel order 
+function cancelOrder(valueId){
+ 
+  event.preventDefault();
+  $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });   
+
+  swal.fire({
+  title: 'Reason for cancelling the order',
+  input: 'textarea',
+  inputPlaceholder: 'Type your message here',
+  showCancelButton: true
+  }).then((result) => {
+
+      if (result.isConfirmed) {
+       
+        var id = valueId;
+        var reason = result.value;
+        
+        $.ajax({
+          url:"{{route('orderUser.cancelOrderUser')}}",
+          type:'POST',
+          data: {id:id,reason:reason},
+          success:function(data){
+            console.log(data);
+            
+            if($.isEmptyObject(data.error)){
+                    console.log("success");
+                    $(".text-danger").hide();
+
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Order has been cancelled',
+                    showConfirmButton: false,
+                    timer: 1000
+                    })
+                   
+                    location.reload();
+                    
+                    $('#viewModal').modal('toggle');
+                    $('#viewModal')[0].reset();   
+            }else{
+                    $(".text-danger").show();
+                    printErrorMsg(data.error);
+                    console.log("sod error");
+            }   
+          },
+          error: function(data) {
+              console.log(data);
+              Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
+          }
+        });
+      }   
+    })
+}
+// end cancel order
 
 </script>
 @endsection

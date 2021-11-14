@@ -21,26 +21,31 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Paper size</th>
+                                    <th>Dimension</th>
                                     <th>Colored</th>
                                     <th>Price</th>
+                                    <th>Availability</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach ($prices as $price)
+                              @foreach ($prices as $price) 
                                   <tr id="pid{{$price->id}}">
                                       <td>{{$loop->iteration}}</td> 
                                       <td>{{$price->size}}</td>
+                                      <td>{{$price->dimension}}</td>
                                       <td>{{$price->isColored}}</td>
                                       <td>₱{{number_format($price->price, 2, '.', ',')}}</td> 
+                                      <td>{{$price->isAvailable}}</td> 
                                       <td>  
                                       <button onclick="getPriceInfo({{$price->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Price"><i class="fa fa-eye"></i></button>
                                       <button onclick="deletePrintPrice({{$price->id}})" type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Delete Price"><i class="fa fa-trash"></i></button>
-                                      </td>
+                                      <button onclick="updateAvailability({{$price->id}})" type="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Update Availability"><i class="fa fa-edit"></i></button>
+                                    </td>
                                   </tr>
                               @endforeach 
                             </tbody>
-                            <tfoot>
+                            <!-- <tfoot>
                                 <tr>
                                     <th>No.</th>
                                     <th>Paper size</th>
@@ -48,7 +53,7 @@
                                     <th>Price</th>
                                     <th>Actions</th>
                                 </tr>
-                            </tfoot>
+                            </tfoot> -->
                         </table>
                 </div>
             </div>
@@ -75,6 +80,13 @@
                 <input type="text" class="form-control" id="edit_size" placeholder="Enter paper edit_size" name="edit_size" required>
                 <span class="text-danger error-text size_err"></span>
                 </div>
+
+                 <!-- paper dimension -->
+                 <div class="form-group">
+                <label for="edit_dimension">Paper dimension</label>
+                <input type="text" class="form-control" id="edit_dimension" placeholder="Enter paper edit_dimension" name="edit_dimension" required>
+                <span class="text-danger error-text dimension_err"></span>
+                </div>
                
                 <div class="form-group">
                     <label for="edit_isColored">Paper type:</label><br>
@@ -92,6 +104,17 @@
                 <input type="number" class="form-control" id="edit_price" placeholder="Enter edit_price" name="edit_price" required>
                 <span class="text-danger error-text price_err"></span>
                 </div>
+
+                <div class="form-group">
+                    <label for="edit_isAvailable">Paper Availability:</label><br>
+                    <select class="form-control" id="edit_isAvailable" name="edit_isAvailable">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <span class="text-danger error-text modeOfPayment_err"></span>
+                </div>
+                
 
               <!-- token -->
               <input type="hidden" name="edit_token" id="edit_token" value="{{ csrf_token() }}"> 
@@ -125,10 +148,18 @@
           <div class="modal-body">
                 <!-- paper size -->
                 <div class="form-group">
-                <label for="size">Paper Size</label>
+                <label for="size">Paper size</label>
                 <input type="text" class="form-control" id="size" placeholder="Enter paper size" name="size" required>
                 <span class="text-danger error-text size_err"></span>
                 </div>
+
+                 <!-- paper dimension -->
+                 <div class="form-group">
+                <label for="dimension">Paper dimension</label>
+                <input type="text" class="form-control" id="dimension" placeholder="Enter paper dimension" name="dimension" required>
+                <span class="text-danger error-text dimension_err"></span>
+                </div>
+
 
                 <div class="form-group">
                     <label for="isColored">Paper type:</label><br>
@@ -146,6 +177,18 @@
                 <input type="number" class="form-control" id="price" placeholder="Enter price" name="price" required>
                 <span class="text-danger error-text price_err"></span>
                 </div>
+
+                <div class="form-group">
+                    <label for="isAvailable">Paper Availability:</label><br>
+                    <select class="form-control" id="isAvailable" name="isAvailable">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <span class="text-danger error-text modeOfPayment_err"></span>
+                </div>
+                
+
 
               <!-- token -->
               <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}"> 
@@ -218,7 +261,15 @@ $('#newPriceForm').on('submit',function(event){
                 },
                   error: function(data) {
                       console.log(data);
-                      alert("wa sod");
+                      Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
                   }
                 });
             } 
@@ -281,7 +332,15 @@ $('#editPrintPriceForm').on('submit',function(event){
                 },
                   error: function(data) {
                       console.log(data);
-                      alert("wa sod");
+                      Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
                   }
                 });
             } 
@@ -299,7 +358,9 @@ function getPriceInfo(valueId){
         console.log(data);
         $('#edit_size').val(data.size);
         $('#edit_isColored').val(data.isColored);
+        $('#edit_dimension').val(data.dimension);
         $('#edit_price').val(data.price);
+        $('#edit_isAvailable').val(data.isAvailable);
         $('#id').val(data.id);
 
     });
@@ -342,7 +403,16 @@ function deletePrintPrice(valueId){
            })
        
            }, error: function(data) {
-             alert("wa sod");
+             console.log(data);
+            Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
              }
        });
    } 
@@ -350,6 +420,65 @@ function deletePrintPrice(valueId){
 
 }
 // delete product end
+
+function updateAvailability(valueId){
+
+
+ 
+  var id = valueId;
+  console.log(id);
+
+  event.preventDefault();
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+  }); 
+    
+
+ Swal.fire({
+   title: 'Update Availability?',
+  //  text: "Once deleted, you will not be able to recover this!",
+   icon: 'warning',
+   showCancelButton: true,
+   confirmButtonColor: '#3085d6',
+   cancelButtonColor: '#d33',
+   confirmButtonText: 'Yes, update it!'
+   }).then((result) => {
+     if (result.isConfirmed) {
+       $.ajax({
+             url:"{{route('printPrice.editAvailability')}}",
+             type:'POST',
+             data: {id:id},
+             success:function(data) {
+            //   remove datatooltip in UI
+              location.reload();
+             Swal.fire({
+             icon: 'success',
+             title: 'Print price availability updated',
+             showConfirmButton: false,
+             timer: 2500
+           })
+       
+           }, error: function(data) {
+           console.log(data);
+           Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
+             }
+       });
+   } 
+ });
+
+
+
+}
 
 
 

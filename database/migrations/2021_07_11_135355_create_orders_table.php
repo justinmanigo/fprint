@@ -25,6 +25,7 @@ class CreateOrdersTable extends Migration
             $table->string('cancelledReason')->nullable();
             $table->timestamps();
             
+            
             // foreign key
              $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
              

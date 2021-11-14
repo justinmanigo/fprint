@@ -17,6 +17,7 @@ class UserAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
+        Log::info("test");
         if( Auth::check() )
         {
             Log::info("test");
