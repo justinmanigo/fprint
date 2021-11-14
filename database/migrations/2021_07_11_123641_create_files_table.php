@@ -17,10 +17,11 @@ class CreateFilesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('printPrice_id')->nullable();
             $table->string('filename');
-            $table->integer('pageFrom');
-            $table->integer('pageTo');
+            $table->integer('pageFrom')->nullable();
+            $table->integer('pageTo')->nullable();
             $table->integer('totalPages');
             $table->float('noOfCopy');
+            $table->enum('isPrintAll',['Yes','No'])->nullable();
             $table->timestamps();
           
             // foreign key
