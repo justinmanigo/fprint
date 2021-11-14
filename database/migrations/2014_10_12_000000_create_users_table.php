@@ -21,9 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('idNumber')->unique();
             $table->string('password');
-            // $table->string('contact');
-            $table->enum('occupation',['Student','Professor','Employee']);
-            $table->enum('isBlocked',['Yes','No']);
+            $table->string('contact');
             $table->rememberToken();
             $table->timestamps();
         });

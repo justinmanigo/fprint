@@ -35,8 +35,6 @@ class PrintPriceController extends Controller
             'size' => 'required',
             'isColored' => 'required',
             'price' => 'required|min:1|numeric',
-            'dimension' => 'required',
-            'isAvailable' => 'required',
             
         ],
         [
@@ -48,10 +46,8 @@ class PrintPriceController extends Controller
             //store price
             $price = new printPrice;
             $price->size = $request->size;
-            $price->dimension = $request->dimension;
             $price->isColored =  $request->isColored;
             $price->price = $request->price;
-            $price->isAvailable = $request->isAvailable; 
             $price->save();
             Log::info("sod");
 
@@ -78,8 +74,6 @@ class PrintPriceController extends Controller
             'edit_size' => 'required',
             'edit_isColored' => 'required',
             'edit_price' => 'required|min:1|numeric',
-            'edit_dimension' => 'required',
-            'edit_isAvailable' => 'required',
            
         ],
         [
@@ -93,8 +87,6 @@ class PrintPriceController extends Controller
             $price->size = $request->edit_size;
             $price->isColored = $request->edit_isColored;
             $price->price = $request->edit_price;
-            $price->isAvailable = $request->edit_isAvailable;    
-            $price->dimension = $request->edit_dimension;
             $price->save();
         }
        
@@ -124,24 +116,6 @@ class PrintPriceController extends Controller
 
         Log::info($id);
         $price = printPrice::find($id);
-
-        return response()->json($price);
-    }
-
-     
-
-    public function updateAvailability(Request $request){
-        Log::info("sod update");
-        
-        $price = printPrice::find($request->id);
-        Log::info($price);
-        if($price->isAvailable == "Yes"){
-            $price->isAvailable = "No";
-        }else{
-            $price->isAvailable = "Yes";
-        }
-     
-        $price->save();
 
         return response()->json($price);
     }

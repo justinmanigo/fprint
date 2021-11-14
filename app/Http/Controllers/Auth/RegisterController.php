@@ -54,10 +54,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'firstName' => ['required', 'string', 'max:255'],
             'lastName' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255','unique:users','ends_with:@adamson.edu.ph'],
+            'email' => ['required', 'string', 'email', 'max:255','unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'occupation' => ['required'],
-            'idNumber' => ['required','integer','unique:users','digits_between:8,9'],
+            'contact' => ['required','string','min:11','max:13'],
+            'idNumber' => ['required','integer','unique:users','digits:9'],
             'TermsAndCondition' => ['accepted'],
         ]);
     }
@@ -76,9 +76,8 @@ class RegisterController extends Controller
             'lastName' => $data['lastName'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'occupation' => $data['occupation'],
+            'contact' => $data['contact'],
             'idNumber' => $data['idNumber'],
-            'isBlocked' => "No",
              
         ]);
 

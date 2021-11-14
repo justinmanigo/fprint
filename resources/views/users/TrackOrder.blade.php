@@ -301,16 +301,7 @@ $('#viewOrderForm').on('submit',function(event){
               },
               error: function(data) {
                   console.log(data);
-                  // alert("Exceed 25MB Try again");
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong.Please reload the page and try again!',
-                    timer: 1000
-                  }).then((result) => {
-                      // Reload the Page
-                      location.reload();
-                  });
+                  alert("Exceed 25MB Try again");
               }
             });
           }else{

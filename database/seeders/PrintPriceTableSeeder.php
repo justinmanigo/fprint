@@ -18,8 +18,6 @@ class PrintPriceTableSeeder extends Seeder
         DB::table('print_prices')->insert([
             [
                 'size' => 'A4',
-                'dimension' => '10x12',
-                'isAvailable' => 'Yes',
                 'isColored' => 'Yes',
                 'price'=> 5,
                 'created_at' => now(),
@@ -27,8 +25,6 @@ class PrintPriceTableSeeder extends Seeder
             ],
             [
                 'size' => 'A4',
-                'dimension' => '10x12',
-                'isAvailable' => 'Yes',
                 'isColored' => 'No',
                 'price'=> 3,
                 'created_at' => now(),
@@ -36,8 +32,6 @@ class PrintPriceTableSeeder extends Seeder
             ],
             [
                 'size' => 'Short',
-                'dimension' => '10x12',
-                'isAvailable' => 'Yes',
                 'isColored' => 'Yes',
                 'price'=> 7,
                 'created_at' => now(),
@@ -45,8 +39,6 @@ class PrintPriceTableSeeder extends Seeder
             ],
             [
                 'size' => 'Short',
-                'dimension' => '10x12',
-                'isAvailable' => 'Yes',
                 'isColored' => 'No',
                 'price'=> 3,
                 'created_at' => now(),
@@ -54,8 +46,6 @@ class PrintPriceTableSeeder extends Seeder
             ], 
             [
                 'size' => 'Long',
-                'dimension' => '10x12',
-                'isAvailable' => 'No',
                 'isColored' => 'Yes',
                 'price'=> 10,
                 'created_at' => now(),
@@ -63,8 +53,6 @@ class PrintPriceTableSeeder extends Seeder
             ],
             [
                 'size' => 'Long',
-                'dimension' => '10x12',
-                'isAvailable' => 'No',
                 'isColored' => 'No',
                 'price'=> 5,
                 'created_at' => now(),

@@ -27,16 +27,15 @@ class PermissionTableSeeder extends Seeder
             'guard_name' => 'web',
             'created_at' => now(),
             'updated_at' => now(),
-        ]); 
+        ]);
         $user = User::create([
             'firstName' => 'test',
             'lastName' => 'admin',
             'email' => 'admin@adamson.edu.ph',
             'email_verified_at'=> now(),
-            'occupation' => 'Employee',
             'password' => bcrypt('admin123'),
             'idNumber' => 1234562,
-            'isBlocked' => 'No',
+            'contact' => "12345678910",
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -59,8 +58,7 @@ class PermissionTableSeeder extends Seeder
             'email_verified_at'=> now(),
             'password' => bcrypt('user123'),
             'idNumber' => 12345621,
-            'occupation' => 'Student',
-            'isBlocked' => 'No',
+            'contact' => "12345678910",
             'created_at' => now(),
             'updated_at' => now(),
         ]);

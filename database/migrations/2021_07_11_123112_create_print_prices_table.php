@@ -18,8 +18,6 @@ class CreatePrintPricesTable extends Migration
             $table->string('size');
             $table->enum('isColored',['Yes','No']);
             $table->float('price');
-            $table->string('dimension')->nullable();
-            $table->enum('isAvailable',['Yes','No']);
             $table->timestamps();
         });
     }

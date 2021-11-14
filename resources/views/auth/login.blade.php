@@ -6,11 +6,7 @@
         <div class="col-md-8 form">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-                @if (session('error'))
-     <div class="alert alert-danger">
-         {{ session('error') }}
-     </div>
-  @endif
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

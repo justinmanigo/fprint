@@ -6,13 +6,11 @@ use App\Models\transactions;
 use App\Models\Orders;
 use App\Models\printPrice;
 use App\Models\Files;
-use App\Models\Logs; 
+use App\Models\Logs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Validator;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\orderConfirmed;
 class TransactionsController extends Controller
 {
     
@@ -114,17 +112,6 @@ class TransactionsController extends Controller
         $log->updated_at = now();
         $log->created_at = now();
         $log->save();
-
-        //  $email = $transaction->users->email;
-        $email = "justinmanigo.softdev@gmail.com";
-   
-         $details = [
-             'subject' => "Fprint Order $request->status",
-             'title' => "Order $request->status",
-             'body' => "Your Order with the reference:".$transaction->orders->referenceNumber."has been confirmed!"
-         ];
-
-         Mail::to($email)->send(new orderConfirmed($details));
 
         return response()->json($transaction);
 

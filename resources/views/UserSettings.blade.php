@@ -142,15 +142,7 @@ $('#userSettingsForm').on('submit',function(event){
                     }
                 },
                   error: function(data) {
-                    Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong.Please reload the page and try again!',
-                    timer: 1000
-                  }).then((result) => {
-                      // Reload the Page
-                      location.reload();
-                  });
+                      alert("wa sod");
                   }
                 });
             }
