@@ -9,8 +9,6 @@ use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AnnouncementController;
-use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Log; 
 /*
 |--------------------------------------------------------------------------
@@ -22,22 +20,13 @@ use Illuminate\Support\Facades\Log;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes(['verify' => true]);
- 
-    Route::get('/', [HomeController::class,'index'])->name('home');
-    Route::get('/loginUser', [HomeController::class,'loginUser'])->name('loginUser');
-    Route::get('/welcome', [HomeController::class,'welcome']);
-    Route::get('/#collapse_1i', [HomeController::class,'index3']);
-    Route::get('/#collapse_2i', [HomeController::class,'index3']);
-    Route::get('/#collapse_3i', [HomeController::class,'index3']);
+Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/#collapse_1i', [HomeController::class,'index3']);
+Route::get('/#collapse_2i', [HomeController::class,'index3']);
+Route::get('/#collapse_3i', [HomeController::class,'index3']);
 
-    Route::get('/index', [HomeController::class,'index2']);
-
-    
-//only verified account can access with this group
-Route::group(['middleware' => ['verified']], function() {
-});
- 
+Route::get('/index', [HomeController::class,'index2']);
+Auth::routes();
 
 // start route group
 Route::group(['middleware'=>'auth'], function(){
@@ -50,13 +39,10 @@ Route::group(['middleware'=>'auth'], function(){
 
         //-view users
         Route::get('/users',[UsersController::class,'index']);
-        // --get users info
+        // --get order info
         Route::get('/getUserInfo/{id}',[UsersController::class,'getUserInfo']);
         //  --update user type
         Route::post('/updateUserType',[UsersController::class,'updateUserType'])->name('updateUserType');
-
-          //  --block user 
-          Route::post('/blockUser',[UsersController::class,'blockUser'])->name('blockUser');
 
     });
 
@@ -82,17 +68,24 @@ Route::group(['middleware'=>'auth'], function(){
      //settings user routes
      Route::group(['as'=>'users.'], function(){
 
-        //-view user
+        //-view order
         Route::get('/view',[OrdersController::class,'indexUser']);
 
-        //-view orduserer
+        //-view order
         Route::get('/settings',[UsersController::class,'show']);
 
         //  --edit user settings
         Route::post('/editSettings',[UsersController::class,'edit'])->name('edit');
-
-        
           
+        // //  --add print price
+        // Route::post('/orderAdd',[OrdersController::class,'store'])->name('store');
+        // // --get product info
+        // Route::get('/getPrintPrice/{id}',[OrdersController::class,'getPrintPriceById']);
+        // //  --add print price
+        // Route::post('/payGcash',[OrdersController::class,'payGcash'])->name('payGcash');
+        // // --get order track info
+        // Route::get('/getTrackOrder/{id}',[LogsController::class,'getTrackOrder']);
+     
 
     });
     
@@ -100,7 +93,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::group(['as'=>'orderUser.'], function(){
 
         //-view order
-        Route::get('/orderForm',[OrdersController::class,'indexUser'])->name('orderForm');
+        Route::get('/orderForm',[OrdersController::class,'indexUser']);
         //  --add print price
         Route::post('/orderAdd',[OrdersController::class,'store'])->name('store');
         // --get product info
@@ -109,13 +102,9 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/payGcash',[OrdersController::class,'payGcash'])->name('payGcash');
         // --get order track info
         Route::get('/getTrackOrder/{id}',[LogsController::class,'getTrackOrder']);
-          // cancel order info
-          Route::post('/cancelOrderUser',[OrdersController::class,'cancelOrder'])->name('cancelOrderUser');
      
 
     });
-
-    
 
 
     //print price routes
@@ -133,29 +122,8 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/getPrintPriceInfo/{id}',[PrintPriceController::class,'getPrintPriceInfo']);
         //  --edit print price
         Route::post('/editPrice',[PrintPriceController::class,'edit'])->name('editPrice');
-        //  --edit print price
-        Route::post('/printPriceAvailability',[PrintPriceController::class,'updateAvailability'])->name('editAvailability');
         // --delete product
         Route::delete('/printPriceDelete/{id}',[PrintPriceController::class,'destroy']);
-    });
-
-    
-    //announcement routes
-    Route::group([
-        'as'=>'announcement.',
-        'middleware'=>'role:admin'
-    ], function(){
-
-        //-view announcement
-        Route::get('/announcement',[AnnouncementController::class,'index']);
-        //  --add announcement
-        Route::post('/addAnnouncement',[AnnouncementController::class,'store'])->name('store');
-         
-        // --get announcement info
-        Route::get('/getAnnouncementInfo/{id}',[AnnouncementController::class,'getAnnouncementInfo']);
-        //  --edit print price
-        Route::post('/editAnnouncement',[AnnouncementController::class,'update'])->name('update');
-       
     });
 
     //transaction form user routes
@@ -206,10 +174,8 @@ Route::group(['middleware'=>'auth'], function(){
 
      //dashboard from admin
      Route::group(['as'=>'dashboard.'], function(){
-         //-view
+         //-view print price
          Route::get('/dashboard',[DashboardController::class,'index']);
-         //-get revenue
-         Route::get('/getRevenue',[DashboardController::class,'getRevenue']);
 
        
     });
@@ -217,7 +183,8 @@ Route::group(['middleware'=>'auth'], function(){
 });
 // end route group
 
-// Route::get('/send-email', [MailController::class, 'sendEmail']);
+
+
 
 
 
@@ -241,7 +208,4 @@ Route::group(['middleware'=>'auth'], function(){
 //     Route::get('/home5',  [HomeController::class,'index2'])->name('home2');
 // });
 
-Route::get('test', function () {
-    event(new App\Events\StatusLiked('Someone'));
-    return "Event has been sent!";
-});
+ 

@@ -14,8 +14,6 @@ use Validator;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\orderConfirmed;
 
 class OrdersController extends Controller
 {
@@ -24,13 +22,6 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
-    
     public function index()
     {
         //
@@ -54,7 +45,6 @@ class OrdersController extends Controller
         return view('users.OrderForm')->with('prices',$prices)->with('sizeUnique',$sizeUnique);
     }
 
-     
 
     /**
      * Store a newly created resource in storage.
@@ -70,18 +60,13 @@ class OrdersController extends Controller
             'today' => 'yesterday',
             'pickupDate' => 'date|date_format:Y-m-d|after_or_equal:today',
             'printPrice_id' => 'required',
-            'pageFrom' => 'numeric|min:1|max:pageTo',
-            'pageTo'=> 'numeric|min:1',
+            'pageFrom' => 'required|numeric|min:1|max:pageTo',
+            'pageTo'=> 'required|numeric|min:1',
             'noOfCopy' => 'required|numeric|min:1',
             'modeOfPayment' => 'required',
-            'file' => 'required|max:25000',
+            'file' => 'required|mimes:pdf,xlx,xlsx,pptx,csv,docx,odt|max:2048',
             'TermsAndCondition' => 'accepted',
-            'totalPages' => 'numeric|min:1',
            
-        ],
-        [
-            'file.max' => 'File must be lesser than 25 MB only.',
-            // 'product_stock.min' => 'must be not negative or zero',
         ]);
         if($validator->passes()){
 
@@ -92,31 +77,14 @@ class OrdersController extends Controller
             
    
             $request->file->move(public_path('files'), $fileName);
-            // $pages1 = new Files;
-            // Log::info("files/1636129793_03.CoE_Justin_20201117_1.pdf");
-            // $pages = $pages1->countPages("files/".$fileName);
-            
-             
-            
+
             $file1 = new Files;
             $file1->printPrice_id = $request->printPrice_id;
             $file1->filename =  $fileName;
             $file1->noOfCopy = $request->noOfCopy;
-            if($request->isPrintAll == "1"){
-                Log::info("sod check");
-                $file1->pageFrom = 0;
-                $file1->pageTo = 0;
-                $file1->totalPages = $request->totalPages;
-                $file1->isPrintAll = "Yes";
-            }else{
-                Log::info("wa sod check");
-                $file1->pageFrom = $request->pageFrom;
-                $file1->pageTo = $request->pageTo;
-                $file1->totalPages = $request->totalPages;
-                $file1->isPrintAll = "No";
-            }
-          
-           
+            $file1->pageFrom = $request->pageFrom;
+            $file1->pageTo = $request->pageTo;
+            $file1->totalPages = $request->totalPages;
             $file1->created_at = now();
             $file1->updated_at = now();
             $file1->save();
@@ -234,17 +202,6 @@ class OrdersController extends Controller
          $log->created_at = now();
          $log->save();
 
-        //  $email = $transaction->users->email;
-        $email = "justingraig.manigo15@gmail.com";
-   
-         $details = [
-            'subject' => "Fprint Order $request->status",
-             'title' => "Order Confirmed",
-             'body' => "Your Order with the reference:".$order->referenceNumber."has been confirmed!"
-         ];
-
-         Mail::to($email)->send(new orderConfirmed($details));
-
         return response()->json($order);
     }
 
@@ -269,17 +226,6 @@ class OrdersController extends Controller
         $log->updated_at = now();
         $log->created_at = now();
         $log->save();
-
-        //  $email = $transaction->users->email;
-        $email = "justingraig.manigo15@gmail.com";
-   
-         $details = [
-            'subject' => "Fprint Order",
-             'title' => "Order Cancelled",
-             'body' => "Your Order with the reference:".$order->referenceNumber."has been cancelled!"
-         ];
-
-         Mail::to($email)->send(new orderConfirmed($details));
 
         return response()->json($order);
     }
@@ -309,7 +255,6 @@ class OrdersController extends Controller
             $transaction->refNumReceipt = $request->refNumReceipt;
             $transaction->updated_at = now();
             $transaction->save();
-            
             
            
 

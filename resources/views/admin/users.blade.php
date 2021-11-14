@@ -21,8 +21,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Type</th>
-                                    <th>Occupation</th>
-                                    <th>Blocklisted</th>
+                                    <th>Contact</th>
                                     <th>Actions</th>
                                  
                                 </tr>
@@ -35,20 +34,27 @@
                                     <td>{{$user->firstName}} {{$user->lastName}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->roles->first()->name}}</td>
-                                    <td>{{$user->occupation}}</td>
-                                    <td>{{$user->isBlocked}}</td>
+                                    <td>{{$user->contact}}</td>
                                    
                                     <td>  
-                                   
-                                    
                                     <button onclick="getUserInfo({{$user->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-eye"></i></button>
-                                    <button   onclick="blockUser({{$user->id}})"  type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-user-lock"></i></button>
                                     </td>
                                
                                 </tr>
                             @endforeach 
                             
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Type</th>
+                                    <th>Contact</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
                         </table>
                 </div>
             </div>
@@ -204,15 +210,7 @@ $('#userForm').on('submit',function(event){
                 },
                   error: function(data) {
                       console.log(data);
-                      Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong.Please reload the page and try again!',
-                        timer: 1000
-                      }).then((result) => {
-                          // Reload the Page
-                          location.reload();
-                      });
+                      alert("wa sod");
                   }
                 });
             }else{
@@ -236,76 +234,9 @@ function printErrorMsg (msg) {
             });
 }
 // printing error message end
-</script>
-
-<script>
-  //start block user 
-function blockUser(valueId){
  
-  event.preventDefault();
-  $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-  });   
 
-  swal.fire({
-  title: 'Block or Unblock the user for using the system.',
-  showCancelButton: true,
-  confirmButtonText: 'Update',
-  }).then((result) => {
-
-      if (result.isConfirmed) {
-       
-        var id = valueId;
-         
-        
-        $.ajax({
-          url:"{{route('user.blockUser')}}",
-          type:'POST',
-          data: {id:id},
-          success:function(data){
-            console.log(data);
-            
-            if($.isEmptyObject(data.error)){
-                    console.log("success");
-                    $(".text-danger").hide();
-
-                    Swal.fire({
-                    icon: 'success',
-                    title: 'Order has been cancelled',
-                    showConfirmButton: false,
-                    timer: 1000
-                    })
-                   
-                    location.reload();
-                    
-                    $('#viewModal').modal('toggle');
-                    $('#viewModal')[0].reset();   
-            }else{
-                    $(".text-danger").show();
-                    printErrorMsg(data.error);
-                    console.log("sod error");
-            }   
-          },
-          error: function(data) {
-              console.log(data);
-              Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong.Please reload the page and try again!',
-                    timer: 1000
-                  }).then((result) => {
-                      // Reload the Page
-                      location.reload();
-                  });
-          }
-        });
-      }   
-    })
-}
-// end cancel order
-
+ 
 </script>
 
 
