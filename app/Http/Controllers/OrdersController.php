@@ -88,10 +88,9 @@ class OrdersController extends Controller
             $file = $request->file('file')->getClientOriginalName();
             Log::info($file);
             $fileName =  time().'_' .$file;  
-  
-            
-   
-            $request->file->move(public_path('files'), $fileName);
+            $request->file->storeAs('files', $fileName, 'public');
+
+            // $file->storeAs('images/products', $imageName, 'public');
             // $pages1 = new Files;
             // Log::info("files/1636129793_03.CoE_Justin_20201117_1.pdf");
             // $pages = $pages1->countPages("files/".$fileName);
@@ -299,8 +298,8 @@ class OrdersController extends Controller
         
             Log::info($file);  
             $fileName =  time(). '_' .$file;  
-            $request->receipt->move(public_path('receipts'), $fileName);
-            
+            // $request->receipt->move(public_path('receipts'), $fileName);
+            $request->file->storeAs('gcash', $fileName, 'public');
 
             
             $transaction = Transactions::find($request->transaction_id); 
