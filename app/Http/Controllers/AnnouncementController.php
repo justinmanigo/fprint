@@ -135,10 +135,13 @@ class AnnouncementController extends Controller
      * @param  \App\Models\Announcement  $announcement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Announcement $announcement)
+    public function destroy($id,Announcement $announcement)
     {
-        //
+        $announcement = Announcement::find($id);
+        $announcement->delete();
     }
+
+     
 
     public function getAnnouncementInfo($id){
 

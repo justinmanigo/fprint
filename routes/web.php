@@ -153,8 +153,11 @@ Route::group(['middleware'=>'auth'], function(){
          
         // --get announcement info
         Route::get('/getAnnouncementInfo/{id}',[AnnouncementController::class,'getAnnouncementInfo']);
-        //  --edit print price
+        //  --edit announcement
         Route::post('/editAnnouncement',[AnnouncementController::class,'update'])->name('update');
+
+         // --delete announcement
+         Route::delete('/printAnnouncement/{id}',[AnnouncementController::class,'destroy']);
        
     });
 

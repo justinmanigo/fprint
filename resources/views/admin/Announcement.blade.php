@@ -41,9 +41,9 @@
                                     
                                    
                                     <td>  
-                                    <button onclick="getAnnouncementInfo({{$announcement->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-eye"></i></button>
-                                    <!-- <button onclick="" type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-user-lock"></i></button> -->
-                                    </td>
+                                    <button onclick="getAnnouncementInfo({{$announcement->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Announcment"><i class="fa fa-eye"></i></button>
+                                    <button onclick="deleteAnnouncement({{$announcement->id}})" type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Delete Announcment"><i class="fa fa-trash"></i></button>
+                                    </td> 
                                
                                 </tr>
                             @endforeach 
@@ -335,6 +335,56 @@ $('#edit_announcementForm').on('submit',function(event){
 
 });
 // end edit announcement
+
+
+// delete announcement start
+function deleteAnnouncement(valueId){
+ 
+ var id = valueId;
+ Swal.fire({
+   title: 'Are you sure?',
+   text: "Once deleted, you will not be able to recover this!",
+   icon: 'warning',
+   showCancelButton: true,
+   confirmButtonColor: '#3085d6',
+   cancelButtonColor: '#d33',
+   confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+     if (result.isConfirmed) {
+       $.ajax({
+             url:"/printAnnouncement/"+id,
+             type:'DELETE',
+             data:{
+               _token: $("input[name=_token]").val()
+             },
+             success:function(data) {
+            //   remove datatooltip in UI
+              location.reload();
+             Swal.fire({
+             icon: 'success',
+             title: 'Announcement deleted',
+             showConfirmButton: false,
+             timer: 2500
+           })
+       
+           }, error: function(data) {
+             console.log(data);
+            Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
+             }
+       });
+   } 
+ });
+
+}
+// delete product announcement
 
 
 

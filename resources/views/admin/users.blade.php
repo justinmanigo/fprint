@@ -42,7 +42,7 @@
                                    
                                     
                                     <button onclick="getUserInfo({{$user->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-eye"></i></button>
-                                    <button   onclick="blockUser({{$user->id}})"  type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-user-lock"></i></button>
+                                    <button   onclick="blockUser({{$user->id}})"  type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Update Blocklist"><i class="fa fa-user-lock"></i></button>
                                     </td>
                                
                                 </tr>

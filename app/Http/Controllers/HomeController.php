@@ -81,7 +81,7 @@ class HomeController extends Controller
         if(Auth::user() && Auth::user()->roles->first()->name == "admin")
              return view('admin.Dashboard')->with('pendingOrders',$pendingOrders)->with('totalOrders',$totalOrders)->with('totalUsers',$totalUsers)->with('revenue',$total);
         else if(Auth::user() && Auth::user()->roles->first()->name == "user")
-            return view('users.orderForm')->with('prices',$prices)->with('sizeUnique',$sizeUnique);
+            return view('users.OrderForm')->with('prices',$prices)->with('sizeUnique',$sizeUnique);
         else
             return view('home')->with('announcements',$announcements);
     }
