@@ -384,7 +384,7 @@
                                   <div class="col-sm-12  pb-3">
                                         <h5>Submit your receipt</h5>
                                         <label for="receipt">Upload Screenshot of Receipt</label>
-                                        <input type="file" class="form-control-file" name="receipt" id="receipt">
+                                        <input type="file" class="form-control-file" name="file" id="file">
                                         <span class="text-danger error-text receipt_err"></span>
                                 </div>   
                                 
@@ -712,7 +712,7 @@ $('#payGcashForm').on('submit',function(event){
                       timer: 2000
                       }).then((result) => {
 
-                          // window.location.href = "{{url('/myOrders')}}";
+                        
                           location.reload();
                       
                   });
@@ -791,11 +791,11 @@ function viewReceipt(valueId){
  
    // <img src="{{ asset('/img/qrgcash.png') }}" id="qr"class="img-thumbnail rounded mx-auto d-block" alt="...">
    $("#refNumReceipt").text(data.refNumReceipt);    
- 
+   
       
      var html = '';
      if(data.receipt){
-       html += ' <img src="/receipts/'+data.receipt+'" id="qr"class="img-thumbnail rounded mx-auto d-block" alt="...">';
+       html += ' <img src="storage/gcash/'+data.receipt+'" id="qr"class="img-thumbnail rounded mx-auto d-block" alt="...">';
      }
      $('#receiptImage').append(html);       
      

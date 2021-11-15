@@ -16,6 +16,7 @@ use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\orderConfirmed;
+use Illuminate\Support\File;
 
 class OrdersController extends Controller
 {
@@ -85,11 +86,10 @@ class OrdersController extends Controller
         ]);
         if($validator->passes()){
 
-            $file = $request->file('file')->getClientOriginalName();
-            Log::info($file);
+            $file = $request->file('file')->getClientOriginalName(); 
             $fileName =  time().'_' .$file;  
             $request->file->storeAs('files', $fileName, 'public');
-
+            Log::info($file);
             // $file->storeAs('images/products', $imageName, 'public');
             // $pages1 = new Files;
             // Log::info("files/1636129793_03.CoE_Justin_20201117_1.pdf");
@@ -286,22 +286,24 @@ class OrdersController extends Controller
 
     // pay via gcash
     public function payGcash(Request $request){
-        Log::info($request);
+        // Log::info($request);
         $validator = Validator::make($request->all(), [
-            'receipt' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+            'file' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048', 
             'refNumReceipt' => 'required', 
            
         ]);
         if($validator->passes()){
 
-            $file = $request->file('receipt')->getClientOriginalName();
-        
+            $file = $request->file('file')->getClientOriginalName();
             Log::info($file);  
+
             $fileName =  time(). '_' .$file;  
-            // $request->receipt->move(public_path('receipts'), $fileName);
+            Log::info($fileName); 
+            
             $request->file->storeAs('gcash', $fileName, 'public');
 
-            
+
+            // $request->receipt->move(public_path('receipts'), $fileName);
             $transaction = Transactions::find($request->transaction_id); 
             $transaction->ispaid = "Paid";
             $transaction->receipt =$fileName;

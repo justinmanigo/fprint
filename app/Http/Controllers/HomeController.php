@@ -47,7 +47,7 @@ class HomeController extends Controller
         }
         
         $announcements = Announcement::where('display','Yes')->limit(3)->get();
-
+        Log::info($announcements);
         // if(Auth::user() && Auth::user()->roles->first()->name == "admin")
         //      return view('home')->with('announcements',$announcements);
         // else if(Auth::user() && Auth::user()->roles->first()->name == "user")
@@ -72,13 +72,16 @@ class HomeController extends Controller
             $total  = $total + $price;
             
         }
+
+        $prices = printPrice::all();
+            $sizeUnique = $prices->unique('size');
         
         $announcements = Announcement::where('display','Yes')->limit(3)->get();
 
         if(Auth::user() && Auth::user()->roles->first()->name == "admin")
              return view('admin.Dashboard')->with('pendingOrders',$pendingOrders)->with('totalOrders',$totalOrders)->with('totalUsers',$totalUsers)->with('revenue',$total);
         else if(Auth::user() && Auth::user()->roles->first()->name == "user")
-            return view('users.orderForm');
+            return view('users.orderForm')->with('prices',$prices)->with('sizeUnique',$sizeUnique);
         else
             return view('home')->with('announcements',$announcements);
     }

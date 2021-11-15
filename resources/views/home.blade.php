@@ -17,10 +17,13 @@ id="hero" class="px-2 pt-5 pb-4 text-center border-bottom">
 </div>
 <img id="hero-border" src="{{ asset('img/background-with-border.png') }}">;
 <!-- news -->
+ 
 <div id="about_us" class="container my-5">
     <div class="row">
+    
         <div id="font1" class="col-lg-12 py-3 py-lg-5 order-1 order-lg-0">
         <h2 class="display-4 fw-bold lh-1">Announcements</h2>
+      
         @foreach ($announcements as $announcement)   
         <div class="card announcment_card">
                 <div class="card-body">
@@ -28,13 +31,25 @@ id="hero" class="px-2 pt-5 pb-4 text-center border-bottom">
                     <p class="lead">{{$announcement->description}}  </p>
                 </div>
         </div>
-        @endforeach 
         
+        @endforeach 
+
+        @empty($announcement)
+
+            <div class="card announcment_card">
+                    <div class="card-body">
+                        <h4 class="display-7 fw-regular lh-1">No further announcement.</h4>
+                        <!-- <p class="lead"> </p> -->
+                    </div>
+            </div>
+        @endempty
              
         </div>
     </div>
 </div><hr>
 
+ 
+ 
 
 
 <div id="about_us" class="container my-5">
