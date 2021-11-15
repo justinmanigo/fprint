@@ -35,8 +35,8 @@ class OrdersController extends Controller
     public function index()
     {
         //
-        $transactions = transactions::join('Orders', 'Orders.id', '=', 'transactions.order_id')
-                                     ->where('Orders.status', 'Processed')->get();
+        $transactions = transactions::join('orders', 'orders.id', '=', 'transactions.order_id')
+                                     ->where('orders.status', 'Processed')->get();
         $orders = Orders::all();
         return view('admin.orders')->with('orders',$orders)->with('transactions',$transactions);
     }
