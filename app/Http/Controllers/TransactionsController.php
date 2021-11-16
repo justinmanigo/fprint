@@ -115,8 +115,8 @@ class TransactionsController extends Controller
         $log->created_at = now();
         $log->save();
 
-        //  $email = $transaction->users->email;
-        $email = "justinmanigo.softdev@gmail.com";
+          $email = $transaction->users->email;
+       // $email = "justinmanigo.softdev@gmail.com";
    
          $details = [
              'subject' => "Fprint Order $request->status",

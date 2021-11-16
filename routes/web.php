@@ -25,17 +25,16 @@ use Illuminate\Support\Facades\Log;
 Auth::routes(['verify' => true]);
  
     Route::get('/', [HomeController::class,'index'])->name('home');
-    Route::get('/loginUser', [HomeController::class,'loginUser'])->name('loginUser');
     Route::get('/welcome', [HomeController::class,'welcome']);
     Route::get('/#collapse_1i', [HomeController::class,'index3']);
     Route::get('/#collapse_2i', [HomeController::class,'index3']);
     Route::get('/#collapse_3i', [HomeController::class,'index3']);
-
     Route::get('/index', [HomeController::class,'index2']);
 
     
 //only verified account can access with this group
 Route::group(['middleware' => ['verified']], function() {
+    Route::get('/loginUser', [HomeController::class,'loginUser'])->name('loginUser');
 });
  
 

@@ -109,7 +109,7 @@ $( window ).on( "load", function() {
                    myLineChart.data.datasets[0].data.push(value);
                 })
                 myLineChart.update();
-
+                
         },
         error:function(data){
             alert("wa sod");

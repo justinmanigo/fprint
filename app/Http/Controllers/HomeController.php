@@ -48,12 +48,7 @@ class HomeController extends Controller
         
         $announcements = Announcement::where('display','Yes')->limit(3)->get();
         Log::info($announcements);
-        // if(Auth::user() && Auth::user()->roles->first()->name == "admin")
-        //      return view('home')->with('announcements',$announcements);
-        // else if(Auth::user() && Auth::user()->roles->first()->name == "user")
-        //     return view('users');
-        // else
-            return view('home')->with('announcements',$announcements);
+        return view('home')->with('announcements',$announcements);
     }
 
     public function loginUser(){

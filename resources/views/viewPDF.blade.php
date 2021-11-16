@@ -5,7 +5,7 @@
     <div class="row justify-content-center" id="pdf">
         <div class="col-md-12">
         <div class="container pdf"> 
-                <iframe  class="responsive-iframe"  src="{{asset('storage/files/'.$file->files->filename)}}"> </iframe> 
+                <iframe  class="responsive-iframe"  src="{{asset('files/'.$file->files->filename)}}"> </iframe> 
         </div>
         </div>
     </div>
