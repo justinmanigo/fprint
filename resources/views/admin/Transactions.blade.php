@@ -465,7 +465,7 @@ function viewReceipt(valueId){
      
     var html = '';
     if(data.receipt){
-      html += ' <img src="/receipts/'+data.receipt+'" id="qr"class="img-thumbnail rounded mx-auto d-block" alt="...">';
+      html += ' <img src="gcash/'+data.receipt+'" id="qr"class="img-thumbnail rounded mx-auto d-block" alt="...">';
     }
     $('#receiptImage').append(html);       
     

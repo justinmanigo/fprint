@@ -53,9 +53,10 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/getUserInfo/{id}',[UsersController::class,'getUserInfo']);
         //  --update user type
         Route::post('/updateUserType',[UsersController::class,'updateUserType'])->name('updateUserType');
-
-          //  --block user 
-          Route::post('/blockUser',[UsersController::class,'blockUser'])->name('blockUser');
+        //  --block user 
+        Route::post('/blockUser',[UsersController::class,'blockUser'])->name('blockUser');
+        // --delete user
+        Route::delete('/UserDelete/{id}',[UsersController::class,'destroy']); 
 
     });
 

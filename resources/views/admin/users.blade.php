@@ -42,7 +42,8 @@
                                    
                                     
                                     <button onclick="getUserInfo({{$user->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-eye"></i></button>
-                                    <button   onclick="blockUser({{$user->id}})"  type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Update Blocklist"><i class="fa fa-user-lock"></i></button>
+                                    <button   onclick="blockUser({{$user->id}})" type="button" class="btn btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Update Blocklist"><i class="fa fa-user-lock"></i></button>
+                                    <button onclick="deleteUser({{$user->id}})"  type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Delete User"><i class="fa fa-trash"></i></button>
                                     </td>
                                
                                 </tr>
@@ -97,12 +98,24 @@
                 <span class="text-danger error-text price_err"></span>
                 </div>
 
-                 <!-- adamson email -->
+                 <!-- adamson email
                  <div class="form-group">
                 <label for="contact">Contact Number</label>
                 <input type="text" class="form-control" id="contact" placeholder="Enter contact number" name="contact" required>
                 <span class="text-danger error-text contact_err"></span>
+                </div> -->
+
+                <div class="form-group">
+                    <label for="occupation">Occupation</label><br>
+                    <select class="form-control" id="occupation" name="occupation">
+                        <option disabled  value> -- select an option -- </option>
+                        <option value="Student"> Student </option>
+                        <option value="Professor"> Professor </option>
+                        <option value="Employee"> Employee </option>
+                    </select>
+                    <span class="text-danger error-text modeOfPayment_err"></span>
                 </div>
+
                  
                 <div class="form-group">
                     <label for="type">User Type</label><br>
@@ -141,7 +154,7 @@ function getUserInfo(valueId){
         $('#lastName').val(data.lastName);
         $('#email').val(data.email);
         $('#idNumber').val(data.idNumber);
-        $('#contact').val(data.contact);
+        $('#occupation').val(data.occupation);
         $('#type').val(data.type);
 
     });
@@ -305,6 +318,57 @@ function blockUser(valueId){
     })
 }
 // end cancel order
+
+
+
+// delete user start
+function deleteUser(valueId){
+ 
+ var id = valueId;
+ Swal.fire({
+   title: 'Are you sure?',
+   text: "Once deleted, you will not be able to recover this!",
+   icon: 'warning',
+   showCancelButton: true,
+   confirmButtonColor: '#3085d6',
+   cancelButtonColor: '#d33',
+   confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+     if (result.isConfirmed) {
+       $.ajax({
+             url:"/UserDelete/"+id,
+             type:'DELETE',
+             data:{
+               _token: $("input[name=_token]").val()
+             },
+             success:function(data) {
+            //   remove datatooltip in UI
+              location.reload();
+             Swal.fire({
+             icon: 'success',
+             title: 'User deleted',
+             showConfirmButton: false,
+             timer: 2500
+           })
+       
+           }, error: function(data) {
+             console.log(data);
+            Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong.Please reload the page and try again!',
+                    timer: 1000
+                  }).then((result) => {
+                      // Reload the Page
+                      location.reload();
+                  });
+             }
+       });
+   } 
+ });
+
+}
+// delete user end
 
 </script>
 

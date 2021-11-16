@@ -33,7 +33,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="contact" class="col-lg-4 col-form-label text-lg-right">{{ __('Contact Number') }}</label>
 
                             <div class="col-lg-6">
@@ -41,7 +41,9 @@
                                 <span class="text-danger error-text contact_err"></span>
                                 
                             </div>
-                        </div>
+                        </div> -->
+
+                        
 
                         <div class="form-group row">
                             <label for="current_password" class="col-lg-4 col-form-label text-lg-right">{{ __('Current Password') }}</label>

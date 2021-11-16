@@ -54,7 +54,6 @@ class UsersController extends Controller
                
                 'firstName'=> 'required',
                 'lastName' => 'required',
-                'contact' => 'required',
                 'current_password' => 'required',
                 'password' => 'required|string|min:6|confirmed',
                 'password_confirmation' => 'required',
@@ -78,7 +77,6 @@ class UsersController extends Controller
             }
             $user->firstname = $request->firstName;
             $user->lastName  = $request->lastName;
-            $user->contact  = $request->contact;
             $user->password  = Hash::make($request->password);
             $user->save();
             Log::info($user);
@@ -139,6 +137,16 @@ class UsersController extends Controller
             }
             $user->save();
             return response()->json($user);
+    }
+
+   
+     
+    public function destroy($id)
+    {
+        //
+        $user = User::find($id);
+        $user->delete();
+        //== return response()->json($price);
     }
 
 }

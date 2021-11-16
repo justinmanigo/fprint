@@ -39,8 +39,11 @@
                                     <td>{{$transaction->orders->files->filename}}</td>
                                     <td>{{$transaction->orders->modeOfPayment}}</td>
                                     <td>₱{{number_format($transaction->orders->grandTotalPrice, 2, '.', ',')}}</td> 
-                                    <td>{{$transaction->orders->status}}</td>
-                                   
+                                    @if($transaction->orders->status == "Processed")
+                                    <td>Processing</td>
+                                   @else
+                                   <td>{{$transaction->orders->status}}</td>
+                                   @endif
                                     <td>  
                                     <a href="{{url('/viewOrder',$transaction->id)}}" type="button" class="btn btn-outline-dark" data-toggle="tooltip" data-placement="top" title="View File Uploaded" target="_blank" rel="noopener noreferrer"><span class="fa fa-print"></span></a>
                                     <button onclick="getOrderInfo({{$transaction->order_id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Order Form"><i class="fa fa-eye"></i></button>
@@ -238,7 +241,7 @@ function getOrderInfo(valueId){
     }else{
       var type = "Black & White";
     }
-    var size = order.price.size +"-"+type;
+    var size = order.price.size +" ("+ order.price.dimension+") " +"-"+type;
     $('#praperSize').val(size);
     
   

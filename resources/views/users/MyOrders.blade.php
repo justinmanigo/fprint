@@ -148,7 +148,7 @@
                                       @if(isset($prices))
                                       @foreach ($prices as $price)
                                       @if ($price->isColored == "Yes")
-                                      <option value="{{$price->id}}" >{{$price->size}} - Colored</option>
+                                      <option value="{{$price->id}}" >{{$price->size}} ({{$price->dimension}} ) - Colored</option>
                                       @else
                                       <option value="{{$price->id}}" >{{$price->size}} - Black & White</option>
                                       @endif
