@@ -77,7 +77,7 @@
 
                  
 
-                         <div class="col-sm-1  pb-2">
+                         <div class="col-sm-1  pb-2 pa">
                             <label for="pageFrom">Print All</label>
                             <input class="form-control form-check-input" type="checkbox" name="isPrintAll" checked  id="isPrintAll"  value="1" {{ old('TermsAndCondition') ? 'checked': null }}>
                             <span class="text-danger error-text pageFrom_err"></span>

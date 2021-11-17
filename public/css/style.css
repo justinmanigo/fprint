@@ -386,26 +386,37 @@
     
    }
    
-   #FAQs{
-    
-    margin-bottom: 50% !important;
-    
-   }
-   #font2{
-     font-size: 40px;
-   }
+    #FAQs{
+      
+      margin-bottom: 50% !important;
+      
+    }
+    #font2{
+      font-size: 40px;
+    }
 
-   .table{
-    margin-bottom: 50% ;
-  }
+    .table{
+      margin-bottom: 50% ;
+    }
 
-  .form{
-    margin-bottom: 50% ;
-  }
+    .form{
+      margin-bottom: 50% ;
+    }
 
-  #pdf{
-    margin-bottom: 60%;
-  }
+    #pdf{
+      margin-bottom: 60%;
+    }
+
+    #isPrintAll{
+     
+      margin-left: -15%;
+    }
+
+    .pa{
+      margin-bottom: 20%;
+      
+
+    }
   
   }
 
