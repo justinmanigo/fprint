@@ -112,7 +112,7 @@ $('#userSettingsForm').on('submit',function(event){
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, add it!'
+          confirmButtonText: 'Yes, Update it!'
           }).then((result) => {
             if (result.isConfirmed) {
               $.ajax({

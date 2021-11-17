@@ -330,7 +330,7 @@ function getOrderInfo(valueId){
     // Paper Size
     var type;
     (data.price.isColored === "Yes") ?  type = "Colored" : type = "Black & White";
-    $('#praperSize').val(data.price.size +" - "+type);
+    $('#praperSize').val(data.price.size +" ("+ data.price.dimension+") " +" - "+type);
   
     if(data.transaction.orders.status == "Cancelled"){
       $("#updateTransactionSatusDiv").hide();

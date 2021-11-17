@@ -45,6 +45,41 @@
                                      </div>
                                     </div>
                                 </div>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_5i" aria-expanded="false">How many transactions can F-print accommodate?</a>
+                                    </div>
+                                    <div id="collapse_5i" class="collapse" data-parent="#accordion_2">
+                                        <div class="card-body pa-15">F-print can accommodate up to one transaction per order only. However, customers can order as much as they want keeping in mind that F-print only process one file per order.</div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_6i" aria-expanded="false">Where can I see the status of my order?</a>
+                                    </div>
+                                    <div id="collapse_6i" class="collapse" data-parent="#accordion_2">
+                                        <div class="card-body pa-15">Users can track his or her order in the track my order tab where the user can view the status of his or her order in real time. Users are also updated through their Adamson Gmail.</div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_7i" aria-expanded="false">What will happen if I did not follow the terms and agreement of the website</a>
+                                    </div>
+                                    <div id="collapse_7i" class="collapse" data-parent="#accordion_2">
+                                        <div class="card-body pa-15">Users who don't comply and follow the terms and agreement of the website will be block listed and cannot login on the website.</div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse_9i" aria-expanded="false">How long do I have to claim my order/s?</a>
+                                    </div>
+                                    <div id="collapse_9i" class="collapse" data-parent="#accordion_2">
+                                        <div class="card-body pa-15">Unclaimed orders are given one week after the file has been printed. After one week the unclaimed orders will be disregarded in order to avoid piled up of the finished orders.</div>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>

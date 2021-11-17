@@ -201,7 +201,13 @@
         <br>
         <h2>Affiliates</h2>
         We may disclose information (including personal information) about you to our Corporate Affiliates. For purposes of this Privacy Policy, means any person or entity which directly or indirectly controls, is controlled by or is under common control with us, whether by ownership or otherwise. Any information relating to you that we provide to our Corporate Affiliate will be treated by those Corporate Affiliates in accordance with the terms of this Privacy Policy
-        
+        <h2>Order Jobs</h2>
+        Unclaimed orders are given one week after the file has been printed. After one week the unclaimed orders will be disregarded in order to avoid piled up of the finished orders.
+        <h2>Blacklisted</h2>
+        Users who don't comply and follow the terms and agreement of the website will be block listed and cannot login on the website.
+        <h2>Protects Data Privacy</h2>
+        The Data Privacy Act of 2012 (R.A. 10173), including its implementing Rules and Regulations, strengthens the fundamental human right of privacy, and of communication while ensuring the free flow of information to promote innovation and growth.
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Accept</button>
@@ -364,7 +370,7 @@ $(document).on('input','.pageTo, .pageFrom',function(){
 });
 
 // get total price totalPages price
-$(document).on('change','#noOfCopy, #pageFrom, #pageTo',function(){
+$(document).on('change','#noOfCopy, #pageFrom, #pageTo, #totalPages',function(){
   console.log("sod");
   price=$('#price').val(); 
   totalPages=$('#totalPages').val(); 
