@@ -270,8 +270,8 @@ class OrdersController extends Controller
         $log->created_at = now();
         $log->save();
 
-        //  $email = $transaction->users->email;
-        $email = "justingraig.manigo15@gmail.com";
+        $email = $transaction->users->email;
+        // $email = "justingraig.manigo15@gmail.com";
    
          $details = [
             'subject' => "Fprint Order",

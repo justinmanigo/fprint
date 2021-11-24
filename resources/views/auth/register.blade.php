@@ -87,7 +87,7 @@
 
                             <div class="col-lg-6">
                                  
-                                <select class="form-control @error('contact') is-invalid @enderror" id="occupation" name="occupation">
+                                <select class="form-control @error('contact') is-invalid @enderror" id="occupation" name="occupation" required>
                                     <option disabled selected value> -- select an option -- </option>
                                     <option value="student"> Student </option>
                                     <option value="professor"> Professor </option>
