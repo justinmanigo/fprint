@@ -22,7 +22,7 @@
                                     <th>Email</th>
                                     <th>Type</th>
                                     <th>Occupation</th>
-                                    <th>Blocklisted</th>
+                                    <th>Blacklisted</th>
                                     <th>Actions</th>
                                  
                                 </tr>
@@ -42,7 +42,7 @@
                                    
                                     
                                     <button onclick="getUserInfo({{$user->id}})" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="View Information"><i class="fa fa-eye"></i></button>
-                                    <button   onclick="blockUser({{$user->id}})" type="button" class="btn btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Update Blocklist"><i class="fa fa-user-lock"></i></button>
+                                    <button   onclick="blockUser({{$user->id}})" type="button" class="btn btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Update Blacklist"><i class="fa fa-user-lock"></i></button>
                                     <button onclick="deleteUser({{$user->id}})"  type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Delete User"><i class="fa fa-trash"></i></button>
                                     </td>
                                

@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255','unique:users','ends_with:@adamson.edu.ph'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'occupation' => ['required'],
-            'idNumber' => ['required','integer','unique:users','digits_between:8,9'],
+            'idNumber' => ['required','integer','unique:users','digits_between:9,10'],
             'TermsAndCondition' => ['accepted'],
         ]);
     }
