@@ -49,7 +49,11 @@
                                       @empty($transaction->status)
                                         <td>{{$transaction->orders->status}}</td>
                                       @else
+                                        @if($transaction->status == "Delivered")
+                                        <td>Completed</td>
+                                        @else
                                         <td>{{$transaction->status}}</td>
+                                        @endif
                                        @endif
 
                                       
