@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->enum('status',['Processed','Confirmed', 'Cancelled'])->default('Processed');
             $table->string('remarks')->nullable();
             $table->string('cancelledReason')->nullable();
+            $table->string('feedback')->nullable();
             $table->timestamps();
             
             
