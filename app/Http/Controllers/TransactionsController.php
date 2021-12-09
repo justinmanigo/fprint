@@ -162,4 +162,26 @@ class TransactionsController extends Controller
         return response()->json($transaction);
     }
 
+    public function notifyUser(Request $request, transactions $transactions){
+
+        // Log::info("sod notifty");
+        // Log::info($request);
+        $transaction = transactions::find($request->trans_id);
+        // Log::info($transaction);
+        // Log::info($transaction->users);
+        $email = $transaction->users->email;
+         //$email = "justinmanigo.softdev@gmail.com";
+    
+          $details = [
+              'subject' =>  "Fprint Order Claim Notification",
+              'title' => $request->subject,
+              'body' => $request->body
+          ];
+ 
+          Mail::to($email)->send(new orderConfirmed($details));
+
+
+        return response("success");
+    }
+
 }

@@ -175,6 +175,9 @@ Route::group(['middleware'=>'auth'], function(){
         // --view order receipt
         Route::get('/viewReceiptUser/{id}',[TransactionsController::class,'viewReceiptUser']);
 
+         //  --edit order
+         Route::post('/feedback',[OrdersController::class,'feedback'])->name('feedback');
+
 
     });
 
@@ -196,6 +199,8 @@ Route::group(['middleware'=>'auth'], function(){
         // --view order receipt
         Route::get('/viewReceiptAdmin/{id}',[TransactionsController::class,'viewReceiptAdmin']);
 
+     // --view order receipt
+     Route::post('/notifyUser',[TransactionsController::class,'notifyUser'])->name('notifyUser');
     });
 
     //transaction form user routes

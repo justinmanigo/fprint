@@ -321,4 +321,13 @@ class OrdersController extends Controller
         return response()->json(['error'=>$validator->errors()]);
         
     }
+
+    public function feedback(Request $request){
+            Log::info($request);
+
+            $order =  Orders::find($request->trans_id);
+            $order->feedback = $request->feedback;
+            $order->save();
+            return response()->json($order);
+    }
 }

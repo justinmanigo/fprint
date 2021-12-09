@@ -56,7 +56,11 @@
                                      
                                       @else
                                         @if ($transaction->status == "Delivered")
-                                        <td>Completed</td>
+                                        <td>Completed
+                                        @if($transaction->orders->feedback == null)
+                                         <button onclick="feedback({{$transaction->id}})" type="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="send feedback" ><i class="fa fa-envelope"></i></button>
+                                        @endif
+                                        </td>
                                         @else
                                         <td>{{$transaction->status}}</td>
                                         @endif
@@ -249,6 +253,10 @@
                               </small>
                       </div>
 
+                      <!-- feedback Order Reason -->
+                      <div id="feedbackTextArea" class="col-md-12 pb-2 mt-2">
+
+                      </div>
                       <!-- Cancelled Order Reason -->
                       <div id="cancelledTextArea" class="col-md-12 pb-2 mt-2">
 
@@ -457,6 +465,50 @@
 </div>
 <!-- end track order -->
 
+<!-- start send email modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div id="addModal2" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalLabel">Send Feedback</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="feedbackForm"  enctype="multipart/form-data">
+        @csrf
+          <div class="modal-body">
+                <!-- paper size -->
+                <div class="form-group">
+                <label for="ref_num">Order Reference Number:</label>
+                <input type="text" class="form-control" id="ref_num"  name="ref_num" readonly>
+                <span class="text-danger error-text ref_num_err"></span>
+                </div>
+
+                 <!-- paper size -->
+                 <div class="form-group">
+                <label for="feedback">Feedback</label>
+                <textarea class="form-control" id="feedback" name="feedback" required></textarea>
+                <span class="text-danger error-text feedback_err"></span>
+                </div>
+            
+              <!-- transaction id -->
+              <input type="hidden" name="trans_id" id="trans_id" value=""> 
+
+              <!-- token -->
+              <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}"> 
+            
+          </div>  <!-- end modal body -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+      </form>  
+    </div>
+  </div>
+</div>
+<!-- end  send email modal -->
+
 
  
 
@@ -512,9 +564,19 @@ $.get('/getMyOrder/'+valueId,function(data){
     }
      $('#cancelledReason').val(data.order.orders.cancelledReason);
 
- 
   
- 
+  if(data.order.orders.feedback != null){
+    console.log("sodsdasd");
+      var htmls = '';
+        htmls += ' <label  for="feedback">Feedback</label>';
+        htmls += ' <textarea class="form-control" id="feedback" name="feedback" style="background-color: white" readonly></textarea>';
+        htmls += ' <small class="text-info">';
+      $('#feedbackTextArea').append(htmls);
+    
+  }
+   $('#feedback').val(data.order.orders.feedback);
+    console.log(htmls);
+
 
   if(data.order.orders.status === "Processed"){  
           $("#update, #pickupDate, #printPrice_id, #pageFrom, #pageTo, #noOfCopy, #modeOfPayment, #remarks").prop('disabled',false);
@@ -805,6 +867,108 @@ function viewReceipt(valueId){
  
  }
  //end view gcash receipt uploaded
+
+
+
+
+
+
+
+//start view gcash receipt uploaded
+function feedback(valueId){
+
+  // open modal
+    $("#feedbackModal").modal('toggle');
+
+     $.get('/getMyOrder/'+valueId,function(data){     
+        console.log(data);
+
+         $('#trans_id').val(data.order.orders.id);
+         $('#ref_num').val(data.order.orders.referenceNumber);
+        console.log(data.order.orders.referenceNumber);
+
+     });
+  
+
+}
+//end view gcash receipt uploaded
+
+//start update user
+$('#feedbackForm').on('submit',function(event){
+    event.preventDefault();
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        }); 
+         var formData = new FormData(this);
+
+
+         Swal.fire({
+          title: 'Are you sure you want to send this feedback?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, send it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $.ajax({
+                  url:"{{route('transactionUser.feedback')}}",
+                  type:'post',
+                  data: formData,
+                  cache:false,
+                  contentType: false,
+                  processData: false,
+                  success:function(data){
+                        console.log(data);
+                 
+                        if($.isEmptyObject(data.error)){
+                        // alert(data.success);
+                        console.log("sod success");
+                        $(".text-danger").hide();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'feedback has been sent!' ,
+                            showConfirmButton: false,
+                            timer: 2000
+                            }).then((result) => {
+
+                                location.reload();
+                            
+                        });
+                        }else{
+                          $(".text-danger").show();
+                          printErrorMsg(data.error);
+                          console.log("sod error");
+                        }
+                      
+              
+                },
+                  error: function(data) {
+                      console.log(data);
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong.Please reload the page and try again!',
+                        timer: 1000
+                      }).then((result) => {
+                          // Reload the Page
+                          location.reload();
+                      });
+                  }
+                });
+            }else{
+            Swal.fire('Feedback was not send.')
+            }
+  
+          });   
+    
+
+   
+
+});
+// end update user
 
 
 </script>

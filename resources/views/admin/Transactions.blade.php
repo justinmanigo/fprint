@@ -51,6 +51,11 @@
                                       @else
                                         @if($transaction->status == "Delivered")
                                         <td>Completed</td>
+                                        @elseif($transaction->status== "Ready for pick up")
+                                          <td>{{$transaction->status}}
+                                           <button onclick="notifyUser({{$transaction->id}})" type="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Send message" ><i class="fa fa-envelope"></i></button>
+                                          </td>
+                                         
                                         @else
                                         <td>{{$transaction->status}}</td>
                                         @endif
@@ -195,6 +200,9 @@
                                 <input type="text" class="form-control isPaid" id="isPaid" placeholder="" name="isPaid"  value="" style= "background-color: white" readonly>
                           </div>
 
+                          
+
+
                           <!-- Remarks -->
                           <div class="col-md-12 pb-2 mt-2">
                                   <label for="remarks">Remarks</label>
@@ -204,8 +212,16 @@
                                   </small>
                           </div>
 
+                            <!-- Feedback-->
+                           <div id="feedbackTextArea" class="col-md-12 pb-2 mt-2">
+                           </div>
+                             
+
+                         
                            <!-- Cancelled Order Reason -->
                            <div id="cancelledTextArea" class="col-md-12 pb-2 mt-2">
+
+                           
 
                            </div>
 
@@ -227,7 +243,7 @@
                                   <select class="form-control updateTransactionStatus" id="updateTransactionStatus" name="updateTransactionStatus">
                                       <option disabled selected value> -- select an option -- </option>
                                       <option value="Printing in process">Printing in process</option>
-                                      <option value="Ready for pick up">Ready for pick up"</option>
+                                      <option value="Ready for pick up">Ready for pick up</option>
                                       <option value="Delivered">Delivered</option>
                                   </select>
                               <span class="text-danger error-text transactionStatus_err"></span>
@@ -295,6 +311,52 @@
 <!-- end View Uploaded Receipt modal -->
 
 
+<!-- start send email modal -->
+<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div id="addModal2" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="emailModalLabel">Email Information</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="emailForm"  enctype="multipart/form-data">
+        @csrf
+          <div class="modal-body">
+                <!-- paper size -->
+                <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="subject" placeholder="Enter subject" name="subject" required>
+                <span class="text-danger error-text subject_err"></span>
+                </div>
+
+                 <!-- paper size -->
+                 <div class="form-group">
+                <label for="lastName">Body</label>
+                <textarea class="form-control" id="body" name="body" required></textarea>
+                <span class="text-danger error-text body_err"></span>
+                </div>
+            
+              <!-- transaction id -->
+              <input type="hidden" name="trans_id" id="trans_id" value=""> 
+
+              <!-- token -->
+              <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}"> 
+            
+          </div>  <!-- end modal body -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+      </form>  
+    </div>
+  </div>
+</div>
+<!-- end  send email modal -->
+
+
+
 
 
 <script type="text/javascript">
@@ -302,7 +364,7 @@
 //start get order info 
 function getOrderInfo(valueId){
 
-  $.get('/getMyOrderAdmin/'+valueId,function(data){    
+  $.get('/getMyOrderAdmin/'+valueId,function(data){     
   
     console.log(data);
     //Get the data value
@@ -346,6 +408,21 @@ function getOrderInfo(valueId){
       $('#cancelledTextArea').append(html);
     }
     $('#cancelledReason').val(data.transaction.orders.cancelledReason);
+
+
+    if(data.transaction.orders.feedback != null){
+     // $("#updateTransactionSatusDiv").hide();
+     // $("#footer").hide();
+       var html = '';
+        html += ' <label  for="feedback">Order Feedback</label>';
+        html += ' <textarea class="form-control" id="feedback" name="feedback" style="background-color: white" readonly></textarea>';
+        html += ' <small class="text-info">';
+      $('#feedbackTextArea').append(html);
+    }
+    $('#feedback').val(data.transaction.orders.feedback);
+
+
+
 
       // order status update select option
       $(".updateTransactionStatus option").filter(function() {
@@ -479,6 +556,103 @@ function viewReceipt(valueId){
 
 }
 //end view gcash receipt uploaded
+
+//start view gcash receipt uploaded
+function notifyUser(valueId){
+  
+  // open modal
+    $("#emailModal").modal('toggle');
+
+     $.get('/getMyOrderAdmin/'+valueId,function(data){     
+        console.log(data);
+
+         $('#trans_id').val(data.transaction.id);
+
+
+     });
+  
+
+}
+//end view gcash receipt uploaded
+
+//start update user
+$('#emailForm').on('submit',function(event){
+    event.preventDefault();
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        }); 
+         var formData = new FormData(this);
+
+
+         Swal.fire({
+          title: 'Are you sure you want to send email?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, send it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $.ajax({
+                  url:"{{route('transactionAdmin.notifyUser')}}",
+                  type:'post',
+                  data: formData,
+                  cache:false,
+                  contentType: false,
+                  processData: false,
+                  success:function(data){
+                        console.log(data);
+                 
+
+                         if($.isEmptyObject(data.error)){
+                        // alert(data.success);
+                        console.log("sod success");
+                        $(".text-danger").hide();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Email has been sent!' ,
+                            showConfirmButton: false,
+                            timer: 2000
+                            }).then((result) => {
+
+                                location.reload();
+                            
+                        });
+                        }else{
+                          $(".text-danger").show();
+                          printErrorMsg(data.error);
+                          console.log("sod error");
+                        }
+              
+                },
+                  error: function(data) {
+                      console.log(data);
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong.Please reload the page and try again!',
+                        timer: 1000
+                      }).then((result) => {
+                          // Reload the Page
+                          location.reload();
+                      });
+                  }
+                });
+            }else{
+            Swal.fire('email was not send.')
+            }
+  
+          });   
+    
+
+   
+
+});
+// end update user
+
+
 
 // printing error message  for validation start
 function printErrorMsg (msg) {
