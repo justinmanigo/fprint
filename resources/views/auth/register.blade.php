@@ -51,6 +51,17 @@
                                     </span>
                                 @enderror
                             </div>
+                            <p class="required"></p>
+                            <style>
+                                .required:after {
+                                 content:" *";
+                                 color: red;
+                                 font-size:21px;
+                                 position: relative;
+                                 left: -10px;
+                                 bottom: -5px;
+                                }
+                            </style>
                         </div>
 
                         <div class="form-group row">
